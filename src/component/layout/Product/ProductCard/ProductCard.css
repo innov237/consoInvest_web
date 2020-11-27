@@ -1,0 +1,50 @@
+.card-img,
+.card-img-top,
+.card__image {
+    min-height: 250px;
+    max-height: 250px;
+    object-fit: cover;
+}
+
+.card {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.card__price {
+    font-weight: bold;
+    margin-bottom: 2px;
+    margin-top: 0px;
+    color: red;
+    font-size: 18px;
+}
+
+.card__title {
+    margin: 0px;
+}
+
+.card__descrption {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.card__header{
+    position: relative;
+    width: 100%;
+}
+
+.card__header span{
+    position: absolute;
+    left: 0px;
+    background-color: red;
+    padding: 0px 15px 0px 10px;
+    color: white;
+}
+
+.card__header img{
+    position: relative;
+}
+
+

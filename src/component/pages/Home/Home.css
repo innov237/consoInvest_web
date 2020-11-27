@@ -1,0 +1,113 @@
+.categorie__image {
+    height: 60px;
+    width: 60px;
+    border-radius: 100px;
+    padding: 10px;
+}
+
+.categirie__item {
+    text-align: left;
+    cursor: pointer;
+    color: #777777;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.categirie__item:hover {
+    color: #003c78;
+    border: 1px solid #f2f5f5;
+    font-weight: 400;
+}
+
+.slider__img {
+    height: 472px;
+    width: 100%;
+    margin-top: 0px;
+    object-fit: cover;
+}
+
+.slider-content {
+    padding: 5px;
+}
+
+.dot-div {
+    width: 10px;
+    height: 10px;
+    border-radius: 20px;
+    padding: 2px 70px 8px 2px;
+    border: none;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    display: inline-flex;
+    float: left;
+    padding: 2px;
+    border: 1px solid #fff;
+}
+
+/**
+* Card css
+*/
+
+.card {
+    border: none;
+}
+
+.dot-div span {
+    border-radius: 20px;
+    padding: 8px 70px 8px 2px;
+    border: none;
+    display: inline-flex;
+    float: right;
+}
+
+.no-padding {
+    padding: 0px;
+}
+
+.left__menu {
+    background-color: white;
+    height: 475px;
+    border-radius: 20px 0px 0px 20px;
+    margin-top: 2px;
+}
+
+.rigth__menu {
+    background-color: white;
+    height: 475px;
+    border-radius: 0px 20px 20px 0px;
+    margin-top: 2px;
+}
+
+.my__container {
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+.product__list__row {
+    margin: 0px;
+    background-color: #FFF;
+    padding: 10px;
+}
+
+.menu__logo {
+    width: 90px;
+    width: 90px;
+    border-radius: 100%;
+    margin-top: 20px;
+}
+
+.btn {
+    border-radius: 20px;
+}
+
+.btn-secondary {
+    background-color: #f2f5f5;
+    color: black;
+    border: none;
+}
+
+.welcome__text {
+    font-size: large;
+    font-weight: bold;
+    color: #003c78;
+}
