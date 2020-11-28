@@ -49,6 +49,7 @@ const Home: React.FC = () => {
         <div className="container">
             <div className="row">
                 <div className="col-md-2 no-padding left__menu">
+                    <div className="menu__title">Catégorie</div>
                     {categorieData.map((categorie) => (<div className="categirie__item">
                         <img src={"./images/" + categorie['icon_categorie']} className="categorie__image" />  {categorie['libelle_categorie']}
                     </div>))}
@@ -71,7 +72,7 @@ const Home: React.FC = () => {
                         </div>
                         <div className="item">
                             <div className="slider-content">
-                                <img src="https://global2019-static-cdn.kikuu.com/kikuu-static-image-pc-banner-hot.jpg" className="slider__img" alt="" />
+                                <img src="https://img.alicdn.com/tfs/TB1x8x9eEY1gK0jSZFMXXaWcVXa-990-400.jpg" className="slider__img" alt="" />
                             </div>
                         </div>
 
@@ -87,9 +88,18 @@ const Home: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <div className="row mt-2">
+                <div className="card container-fluid">
+                    <div className="row">
+                        <div className="col-md-4"> <img src="./images/timer.png" alt="" /> Livraison rapide</div>
+                        <div className="col-md-4"><img src="./images/card.png" alt="" /> Produit de qualité</div>
+                        <div className="col-md-4"><img src="./images/secure.png" alt="" /> Paiement sécurisé</div>
+                    </div>
+                </div>
+            </div>
             <div className="row product__list__row">
                 {productData.map((product, index) => (
-                    <div className="col-md-3 col-sm-3">
+                    <div className="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-sl-3">
                         <ProductCard key={index} image={Api.baseUrl + "storage/" + toArray(product['images'])[0]} title={product['titre']} price={product['prix']} descrption={product['description']} oldprice={50} />
                     </div>
                 ))}

@@ -1,6 +1,14 @@
+.menu__title {
+    background-color: #003c78;
+    color: #fff;
+    padding: 5px;
+    text-align: start;
+    padding-left: 20px;
+}
+
 .categorie__image {
-    height: 60px;
-    width: 60px;
+    height: 55px;
+    width: 55px;
     border-radius: 100px;
     padding: 10px;
 }
@@ -9,14 +17,14 @@
     text-align: left;
     cursor: pointer;
     color: #777777;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
 }
 
 .categirie__item:hover {
     color: #003c78;
-    border: 1px solid #f2f5f5;
     font-weight: 400;
+    font-size: 14px;
 }
 
 .slider__img {
@@ -36,7 +44,7 @@
     border-radius: 20px;
     padding: 2px 70px 8px 2px;
     border: none;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     margin-left: 20px;
     display: inline-flex;
     float: left;
@@ -50,6 +58,7 @@
 
 .card {
     border: none;
+    cursor: pointer;
 }
 
 .dot-div span {
@@ -67,14 +76,12 @@
 .left__menu {
     background-color: white;
     height: 475px;
-    border-radius: 20px 0px 0px 20px;
     margin-top: 2px;
 }
 
 .rigth__menu {
     background-color: white;
     height: 475px;
-    border-radius: 0px 20px 20px 0px;
     margin-top: 2px;
 }
 
@@ -84,9 +91,9 @@
 }
 
 .product__list__row {
-    margin: 0px;
-    background-color: #FFF;
-    padding: 10px;
+    background-color: #fff;
+    padding-top: 20px;
+    margin-top: 5px;
 }
 
 .menu__logo {

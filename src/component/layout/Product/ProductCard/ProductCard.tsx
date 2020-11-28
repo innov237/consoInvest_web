@@ -10,6 +10,7 @@ type product = {
     oldprice: number,
     descrption: string,
 }
+
 const ProductCard: React.FC<product> = (props) => {
     return (
 
@@ -18,7 +19,7 @@ const ProductCard: React.FC<product> = (props) => {
                 <img className="card-img-top card__image" key={props.key} src={props.image} alt="img" />
                 <span>Promo</span>
             </div>
-            <div className="card-body">
+            <div className="card__body">
                 <p className="card__price" key={props.key}>{props.price} FCFA</p>
                 <p className="card__title" key={props.key}>{props.title}</p>
                 <p className="card__descrption" key={props.key}>{props.descrption}</p>

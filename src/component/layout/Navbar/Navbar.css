@@ -2,24 +2,43 @@
     background-color: #fff;
 }
 
-.search__bar {
-    width: 500px;
-}
-
 .search__input {
     border-radius: 100px 0px 0px 100px;
     height: 50px;
-    width:100%;
 }
 
 .Rechercherbtn {
     border-radius: 0px 100px 100px 0px;
     height: 50px;
-    width: 100%;
+    width: max-content;
     background-color: #003c78;
-    color: #FFF;
+    color: #fff;
 }
 
 .no__padding {
     padding: 0px;
+}
+
+.logo__image {
+    border-radius: 100px;
+}
+
+.shoping__basket {
+    width: 40px;
+}
+
+.baket__item {
+    position: relative;
+}
+
+.baket__item span {
+    position: absolute;
+    background-color: #003c78;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    left: 23px;
 }
