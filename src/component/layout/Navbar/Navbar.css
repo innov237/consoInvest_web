@@ -21,6 +21,7 @@
 
 .logo__image {
     border-radius: 100px;
+    cursor: pointer;
 }
 
 .shoping__basket {
