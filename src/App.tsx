@@ -12,6 +12,7 @@ import {
 
 import Login from './component/pages/User/Login/Login';
 import Register from './component/pages/User/Register/Register';
+import Account from './component/pages/User/Account/Home/Home';
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
       <div className="App">
         <Navbar />
         <Switch>
+          <Route path="/account">
+            <Account />
+          </Route>
           <Route path="/login">
             <Login />
           </Route>

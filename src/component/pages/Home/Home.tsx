@@ -85,7 +85,7 @@ const Home: React.FC = () => {
                     <div className="container-fluid">
                         <button className="btn btn-secondary w-100 mb-3"><Link to="/login">Me Connecter</Link></button>
                         <button className="btn btn-primary w-100"><Link to="/register">M'inscrire</Link></button>
-                        <button className="btn btn-secondary w-100 mt-3">Créer ma boutique</button>
+                        <button className="btn btn-secondary w-100 mt-3"><Link to="/account">Créer ma boutique</Link></button>
                     </div>
                 </div>
             </div>
