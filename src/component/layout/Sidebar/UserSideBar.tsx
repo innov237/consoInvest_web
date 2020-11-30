@@ -8,7 +8,7 @@ const Sidebar: React.FC = () => {
         <div>
             <div className="menu__title menu">Informations</div>
             <ul className="nav flex-column">
-                <Link to="/account/user">
+                <Link to="/account/">
                     <li className="nav-item">
                         <a className="nav-link">
                             <span data-feather="home"></span>
@@ -16,36 +16,46 @@ const Sidebar: React.FC = () => {
                         </a>
                     </li>
                 </Link>
+                <Link to="/account/commande">
                 <li className="nav-item">
                 <a className="nav-link" href="#">
                     <span data-feather="file"></span>
                     <i className="fas fa-cart-arrow-down"></i> Mes commandes
                 </a>
                 </li>
+                </Link>
+                <Link to="/account/affiliers">
                 <li className="nav-item">
                 <a className="nav-link" href="#">
                     <span data-feather="shopping-cart"></span>
                     <i className="fas fa-street-view"></i> Mes affiliers
                 </a>
                 </li>
-                <li className="nav-item">
-                <a className="nav-link" href="#">
-                    <span data-feather="users"></span>
-                    <i className="fas fa-shopping-basket"></i> Ma boutique
-                </a>
-                </li>
-                <li className="nav-item">
-                <a className="nav-link" href="#">
-                    <span data-feather="bar-chart-2"></span>
-                    <i className="fas fa-user"></i>Epagnes
-                </a>
-                </li>
-                <li className="nav-item">
-                <a className="nav-link" href="#">
-                    <span data-feather="bar-chart-2"></span>
-                    <i className="fas fa-key"></i> Modifier le mot de passe
-                </a>
-                </li>
+                </Link>
+                <Link to="/account/boutique">
+                    <li className="nav-item">
+                    <a className="nav-link" href="#">
+                        <span data-feather="users"></span>
+                        <i className="fas fa-shopping-basket"></i> Ma boutique
+                    </a>
+                    </li>
+                </Link>
+                <Link to="/account/epagne">
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">
+                            <span data-feather="bar-chart-2"></span>
+                            <i className="fas fa-user"></i> Epagnes
+                        </a>
+                    </li>
+                </Link>
+                <Link to="/account/password">
+                    <li className="nav-item">
+                    <a className="nav-link" href="#">
+                        <span data-feather="bar-chart-2"></span>
+                        <i className="fas fa-key"></i> Modifier le mot de passe
+                    </a>
+                    </li>
+                </Link>
                 <li className="nav-item">
                 <a className="nav-link" href="#">
                     <span data-feather="layers"></span>
