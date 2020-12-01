@@ -8,7 +8,7 @@ const Sidebar: React.FC = () => {
         <div>
             <div className="menu__title menu">Informations</div>
             <ul className="nav flex-column">
-                <Link to="/account/">
+                <Link to="/account">
                     <li className="nav-item">
                         <a className="nav-link">
                             <span data-feather="home"></span>

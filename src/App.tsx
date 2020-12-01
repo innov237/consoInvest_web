@@ -13,6 +13,8 @@ import {
 import Login from './component/pages/User/Login/Login';
 import Register from './component/pages/User/Register/Register';
 import Account from './component/pages/User/Account/Home/Home';
+import Detail from './component/pages/Detail_produit/Detail_produit';
+import Panier from './component/pages/Panier/Panier';
 
 function App() {
   return (
@@ -20,6 +22,12 @@ function App() {
       <div className="App">
         <Navbar />
         <Switch>
+          <Route path="/produit">
+            <Detail />
+          </Route>
+          <Route path="/panier">
+            <Panier />
+          </Route>
           <Route path="/account">
             <Account />
           </Route>

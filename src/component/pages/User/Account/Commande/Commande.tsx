@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Switch, Route } from "react-router-dom";
 import './Commande.css';
-
+import ProductCard from "../../../../layout/Table_commande_user/Table_commande";
 
 const Commande: React.FC = () => {
 
@@ -9,22 +9,27 @@ const Commande: React.FC = () => {
 
     return (
         <div>
+            <h1>Commande(s) client</h1>
 
             <div className="my-3 p-3 bg-white rounded shadow-sm">
+
                 <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a className="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-tout" role="tab" aria-controls="nav-tout" aria-selected="true">Tout</a>
-                    <a className="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-payement" role="tab" aria-controls="nav-payement" aria-selected="false">En attente de payement</a>
-                    <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-transit" role="tab" aria-controls="nav-transit" aria-selected="false">En Transit</a>
-                    <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-retour" role="tab" aria-controls="nav-retour" aria-selected="false">Retour d'informations</a>
+                    <a className="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Tout</a>
+                    <a className="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">En attente</a>
+                    <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">En cour</a>
+                    <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact1" role="tab" aria-controls="nav-contact" aria-selected="false">En route</a>
+                    <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact" aria-selected="false">Livré</a>
                 </div>
                 </nav>
                 <div className="tab-content" id="nav-tabContent">
-                <div className="tab-pane fade show active" id="nav-tout" role="tabpanel" aria-labelledby="nav-tout-tab">tout</div>
-                <div className="tab-pane fade" id="nav-payement" role="tabpanel" aria-labelledby="nav-payement-tab">payement</div>
-                <div className="tab-pane fade" id="nav-transit" role="tabpanel" aria-labelledby="nav-transit-tab">trasit</div>
-                <div className="tab-pane fade" id="nav-retour" role="tabpanel" aria-labelledby="nav-retour-tab">retour</div>
+                    <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><ProductCard /></div>
+                    <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><ProductCard /></div>
+                    <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"><ProductCard /></div>
+                    <div className="tab-pane fade" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact-tab"><ProductCard /></div>
+                    <div className="tab-pane fade" id="nav-contact2" role="tabpanel" aria-labelledby="nav-contact-tab"><ProductCard /></div>
                 </div>
+
             </div>
         </div>
 

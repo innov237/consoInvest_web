@@ -30,7 +30,7 @@ const Home: React.FC = () => {
                     </div>
                     <div className="col-md-8 p-3">
                         <Switch>
-                            <Route path="/account">
+                            <Route path="/account" exact>
                                 <Profil />
                             </Route>
                         </Switch>

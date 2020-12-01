@@ -6,6 +6,7 @@ import './Password.css';
 const Password: React.FC = () => {
     return (
         <div>
+            <h1>Modifier le mot de passe</h1>
             <div className="my-3 p-3 bg-white rounded shadow-sm">
                     <div className="form-group">
                         <input type="text" className="form-control" placeholder="compte" />

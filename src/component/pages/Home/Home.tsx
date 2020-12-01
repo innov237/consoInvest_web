@@ -85,7 +85,7 @@ const Home: React.FC = () => {
                     <div className="container-fluid">
                         <button className="btn btn-secondary w-100 mb-3"><Link to="/login">Me Connecter</Link></button>
                         <button className="btn btn-primary w-100"><Link to="/register">M'inscrire</Link></button>
-                        <button className="btn btn-secondary w-100 mt-3"><Link to="/account">Créer ma boutique</Link></button>
+                        <button className="btn btn-secondary w-100 mt-3" data-toggle="modal" data-target="#exampleModal">Créer ma boutique</button>
                     </div>
                 </div>
             </div>
@@ -100,11 +100,39 @@ const Home: React.FC = () => {
             </div>
             <div className="row product__list__row">
                 {productData.map((product, index) => (
-                    <div className="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-sl-3">
-                        <ProductCard key={index} image={Api.baseUrl + "storage/" + toArray(product['images'])[0]} title={product['titre']} price={product['prix']} descrption={product['description']} oldprice={50} />
-                    </div>
+                    
+                        <div className="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-sl-3">
+                            <Link to="/produit">
+                            <ProductCard key={index} image={Api.baseUrl + "storage/" + toArray(product['images'])[0]} title={product['titre']} price={product['prix']} descrption={product['description']} oldprice={50} />
+                            </Link>
+                        </div>
+                    
                 ))}
             </div>
+
+
+
+                <div className="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Information</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        Connecter vous pour effectuer cet opération
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+
+
 
         </div>
     )
