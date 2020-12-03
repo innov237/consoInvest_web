@@ -16,6 +16,7 @@ import Account from './component/pages/User/Account/Home/Home';
 import Detail from './component/pages/Detail_produit/Detail_produit';
 import Panier from './component/pages/Panier/Panier';
 
+/**j'utilise les function component au lieu des class component l'execution est plus rapide*/
 function App() {
   return (
     <Router>

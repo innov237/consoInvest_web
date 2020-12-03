@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import './Panier.css';
 
 const Panier: React.FC = () => {
@@ -7,7 +6,7 @@ const Panier: React.FC = () => {
 
     return (
         <div>
-            <h1>panier</h1>
+            <h5>panier</h5>
             <div className="container bg-white">
                 <div className="row">
                     <div className="col-md-8">
@@ -15,18 +14,23 @@ const Panier: React.FC = () => {
                         <thead>
                             <tr>
                             <th scope="col"><input type="checkbox" /></th>
+                            <th scope="col">image</th>
                             <th scope="col">Article</th>
                             <th scope="col">description</th>
                             <th scope="col">Qté</th>
                             <th scope="col">Prix</th>
+                            <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                             <th scope="row"><input type="checkbox" /></th>
+                            <th><img className="rounded-circle p-3" width="60%" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" data-holder-rendered="true"/></th>
+                            
                             <td>Mark</td>
-                            <td><input type="text" value="1"/></td>
                             <td>@mdo</td>
+                            <td><input type="text" value="1"/></td>
+                            <td>100 FCFA</td>
                             <td><i className="fas fa-trash-alt"></i></td>
                             </tr>
                         </tbody>
@@ -57,7 +61,7 @@ const Panier: React.FC = () => {
                                 Total de la commande
                                 <span className="badge badge-primary badge-pill">1 FCFA</span>
                             </li>
-                            <button className="btn btn-secondary"><b>COMMANDER</b></button>
+                            <button className="btn btn-secondary colorbtncommander"><b>COMMANDER</b></button>
                         </ul>
                     </div>
                 </div>

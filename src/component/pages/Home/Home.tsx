@@ -122,7 +122,7 @@ const Home: React.FC = () => {
                         </button>
                     </div>
                     <div className="modal-body">
-                        Connecter vous pour effectuer cet opération
+                        Connectez vous pour effectuer cet opération
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>

@@ -9,7 +9,7 @@ const Commande: React.FC = () => {
 
     return (
         <div>
-            <h1>Commande(s) client</h1>
+            <h5 className="titre">Commande(s) client</h5>
 
             <div className="my-3 p-3 bg-white rounded shadow-sm">
 

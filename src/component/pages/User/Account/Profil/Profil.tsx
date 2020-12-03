@@ -9,7 +9,7 @@ const Profil: React.FC = () => {
 
     return (
         <div>
-            <h1>Profil</h1>
+            <h5 className="titre">Profil</h5>
         <div className="my-3 p-3 bg-white rounded shadow-sm">
             <div className="row">
                 <div className="col-md-4">

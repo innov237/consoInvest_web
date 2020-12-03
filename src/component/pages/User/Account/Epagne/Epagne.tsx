@@ -9,7 +9,7 @@ const Epagne: React.FC = () => {
 
     return (
         <div>
-            <h1>Mon epagne</h1>
+            <h5 className="titre">Mon epagne</h5>
         <div className="my-3 p-3 bg-white rounded shadow-sm">
             <div className="row">
                 <div className="col-md-4">

@@ -46,9 +46,9 @@ const Detail: React.FC = () => {
                             <ul className="list-group list-group-flush">
                                 Quantité: 
                                 <div className="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" className="btn btn-secondary">-</button>
-                                    <input type="text" name="" id="" value="0"/>
-                                    <button type="button" className="btn btn-secondary">+</button>
+                                    <button type="button" className="btn btn-secondary"><b>-</b></button>
+                                    <input type="text" name="" id="" value="1"/>
+                                    <button type="button" className="btn btn-secondary"><b>+</b></button>
                                 </div>
                             </ul>
                             <br/>
@@ -69,7 +69,7 @@ const Detail: React.FC = () => {
                 <div className="card border-primary mb-3 w-100">
                 <div className="card-header"></div>
                 <div className="card-body text-secondary">
-                    <h5 className="card-title">Description du produit</h5>
+                    <u><p className="card-title description">Description du produit</p></u>
                     <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
                 </div>

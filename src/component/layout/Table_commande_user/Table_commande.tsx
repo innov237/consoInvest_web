@@ -9,6 +9,7 @@ const Table_commande: React.FC = () => {
             <table className="table table-striped">
                 <thead>
                     <tr>
+                    <th scope="col">Image</th>
                     <th scope="col">Produit</th>
                     <th scope="col">Description</th>
                     <th scope="col">Qté</th>
@@ -17,6 +18,7 @@ const Table_commande: React.FC = () => {
                 </thead>
                 <tbody>
                     <tr>
+                        <th><img className="rounded-circle p-3" width="30%" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" data-holder-rendered="true"/></th>
                         <th scope="row">1</th>
                         <td>Mark</td>
                         <td>Otto</td>

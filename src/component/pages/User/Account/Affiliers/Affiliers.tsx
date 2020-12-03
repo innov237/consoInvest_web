@@ -9,7 +9,7 @@ const Affiliers: React.FC = () => {
 
     return (
         <div>
-            <h1>Affiliers de ma boutique</h1>
+            <h5 className="titre">Affiliers de ma boutique</h5>
             <div className="my-3 p-3 bg-white rounded shadow-sm">
                 <div className="media text-muted pt-3">
                     <img className="rounded-circle p-3" width="70" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" data-holder-rendered="true"/>

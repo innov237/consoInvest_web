@@ -8,7 +8,7 @@ import ProductCard from "../../../../layout/Table_commande_user/Table_commande";
 const Boutique: React.FC = () => {
     return (
         <div>
-            <h1>Ma boutique</h1>
+            <h5 className="titre">Ma boutique</h5>
              <div className="my-3 p-3 bg-white rounded shadow-sm">
 
              <nav>
