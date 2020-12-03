@@ -16,6 +16,8 @@ const Register: React.FC = () => {
 
         if (e.target.value === 'proche') {
             setCodeInputStatus(true);
+        }else{
+            setCodeInputStatus(false); 
         }
     }
 

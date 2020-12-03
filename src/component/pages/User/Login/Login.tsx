@@ -1,13 +1,24 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 import TextInput from "../../../layout/FormInput/TextInput";
 import './Login.css';
 import { useForm } from "react-hook-form";
 
 const Login: React.FC = () => {
 
+    const history = useHistory();
+
+    useEffect(()=>{
+      var response = history.location.state;
+      console.log('----------------');
+      console.log(response);
+      console.log("----------------");
+    });
+
     const { register, handleSubmit, watch, errors } = useForm();
     const onSubmit = (data: any) => console.log(data);
+
+
 
 
     return (

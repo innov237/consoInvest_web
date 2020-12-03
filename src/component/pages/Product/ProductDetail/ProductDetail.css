@@ -1,0 +1,15 @@
+.product__detail__row {
+    text-align: start;
+}
+
+.product__title {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0px;
+}
+
+.product__price {
+    font-size: 20px;
+    color: #003c78;
+    font-weight: bold;
+}

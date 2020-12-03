@@ -26,6 +26,7 @@
 
 .shoping__basket {
     width: 40px;
+    cursor: pointer;
 }
 
 .baket__item {

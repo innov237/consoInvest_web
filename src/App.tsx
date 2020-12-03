@@ -12,6 +12,7 @@ import {
 
 import Login from './component/pages/User/Login/Login';
 import Register from './component/pages/User/Register/Register';
+import ProductDetail from './component/pages/Product/ProductDetail/ProductDetail';
 
 function App() {
   return (
@@ -19,16 +20,19 @@ function App() {
       <div className="App">
         <Navbar />
         <Switch>
-          <Route path="/login">
+          <Route path="/login" exact >
             <Login />
           </Route>
-          <Route path="/register">
+          <Route path="/register" exact >
             <Register />
           </Route>
-          <Route path="/home">
+          <Route path="/home" exact>
             <Home />
           </Route>
-          <Route path="/">
+          <Route path="/product/detail/" exact>
+            <ProductDetail />
+          </Route>
+          <Route path="/" render={() => <div>404</div>} >
             <Home />
           </Route>
         </Switch>

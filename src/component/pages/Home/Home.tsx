@@ -7,12 +7,13 @@ import 'owl.carousel/dist/assets/owl.theme.default.min.css';
 import ApiService from "../../../services/ApiService";
 import './Home.css';
 import ProductCard from "../../layout/Product/ProductCard/ProductCard";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 
 const Home: React.FC = () => {
 
     const Api = new ApiService();
+    const history = useHistory();
 
     const [categorieData, setCategorie] = useState([]);
     const [productData, setProduct] = useState([]);
@@ -27,6 +28,7 @@ const Home: React.FC = () => {
         var response = await Api.getData("getcategorie");
         if (response.status == 200) {
             setCategorie(response.data);
+            //history.push("/login", response.data); pour redirection les pages.
         } else {
             console.log(response.headers);
         }
