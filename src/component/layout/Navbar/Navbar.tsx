@@ -27,15 +27,19 @@ const Navbar: React.FC = () => {
                         <div className="col-2">
                             <div className="row">
                                 <div className="col-6">
+                                    <Link to="/panier">
                                     <div className="baket__item">
-                                        <img className="shoping__basket" src="./images/shopping-cart.png" alt="" />
+                                        <img className="shoping__basket" src="../../../../images/shopping-cart.png" alt="" />
                                         <span>50</span>
                                         <p>Panier</p>
                                     </div>
+                                    </Link>
                                 </div>
-                                <div className="col-6"> <img className="shoping__basket" src="./images/user.png" alt="" />
+                                <Link to="/account">
+                                <div className="col-6"> <img className="shoping__basket" src="../../../../images/user.png" alt="" />
                                     <p>Compte</p>
                                 </div>
+                                </Link>
                             </div>
                         </div>
                     </div>

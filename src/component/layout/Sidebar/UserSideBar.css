@@ -1,0 +1,28 @@
+ul{
+    text-align: left;
+    /*text-align: justify;*/
+}
+
+li{
+    margin-top: 10px;
+}
+
+li:hover{
+    background-color: blueviolet;
+    font-size: 1em;
+}
+
+li:active{
+    background-color: blueviolet;
+    font-size: 1em;
+}
+
+li:focus{
+    background-color: blueviolet;
+    font-size: 1em;
+}
+
+li:visited{
+    background-color: rgb(226, 43, 202);
+    font-size: 1em;
+}

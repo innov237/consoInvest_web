@@ -44,3 +44,6 @@
     font-weight: bold;
     left: 23px;
 }
+p:hover{
+    color: black;
+}
