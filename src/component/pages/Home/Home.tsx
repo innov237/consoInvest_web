@@ -35,7 +35,7 @@ const Home: React.FC = () => {
     }
 
     const getAllproduct = async () => {
-        var response = await Api.getData("getAllPublication?lastInsertId=" + 20);
+        var response = await Api.getData("getAllPublication?lastInsertId=" + 100);
         if (response.status == 200) {
             setProduct(response.data);
         } else {
@@ -46,6 +46,12 @@ const Home: React.FC = () => {
     const toArray = (data: any) => {
         var array = JSON.parse(data);
         return array;
+    }
+
+    const openDetail = (product: any) => {
+        console.log(product);
+        history.push("produit", product);
+
     }
 
     return (
@@ -102,39 +108,32 @@ const Home: React.FC = () => {
             </div>
             <div className="row product__list__row">
                 {productData.map((product, index) => (
-                    
-                        <div className="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-sl-3">
-                            <Link to="/produit">
-                            <ProductCard key={index} image={Api.baseUrl + "storage/" + toArray(product['images'])[0]} title={product['titre']} price={product['prix']} descrption={product['description']} oldprice={50} />
-                            </Link>
-                        </div>
-                    
+                    <div className="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-sl-3" onClick={() => openDetail(product)}>
+                        <ProductCard key={index} image={Api.baseUrl + "storage/" + toArray(product['images'])[0]} title={product['titre']} price={product['prix']} descrption={product['description']} oldprice={50} />
+                    </div>
                 ))}
             </div>
 
 
 
-                <div className="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">Information</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Information</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            Connectez vous pour effectuer cet opération
                     </div>
-                    <div className="modal-body">
-                        Connectez vous pour effectuer cet opération
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                    </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        </div>
                     </div>
                 </div>
-                </div>
-
-
-
+            </div>
 
         </div>
     )

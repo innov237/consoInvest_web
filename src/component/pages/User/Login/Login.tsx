@@ -1,24 +1,29 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import TextInput from "../../../layout/FormInput/TextInput";
 import './Login.css';
 import { useForm } from "react-hook-form";
+import ApiService from "../../../../services/ApiService";
 
 const Login: React.FC = () => {
 
     const history = useHistory();
-
-    useEffect(()=>{
-      var response = history.location.state;
-      console.log('----------------');
-      console.log(response);
-      console.log("----------------");
-    });
+    const Api = new ApiService();
 
     const { register, handleSubmit, watch, errors } = useForm();
-    const onSubmit = (data: any) => console.log(data);
+    const onSubmit = async (data: any) => {
+        var response = await Api.postData("login", data);
+        console.log(response.data);
 
-
+        if (response.data['success']) {
+            console.log("auth ok");
+            console.log(response.data['data']);
+            localStorage.setItem("authUserData", JSON.stringify(response.data['data']));
+            history.push("/account");
+        } else {
+            console.log(response.data['message']);
+        }
+    };
 
 
     return (

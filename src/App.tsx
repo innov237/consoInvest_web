@@ -12,13 +12,10 @@ import {
 
 import Login from './component/pages/User/Login/Login';
 import Register from './component/pages/User/Register/Register';
-<<<<<<< HEAD
-import ProductDetail from './component/pages/Product/ProductDetail/ProductDetail';
-=======
 import Account from './component/pages/User/Account/Home/Home';
 import Detail from './component/pages/Detail_produit/Detail_produit';
 import Panier from './component/pages/Panier/Panier';
->>>>>>> 4a2394049e0b6eef8c9a3e3eeb314735e7cbbfa7
+import ProductDetail from './component/pages/Product/ProductDetail/ProductDetail';
 
 /**j'utilise les function component au lieu des class component l'execution est plus rapide*/
 function App() {
@@ -27,9 +24,6 @@ function App() {
       <div className="App">
         <Navbar />
         <Switch>
-<<<<<<< HEAD
-          <Route path="/login" exact >
-=======
           <Route path="/produit">
             <Detail />
           </Route>
@@ -40,7 +34,6 @@ function App() {
             <Account />
           </Route>
           <Route path="/login">
->>>>>>> 4a2394049e0b6eef8c9a3e3eeb314735e7cbbfa7
             <Login />
           </Route>
           <Route path="/register" exact >
