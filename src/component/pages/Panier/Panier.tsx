@@ -1,9 +1,9 @@
 import React from "react";
 import './Panier.css';
 
-const Panier: React.FC = () => {
+const Panier: React.FC = (props) => {
 
-
+    console.log(props)
     return (
         <div>
             <h5>panier</h5>

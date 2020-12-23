@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import OwlCarousel from 'react-owl-carousel';
-
 import 'owl.carousel/dist/assets/owl.carousel.min.css';
 import 'owl.carousel/dist/assets/owl.theme.default.min.css';
 
-import ApiService from "../../../services/ApiService";
+import ApiContext from '../../../context/ApiContext'
+import StorageContext from '../../../context/StorageContext'
 import './Home.css';
 import ProductCard from "../../layout/Product/ProductCard/ProductCard";
 import { Link, useHistory } from "react-router-dom";
@@ -12,7 +12,8 @@ import { Link, useHistory } from "react-router-dom";
 
 const Home: React.FC = () => {
 
-    const Api = new ApiService();
+    const Api = useContext(ApiContext);
+    const local=useContext(StorageContext);
     const history = useHistory();
 
     const [categorieData, setCategorie] = useState([]);
@@ -97,6 +98,7 @@ const Home: React.FC = () => {
                     </div>
                 </div>
             </div>
+            {/* deuxieme ligne */}
             <div className="row mt-2">
                 <div className="card container-fluid">
                     <div className="row">
@@ -106,6 +108,7 @@ const Home: React.FC = () => {
                     </div>
                 </div>
             </div>
+            {/* troisieme ligne */}
             <div className="row product__list__row">
                 {productData.map((product, index) => (
                     <div className="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-sl-3" onClick={() => openDetail(product)}>
@@ -113,9 +116,7 @@ const Home: React.FC = () => {
                     </div>
                 ))}
             </div>
-
-
-
+            
             <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">

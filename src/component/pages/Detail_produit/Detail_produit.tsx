@@ -3,24 +3,27 @@ import { useHistory } from "react-router-dom";
 import ApiService from "../../../services/ApiService";
 import './Detail_produit.css';
 
+
+
 const Detail: React.FC = () => {
 
     const history = useHistory();
     const [productData, setProduct] = useState<any>([]);
     const [isload, setLoader] = useState(false);
     const Api = new ApiService();
-
+    let [quantity, setQuantity]=useState(1)
     useEffect(() => {
         console.log(history.location.state);
         setProduct(history.location.state);
         setLoader(true);
     }, [])
-
     const toArray = (data: any) => {
         var array = JSON.parse(data);
         return array;
     }
-
+    const changeQuantity=(num: number)=>{
+        setQuantity(quantity+num)
+    }
 
     return (
         <div>
@@ -31,7 +34,7 @@ const Detail: React.FC = () => {
                             <div className="carousel-inner">
                                 {/* {toArray(productData["images"]).map((result: any) => (
                                     <div className="carousel-item active" data-interval="1000">
-                                        <img src={Api.baseUrl + "storage/" + result} className="d-block w-100" />
+                                        <img src={Api.imageUrl + result} className="d-block w-100" />
                                     </div>
                                 ))} */}
                             </div>
@@ -57,10 +60,10 @@ const Detail: React.FC = () => {
                             </div>
                                 <ul className="list-group list-group-flush">
                                     Quantité:
-                                <div className="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" className="btn btn-secondary"><b>-</b></button>
-                                        <input type="text" name="" id="" value="1" />
-                                        <button type="button" className="btn btn-secondary"><b>+</b></button>
+                                    <div className="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" className="btn btn-secondary" onClick={()=>changeQuantity(-1)}><b>-</b></button>
+                                        <input type="text" name="" id="" value={quantity} />
+                                        <button type="button" className="btn btn-secondary" onClick={()=>changeQuantity(1)}><b>+</b></button>
                                     </div>
                                 </ul>
                                 <br />
@@ -90,7 +93,5 @@ const Detail: React.FC = () => {
     );
 
 }
-
-/********** */
 
 export default Detail;
