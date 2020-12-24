@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.min.css';
 import 'owl.carousel/dist/assets/owl.theme.default.min.css';
+import { connect } from 'react-redux'
 
 import ApiContext from '../../../context/ApiContext'
 import StorageContext from '../../../context/StorageContext'
@@ -10,37 +11,51 @@ import ProductCard from "../../layout/Product/ProductCard/ProductCard";
 import { Link, useHistory } from "react-router-dom";
 
 
-const Home: React.FC = () => {
+const Home: React.FC = (props) => {
 
     const Api = useContext(ApiContext);
     const local=useContext(StorageContext);
     const history = useHistory();
-
     const [categorieData, setCategorie] = useState([]);
     const [productData, setProduct] = useState([]);
-
+    console.log("le local ",local)
     useEffect(() => {
         getCategorie();
         getAllproduct();
     }, []);
 
-
+    console.log(props)
     const getCategorie = async () => {
-        var response = await Api.getData("getcategorie");
-        if (response.status == 200) {
-            setCategorie(response.data);
-            //history.push("/login", response.data); pour redirection les pages.
-        } else {
-            console.log(response.headers);
+        let Categories=local.getCategories();
+        if(Categories) {
+            setCategorie(Categories);
+        }
+        else {
+            console.log("on va chercher sur le serveur")
+            var response = await Api.getData("getcategorie");
+            if (response.status == 200) {
+                local.setCategories(response.data)
+                setCategorie(response.data);
+                //history.push("/login", response.data); pour redirection les pages.
+            } else {
+                console.log(response.headers);
+            }
         }
     }
 
     const getAllproduct = async () => {
-        var response = await Api.getData("getAllPublication?lastInsertId=" + 100);
-        if (response.status == 200) {
-            setProduct(response.data);
-        } else {
-            console.log(response.headers);
+        let Products=local.getAllProducts()
+        if(Products) {
+            setProduct(Products);
+        }
+        else {
+            var response = await Api.getData("getAllPublication?lastInsertId=" + 100);
+            if (response.status == 200) {
+                local.setAllProducts(response.data)
+                setProduct(response.data);
+            } else {
+                console.log(response.headers);
+            }
         }
     }
 
@@ -140,4 +155,10 @@ const Home: React.FC = () => {
     )
 }
 
-export default Home;
+
+const mapStateToProps=(state: any)=>({
+    comand: state.comand,
+});
+
+
+export default connect(mapStateToProps)(Home);
