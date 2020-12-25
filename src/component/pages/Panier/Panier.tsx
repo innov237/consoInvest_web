@@ -1,9 +1,25 @@
 import React from "react";
+import { connect, useSelector } from 'react-redux'
+
 import './Panier.css';
 
 const Panier: React.FC = (props) => {
 
     console.log(props)
+    const comand=useSelector((state: any)=>state.comand)
+    const listItem=comand.length ? (
+        comand.map(({item, quantity}: any)=>
+        <tr>
+            <th scope="row"><input type="checkbox" /></th>
+            <th><img className="rounded-circle p-3" width="60%" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" data-holder-rendered="true"/></th>
+            
+            <td>{item.nom}</td>
+            <td>{item.description}</td>
+            <td><input type="text" value={quantity}/></td>
+            <td>{item.prix}FCFA</td>
+            <td><i className="fas fa-trash-alt"></i></td>
+        </tr>)
+    ): ( "vous n'avez encore rien commande" )
     return (
         <div>
             <h5>panier</h5>
@@ -23,7 +39,8 @@ const Panier: React.FC = (props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            {listItem}
+                            {/* <tr>
                             <th scope="row"><input type="checkbox" /></th>
                             <th><img className="rounded-circle p-3" width="60%" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" data-holder-rendered="true"/></th>
                             
@@ -32,7 +49,7 @@ const Panier: React.FC = (props) => {
                             <td><input type="text" value="1"/></td>
                             <td>100 FCFA</td>
                             <td><i className="fas fa-trash-alt"></i></td>
-                            </tr>
+                            </tr> */}
                         </tbody>
                         </table>
                         <hr/>
@@ -71,6 +88,8 @@ const Panier: React.FC = (props) => {
 
 }
 
-/********** */
+const mapStateToProps=(state: any)=>({
+    comand: state.comand,
+})
 
-export default Panier;
+export default connect(mapStateToProps)(Panier);
