@@ -3,14 +3,14 @@ import { connect, useSelector, useDispatch } from 'react-redux'
 
 import './Panier.css';
 
-
+var idDel: any=[]
 
 const Panier: React.FC = ({history}: any) => {
     const [state, setState]=useState(false)
+    const [check, setCheck]=useState(false)
     const comand=useSelector((state: any)=>state.comand)
     const dispatch = useDispatch()
 
-    var idDel=new Array()
     const nbrArt=()=>{
         let nbre=0
         comand.map((data: any)=>nbre=nbre+data.quantity)
@@ -22,8 +22,8 @@ const Panier: React.FC = ({history}: any) => {
         return total
     }
     const taxe=0
-    const addDel=(id: any)=>idDel.push(id)
-    const removeDel=(id: any)=>idDel=idDel.filter(data=>data!==id)
+    const addDel=(id: number)=>idDel.push(id)
+    const removeDel=(id: any)=>idDel=idDel.filter((data: any)=>data!==id)
     const delItem=(id: any)=>{
         const action={
             type: 'REMOVE_COMAND_ITEM',
@@ -34,31 +34,33 @@ const Panier: React.FC = ({history}: any) => {
         setState(!state)
     }
     const delAll=()=>{
-        console.log("le del ",idDel)
-        idDel.map(id=>{
-            let action={
+        console.log("vous avez clique")
+        idDel.map((id: any)=>{
+            const action={
                 type: 'REMOVE_COMAND_ITEM',
-                value: id
+                value: id 
             }
             dispatch(action)
         })
         idDel=[]
+        setCheck(false)
+        console.log(comand)
     }
     const handleCheck=(e: any, id: any)=>{
         e.target.checked ? addDel(id) : removeDel(id) 
         console.log("handle ",idDel)
     }
-    // const checkAll=(e: any)=>{
-    //     setCheck(e.target.checked)
-    //     if(e.target.checked) comand.map(({item}: any)=>idDel.push(item.id))
-    //     else idDel=[]
-    //     console.log("checkAll : ",idDel)
-    // }
+    const checkAll=(e: any)=>{
+        setCheck(e.target.checked)
+        if(e.target.checked) comand.map(({item}: any)=>idDel.push(item.id))
+        else idDel=[]
+        console.log("checkAll : ",idDel)
+    }
 
     const listItem=comand.length ? (
         comand.map(({item, quantity}: any)=>
         <tr>
-            <th scope="row"><input type="checkbox" onClick={e=>handleCheck(e, item.id)}/> </th>
+            <th scope="row"> { check ? <input type="checkbox" checked={check}/> : <input type="checkbox" onClick={e=>handleCheck(e, item.id)}/>} </th>
             <th><img className="rounded-circle p-3" width="60%" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" data-holder-rendered="true"/></th>
             
             <td>{item.nom}</td>
@@ -77,7 +79,7 @@ const Panier: React.FC = ({history}: any) => {
                     <table className="table">
                         <thead>
                             <tr>
-                            <th scope="col"><input type="checkbox" /></th>
+                            <th scope="col"><input type="checkbox" checked={check} onClick={e=>checkAll(e)} /></th>
                             <th scope="col">image</th>
                             <th scope="col">Article</th>
                             <th scope="col">description</th>

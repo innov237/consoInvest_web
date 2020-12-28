@@ -8,6 +8,8 @@ const comandReducer=(state=initialList, action)=>{
         case 'REMOVE_COMAND_ITEM' :
             const newState=state.filter(data=>data.item.id!==action.value)
             return newState
+        case 'REMOVE-COMAND-MULTIPLE' :
+            return newState
         default :
             return state
     }
