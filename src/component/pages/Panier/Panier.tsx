@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { connect, useSelector, useDispatch } from 'react-redux'
 
 import './Panier.css';
+import ApiContext from '../../../context/ApiContext'
 
 var idDel: any=[]
 
@@ -10,7 +11,7 @@ const Panier: React.FC = ({history}: any) => {
     const [check, setCheck]=useState(false)
     const comand=useSelector((state: any)=>state.comand)
     const dispatch = useDispatch()
-
+    const Api=useContext(ApiContext)
     const nbrArt=()=>{
         let nbre=0
         comand.map((data: any)=>nbre=nbre+data.quantity)
@@ -55,6 +56,21 @@ const Panier: React.FC = ({history}: any) => {
         if(e.target.checked) comand.map(({item}: any)=>idDel.push(item.id))
         else idDel=[]
         console.log("checkAll : ",idDel)
+    }
+    const sendComand=()=>{
+        let panier=comand.map(({item, quantity}: any)=>{
+            let com={
+                id: item.id,
+                panierId: '0',
+                titre: item.titre,
+                quantite: quantity,
+                descripton: item.description,
+                image: item.images
+            }
+            return com
+        })
+        console.log(panier)
+        Api.postData('enregistrerCommande', panier).then(response=>console.log(response))
     }
 
     const listItem=comand.length ? (
@@ -118,7 +134,7 @@ const Panier: React.FC = ({history}: any) => {
                                 Total de la commande
                                 <span className="badge badge-primary badge-pill"> {total()-taxe} Fcfa </span>
                             </li>
-                            <button className="btn btn-secondary colorbtncommander"><b>COMMANDER</b></button>
+                            <button className="btn btn-secondary colorbtncommander" onClick={sendComand}><b>COMMANDER</b></button>
                         </ul>
                     </div>
                 </div>
