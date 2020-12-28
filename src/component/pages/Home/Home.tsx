@@ -18,27 +18,27 @@ const Home: React.FC = (props) => {
     const history = useHistory();
     const [categorieData, setCategorie] = useState([]);
     const [productData, setProduct] = useState([]);
-    console.log("le local ",local)
+    //console.log("le local ",local)
     useEffect(() => {
         getCategorie();
         getAllproduct();
     }, []);
 
-    console.log(props)
+    //console.log(props)
     const getCategorie = async () => {
         let Categories=local.getCategories();
         if(Categories) {
             setCategorie(Categories);
         }
         else {
-            console.log("on va chercher sur le serveur")
+            //console.log("on va chercher sur le serveur")
             var response = await Api.getData("getcategorie");
             if (response.status == 200) {
                 local.setCategories(response.data)
                 setCategorie(response.data);
                 //history.push("/login", response.data); pour redirection les pages.
             } else {
-                console.log(response.headers);
+                //console.log(response.headers);
             }
         }
     }
@@ -54,7 +54,7 @@ const Home: React.FC = (props) => {
                 local.setAllProducts(response.data)
                 setProduct(response.data);
             } else {
-                console.log(response.headers);
+                //console.log(response.headers);
             }
         }
     }
@@ -65,7 +65,7 @@ const Home: React.FC = (props) => {
     }
 
     const openDetail = (product: any) => {
-        console.log(product);
+        //console.log(product);
         history.push("produit", product);
 
     }
