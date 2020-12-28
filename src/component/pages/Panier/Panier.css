@@ -1,7 +1,16 @@
 .colorbtncommander{
     background-color: #013C78;
     color: white;
+    margin: 10px 20px;
 }
 h5{
     text-align: center;
+}
+.resume
+{
+    margin-left: 20px;
+}
+.trash:hover
+{
+    cursor: pointer;
 }

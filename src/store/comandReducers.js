@@ -6,8 +6,8 @@ const comandReducer=(state=initialList, action)=>{
             console.log("le cas add")
             return [...state, action.value]
         case 'REMOVE_COMAND_ITEM' :
-            console.log("le cas remove")
-            return state
+            const newState=state.filter(data=>data.item.id!==action.value)
+            return newState
         default :
             return state
     }
