@@ -58,7 +58,7 @@ const Panier: React.FC = ({history}: any) => {
         console.log("checkAll : ",idDel)
     }
     const sendComand=()=>{
-        let panier=comand.map(({item, quantity}: any)=>{
+        let prod=comand.map(({item, quantity}: any)=>{
             let com={
                 id: item.id,
                 panierId: '0',
@@ -67,8 +67,15 @@ const Panier: React.FC = ({history}: any) => {
                 descripton: item.description,
                 image: item.images
             }
+
             return com
         })
+        let panier={
+            produits: prod,
+            id_boutique: '0',
+            id_user: '0',
+            montant_cmd: total()
+        }
         console.log(panier)
         Api.postData('enregistrerCommande', panier).then(response=>console.log(response))
     }

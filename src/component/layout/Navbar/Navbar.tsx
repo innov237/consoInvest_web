@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./Navbar.css";
+import Search from './Search'
 
 
 const Navbar: React.FC = (props) => {
@@ -18,14 +19,7 @@ const Navbar: React.FC = (props) => {
                             </Link>
                         </div>
                         <div className="col-md-8 no__padding">
-                            <div className="row">
-                                <div className="col-10 no__padding">
-                                    <input type="text" className='form-control search__input' typeof="search" />
-                                </div>
-                                <div className="col-2 no__padding">
-                                    <input type="submit" className="form-control Rechercherbtn" value="Rechercher" />
-                                </div>
-                            </div>
+                            <Search />
                         </div>
                         <div className="col-2">
                             <div className="row">
