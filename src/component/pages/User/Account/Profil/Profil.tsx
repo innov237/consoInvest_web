@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, Switch, Route } from "react-router-dom";
 import './Profil.css';
 
+import ApiContext from '../../../../../context/ApiContext'
+
 
 const Profil: React.FC = () => {
-
-
-
+    
     return (
         <div>
             <h5 className="titre">Profil</h5>

@@ -1,9 +1,11 @@
 .menu__title {
     background-color: #003c78;
     color: #fff;
-    padding: 5px;
+    padding: 10px;
     text-align: start;
     padding-left: 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .categorie__image {

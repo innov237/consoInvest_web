@@ -1,27 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { connect, useDispatch, useSelector } from 'react-redux'
+
 import ApiService from "../../../services/ApiService";
 import './Detail_produit.css';
+import { act } from "react-dom/test-utils";
+
+
 
 const Detail: React.FC = () => {
 
     const history = useHistory();
     const [productData, setProduct] = useState<any>([]);
     const [isload, setLoader] = useState(false);
+    const [quantity, setQuantity]=useState(1)
     const Api = new ApiService();
-
+    let dispatch=useDispatch()
+    const comand=useSelector((state: any)=>state.comand)
     useEffect(() => {
-        console.log(history.location.state);
+        console.log(" le composant  ",history.location.state);
         setProduct(history.location.state);
         setLoader(true);
     }, [])
-
     const toArray = (data: any) => {
-        var array = JSON.parse(data);
-        return array;
+        // var array = JSON.parse(data);
+        // console.log(array)
+        // return array;
+        console.log(JSON.parse(data)[0])
+        return JSON.parse(data)
     }
-
-
+    const changeQuantity=(num: number)=>{
+        setQuantity(quantity+num)
+    }
+    const comandItem=()=>{
+        const action={
+            type: 'ADD_COMAND_ITEM',
+            value: {
+                item: history.location.state,
+                quantity: quantity
+            }
+        }
+        dispatch(action)
+        console.log("item commande")
+    }
     return (
         <div>
             <div className="container">
@@ -31,9 +52,10 @@ const Detail: React.FC = () => {
                             <div className="carousel-inner">
                                 {/* {toArray(productData["images"]).map((result: any) => (
                                     <div className="carousel-item active" data-interval="1000">
-                                        <img src={Api.baseUrl + "storage/" + result} className="d-block w-100" />
+                                        <img src={Api.imageUrl + result} className="d-block w-100" />
                                     </div>
                                 ))} */}
+                                {/* {toArray(productData['images'])} */}
                             </div>
                             <a className="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
                                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -57,10 +79,10 @@ const Detail: React.FC = () => {
                             </div>
                                 <ul className="list-group list-group-flush">
                                     Quantité:
-                                <div className="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" className="btn btn-secondary"><b>-</b></button>
-                                        <input type="text" name="" id="" value="1" />
-                                        <button type="button" className="btn btn-secondary"><b>+</b></button>
+                                    <div className="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" className="btn btn-secondary" onClick={()=>changeQuantity(-1)}><b>-</b></button>
+                                        <input type="text" name="" id="" value={quantity} onChange={()=>{}}/>
+                                        <button type="button" className="btn btn-secondary" onClick={()=>changeQuantity(1)}><b>+</b></button>
                                     </div>
                                 </ul>
                                 <br />
@@ -69,7 +91,7 @@ const Detail: React.FC = () => {
                                         <button type="button" className="btn btn-secondary">Acheter</button>
                                     </div>
                                     <div className="input-group">
-                                        <button type="button" className="btn btn-secondary"><i className="fas fa-cart-plus"></i> Ajouter au panier</button>
+                                        <button type="button" className="btn btn-secondary" onClick={comandItem}><i className="fas fa-cart-plus"></i> Ajouter au panier</button>
                                     </div>
                                 </div>
                                 <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
@@ -82,7 +104,19 @@ const Detail: React.FC = () => {
                     <div className="card-header"></div>
                     <div className="card-body text-secondary">
                         <u><p className="card-title description">Description du produit</p></u>
-                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <div className="card-text">
+                            <ul className="row">
+                                <li className="col-md-6 no-padding">Categorie : {productData["libelle_categorie"]} </li>
+                                <li className="col-md-6 no-padding">Ville : {productData["ville"]} </li>
+                                <li className="col-md-6 no-padding">Sexe : {productData["sexe"]} </li>
+                                <li className="col-md-6 no-padding">Telephone : {productData["telephone"]} </li>
+                                <li className="col-md-6 no-padding">Age : {productData["age"]} </li>
+                                <li className="col-md-6 no-padding">Lieu Boutique : {productData["lieu_boutique"]} </li>
+                            </ul>
+                            <div className="row justify-content-center">
+                                <button className="col-3 btn btn-success">Livraison</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,7 +124,9 @@ const Detail: React.FC = () => {
     );
 
 }
+const mapStateToProps=(state: any)=>({
+    comand: state.comand,
+});
 
-/********** */
 
-export default Detail;
+export default connect(mapStateToProps)(Detail);
