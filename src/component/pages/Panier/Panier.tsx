@@ -65,19 +65,19 @@ const Panier: React.FC = ({history}: any) => {
                 titre: item.titre,
                 quantite: quantity,
                 descripton: item.description,
-                image: item.images,
-                prix: item.prix
+                image: item.images
             }
+
             return com
         })
         let panier={
             produits: prod,
-            id_boutique: '1',
-            id_user: '1',
+            id_boutique: '0',
+            id_user: '0',
             montant_cmd: total()
         }
         console.log(panier)
-        Api.postData('enregistrerCommande', panier).then(response=>console.log(response)).catch(err=>console.log("une erreur est survenu : ", err))
+        Api.postData('enregistrerCommande', panier).then(response=>console.log(response))
     }
 
     const listItem=comand.length ? (

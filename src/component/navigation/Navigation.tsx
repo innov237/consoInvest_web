@@ -11,8 +11,6 @@ import Account from '../pages/User/Account/Home/Home';
 import Detail from '../pages/Detail_produit/Detail_produit';
 import Panier from '../pages/Panier/Panier';
 import ProductDetail from '../pages/Product/ProductDetail/ProductDetail';
-import Categories from '../pages/Categories/Categories'
-import ListeBoutiques from '../pages/listeBoutiques/ListeBoutiques'
 
 function Navigation() {
     return (
@@ -25,8 +23,6 @@ function Navigation() {
           <Route path="/home" exact component={Home} />
           <Route path="/product/detail/" exact component={ProductDetail} />
           {/* <Route path="/" render={() => <div>404</div>} /> */}
-          <Route path="/categorie:id" exact component={Categories} />
-          <Route path="/list" exact component={ListeBoutiques} />
           <Route path="/" exact component={Home} />
         </Switch>
     )
