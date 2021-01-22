@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.min.css';
 import 'owl.carousel/dist/assets/owl.theme.default.min.css';
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import ApiContext from '../../../context/ApiContext'
 import StorageContext from '../../../context/StorageContext'
@@ -13,24 +13,31 @@ import { Link, useHistory } from "react-router-dom";
 
 const Home: React.FC = (props) => {
 
-    const Api = useContext(ApiContext);
-    const local=useContext(StorageContext);
+    const Api: any = useContext(ApiContext);
+    const local: any=useContext(StorageContext);
     const history = useHistory();
     const [categorieData, setCategorie] = useState([]);
     const [productData, setProduct] = useState([]);
-    //console.log("le local ",local)
+
+    const comand = useSelector((state: any) => state.comand)
+    
     useEffect(() => {
+        console.log(comand)
         getCategorie();
         getAllproduct();
     }, []);
 
-    //console.log(props)
+    
     const getCategorie = async () => {
+        
         let Categories=local.getCategories();
         if(Categories) {
+            console.log('tes me yes')
+            console.log(Categories)
             setCategorie(Categories);
         }
         else {
+            console.log('tes me false')
             //console.log("on va chercher sur le serveur")
             var response = await Api.getData("getcategorie");
             if (response.status == 200) {
@@ -157,10 +164,4 @@ const Home: React.FC = (props) => {
     )
 }
 
-
-const mapStateToProps=(state: any)=>({
-    comand: state.comand,
-});
-
-
-export default connect(mapStateToProps)(Home);
+export default Home;
