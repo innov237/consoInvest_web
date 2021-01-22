@@ -14,7 +14,9 @@ import Navigation from './component/navigation/Navigation'
 
 
 /**j'utilise les function component au lieu des class component l'execution est plus rapide*/
-function App() {
+const  App = () => {
+
+  
   return (
     <ApiContext.Provider value={new ApiService()} >
       <StorageContext.Provider value={new StorageService()} >

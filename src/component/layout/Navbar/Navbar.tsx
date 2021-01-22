@@ -7,7 +7,7 @@ import Search from './Search'
 const Navbar: React.FC = (props) => {
     //console.log("les props",props)
     const history=useHistory()
-    console.log(history)
+    
     return (
         <div>
             <nav className="navbar shadow-sm navbar-expand-lg">
