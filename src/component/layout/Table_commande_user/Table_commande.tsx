@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Table_commande.css";
-
+import PropTypes from 'prop-types';
 
 const Table_commande: React.FC = () => {
     return (
@@ -42,5 +42,21 @@ const Table_commande: React.FC = () => {
         </div>
     )
 }
+
+Table_commande.propTypes = {
+   image: PropTypes.string,
+   name: PropTypes.string,
+   descript: PropTypes.string,
+   qte: PropTypes.string,
+   status: PropTypes.string,
+};
+
+Table_commande.defaultProps = {
+   image: "https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg",
+   name: "",
+   descript: "",
+   qte: "",
+   status: "",
+};
 
 export default Table_commande;

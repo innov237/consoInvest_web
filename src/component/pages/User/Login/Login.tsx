@@ -5,22 +5,31 @@ import './Login.css';
 import { useForm } from "react-hook-form";
 import ApiService from "../../../../services/ApiService";
 
+import {useDispatch} from 'react-redux'
+
+import { LOGIN_ACTION} from '../../../../store/authReducers'
+
 const Login: React.FC = () => {
 
     const history = useHistory();
     const Api = new ApiService();
 
+    const dispatch = useDispatch()
+
     const { register, handleSubmit, watch, errors } = useForm();
+    const [error, setError] = React.useState('')
     const onSubmit = async (data: any) => {
+        setError('')
         var response = await Api.postData("login", data);
         console.log(response.data);
 
         if (response.data['success']) {
-            console.log("auth ok");
-            console.log(response.data['data']);
+            
+            dispatch(LOGIN_ACTION(response.data['data'].id))
             localStorage.setItem("authUserData", JSON.stringify(response.data['data']));
             history.push("/account");
         } else {
+            setError(response.data['message'])
             console.log(response.data['message']);
         }
     };
@@ -41,6 +50,10 @@ const Login: React.FC = () => {
                             <input type="submit" className="btn btn-primary w-100" value="Me connecter" />
                         </div>
                         <div className="form-group">
+                            <p style={{textAlign: 'center', color: 'red',fontWeight: 'bold'}}>{error}</p>
+                        </div>
+                        
+                        <div className="form-group">
                             <p><Link to="/register"> J'ai déjà un compte ? M'inscrire</Link></p>
                         </div>
                         <h5 className="text-center"> <Link to="/home"> Accueil</Link></h5>
@@ -51,7 +64,5 @@ const Login: React.FC = () => {
     );
 
 }
-
-/********** */
 
 export default Login;

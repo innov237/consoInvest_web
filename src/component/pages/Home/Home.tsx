@@ -36,8 +36,8 @@ const Home: React.FC = (props) => {
     
     useEffect(() => {
         const state:any = history.location.state
-        console.log(state)
-        if (state.hasOwnProperty('data')){
+        
+        if (state && state.hasOwnProperty('data')){
             setProduct(state.data)
             delete state.data;
             history.replace({ ...history.location, state });

@@ -13,9 +13,21 @@ import store from './store/configStore'
 import Navigation from './component/navigation/Navigation'
 
 
+import { useDispatch } from 'react-redux'
+
+import { LOGIN_ACTION } from './store/authReducers'
+
+
 /**j'utilise les function component au lieu des class component l'execution est plus rapide*/
 const  App = () => {
 
+ 
+
+  const initializer = () => {
+    const uuid = localStorage.getItem("authUserData")
+
+    console.log(uuid)
+  }
   
   return (
     <ApiContext.Provider value={new ApiService()} >

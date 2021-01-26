@@ -33,7 +33,7 @@ const Profil: React.FC = () => {
                                 <option>yaoundé</option>
                             </select>
                         </div>
-                    <button type="submit" className="btn btn-primary">Modifier</button>
+                    <button type="submit" className="btn btn-primary w-100">Modifier</button>
                 </div>
             </div> 
         </div>
