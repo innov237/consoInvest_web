@@ -1,11 +1,129 @@
+import React, { useEffect, useState, useContext } from "react";
+
 import { profile } from "console";
-import React from "react";
+
 import { Link, Switch, Route } from "react-router-dom";
 import './Boutique.css';
 
+
 import ProductCard from "../../../../layout/Table_commande_user/Table_commande";
+import { link } from "fs";
+
+import {useSelector} from 'react-redux'
+import ApiContext from '../../../../../context/ApiContext'
 
 const Boutique: React.FC = () => {
+
+    const Api: any = useContext(ApiContext);
+    const [categorieData, setCategorie] = useState([]);
+    const [data, setData] = useState([]);
+
+    const [link, setLink] = useState('');
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [status, setStatus] = useState('');
+    const [price, setPrice] = useState(0);
+    const [solde, setSolde] = useState(0);
+    const [categorie, setCase] = useState(0);
+
+    const [files, setFile] = useState('');
+
+    useEffect(() => {
+       getCategorie();
+
+    }, []);
+
+    const auth = useSelector((state:any) => state.auth)
+
+    const getUserProduct = async () => {
+        setData([])
+        const credentials = { 'id_user':1, 'lastInsertId':10}
+        
+        
+        var response = await Api.postData("getUserPost", credentials);
+        if (response.status == 200) {
+            setData(response.data);
+            
+        }
+    }
+
+    const onFileChange = (e:any) => {
+        setFile( e.target.files)
+    }
+
+    const getUserCommands = async (etat:any = 1) => {
+        setData([])
+        console.log('test', etat);
+    
+        
+        var response = await Api.getData(`getCommandeBoutique?id_boutique=${auth.shop.id}&lastInsertId=10&etat=${etat}`);
+        if (response.status == 200) {
+            setData(response.data);  
+        } 
+        
+    }      
+
+    const saveProduct = async () => {
+        setData([])
+        const credentials = {
+            'id_user': 1,
+            'id_categorie':categorie,
+            'titre':name,
+            'description':description,
+            'prix':price,
+            'prixNormal':solde,
+            'etiquette':status,
+            'link': link,
+        }
+
+        /*if (files.length){
+            var formData = new FormData();
+            for (const key of Object.keys(files)) {
+                formData.append('imgCollection', files[key])
+            }
+            credentials[]
+        }*/
+        
+        
+        console.log(credentials)
+        var response = await Api.postData("enregistrerPublication-", credentials);
+        if (response.status == 200) {
+            setData(response.data);
+            
+        }
+    }
+
+
+    
+
+
+    const _onDelete = (id:any) => {
+        deleteProduit(id)
+    }
+
+
+    const deleteProduit = async (id:any) => {
+        setData([])
+        const credentials = { 'id_publication':id}       
+        var response = await Api.postData("deletePublication", credentials);
+        if (response.status == 200) {
+            alert('Opération effectuée avec sucess')
+            getUserProduct();
+            
+        }
+    }
+
+    const getCategorie = async () => {
+        
+        var response = await Api.getData("getcategorie");
+        if (response.status == 200) {
+            setCategorie(response.data);
+            
+        }
+    }
+
+    
+
     return (
         <div>
             <h5 className="titre">Ma boutique</h5>
@@ -13,37 +131,141 @@ const Boutique: React.FC = () => {
 
              <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a className="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Commandes</a>
-                    <a className="nav-link" id="nav-produit-tab" data-toggle="tab" href="#nav-produit" role="tab" aria-controls="nav-produit" aria-selected="false">vendre un produit</a>
+                    <a className="nav-link active cursor-pointe" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" onClick={() => getUserCommands()}>Commandes</a>
+                    <a className="nav-link cursor-pointe" id="nav-produit-tab" data-toggle="tab" href="#nav-produit" role="tab" aria-controls="nav-produit" aria-selected="false">Vendre un produit</a>
+                    <a className="nav-link cursor-pointe" id="nav-produit-tab" data-toggle="tab" href="#nav-list-produit" role="tab" aria-controls="nav-list-produit" aria-selected="false" onClick={() => getUserProduct()}>Liste des produits</a>
                 </div>
                 </nav>
                 <div className="tab-content" id="nav-tabContent">
                     <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <nav>
                         <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a className="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Tout</a>
-                            <a className="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">En attente</a>
-                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">En cour</a>
-                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact1" role="tab" aria-controls="nav-contact" aria-selected="false">En route</a>
-                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact" aria-selected="false">Livré</a>
+                            <a className="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" onClick={() => getUserCommands(1)}>Tout</a>
+                            <a className="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" onClick={() => getUserCommands(2)}>En attente</a>
+                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getUserCommands(3)}>En cour</a>
+                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact1" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getUserCommands(4)}>En route</a>
+                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getUserCommands(5)}>Livré</a>
                         </div>
                         </nav>
                         <div className="tab-content" id="nav-tabContent">
-                            <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><ProductCard /></div>
-                            <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><ProductCard /></div>
-                            <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"><ProductCard /></div>
-                            <div className="tab-pane fade" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact-tab"><ProductCard /></div>
-                            <div className="tab-pane fade" id="nav-contact2" role="tabpanel" aria-labelledby="nav-contact-tab"><ProductCard /></div>
+                            <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                {
+                                    (data.length) ?
+                                       (<ProductCard  item={data} type={'admin'} update={() => getUserCommands(1)}/>)
+                                    : <></>
+                                }
+                                
+                                
+                            </div>
+                            <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                {
+                                    (data.length) ?
+                                       (<ProductCard  item={data} type={'admin'} update={() =>getUserCommands(2)} />)
+                                    : <></>
+                                }
+                            </div>
+                            <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                {
+                                    (data.length) ?
+                                       (<ProductCard  item={data} type={'admin'}  update={() =>getUserCommands(3)} />)
+                                    : <></>
+                                }
+                            </div>
+                            <div className="tab-pane fade" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                 {
+                                    (data.length) ?
+                                       (<ProductCard  item={data} type={'admin'} update={() => getUserCommands(4)} />)
+                                    : <></>
+                                }
+                            </div>
+                            <div className="tab-pane fade" id="nav-contact2" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                {
+                                    (data.length) ?
+                                       (<ProductCard  item={data} type={'admin'} update={() =>getUserCommands(5)} />)
+                                    : <></>
+                                }
+                            </div>
                         </div>
                     </div>
                     <div className="tab-pane fade" id="nav-produit" role="tabpanel" aria-labelledby="nav-produit-tab">
-                    
-                        <div className="form-group">
-                            <input type="url" className="form-control text" placeholder="http://" />
+                        
+                        <div className="form-group pt-3">
+                            <input type="url" className="form-control text w-100" onChange={(e) => setLink(e.target.value)} placeholder="http://" />
                         </div>
                         <div className="form-group">
-                            <textarea className="form-control text" placeholder="Description de l'article"></textarea>
+                            <input type="text" className="form-control text w-100" placeholder="Nom" onChange={(e) => setName(e.target.value)}/>
                         </div>
+
+                        <div className="form-group">
+                            <select className="form-control w-100" onChange={(e:any) => setCase(e.target.value)}>
+                                <option selected disabled>Catégories</option>
+                                {
+                                    categorieData.map((item, index) => (<option value={item['id']} key={index}>{item['libelle_categorie']}</option>))
+                                }
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <select className="form-control w-100" onChange={(e) => setStatus(e.target.value)}>
+                                <option selected disabled>Etiquette</option>
+                                <option value="promo">Prome</option>
+                                <option value="solde">Solde</option>
+                                <option value="arrivage">Arrivage</option>
+                            </select>
+                        </div>
+
+                        <div className="form-group">
+                            <textarea className="form-control text w-100" placeholder="Description de l'article" onChange={(e:any) => setDescription(e.target.value)}></textarea>
+                        </div>
+                        <div className="form-group">
+                            <input type="number" className="form-control text w-100" placeholder="Prix normal" onChange={(e:any) => setPrice(e.target.value)}/>
+                        </div>
+                        <div className="form-group">
+                            <input type="number" className="form-control text w-100" placeholder="Prix" onChange={(e:any) => setSolde(e.target.value)}/>
+                        </div>
+                        <div className="form-group">
+                            <input type="file" name="imgCollection" onChange={onFileChange} multiple />
+                        </div>
+
+                        <button type="submit" className="btn btn-primary w-100" onClick={saveProduct}>Enregister</button>
+                    </div>
+
+                    <div className="tab-pane fade" id="nav-list-produit" role="tabpanel" aria-labelledby="nav-produit-tab">
+
+                    <table className="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Descriptinon</th>
+                            <th scope="col">Etiquette</th>
+                            <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                data.map((item, index) => (
+                                    <tr key={index}>
+                                    <th scope="row">{item['id_pub']}</th>
+                                    <td>{item['titre']}</td>
+                                    <td>{item['description']}</td>
+                                    <td>{item['etiquette']}</td>
+                                    <td className="cursor-pointe">
+                                    <i className="fas fa-bars" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                            
+                                        <div className="dropdown-menu">
+                                            <button className="dropdown-item cursor-pointe" type="button">Modifier</button>
+                                            <button className="dropdown-item cursor-pointe" type="button" onClick={ () => _onDelete(item['id_pub'])}>Supprimer</button>
+                                        </div>
+                                    
+                                    </td>
+                                    </tr>
+                                ))
+                        
+                            }
+                        
+                        </tbody>
+                    </table>
+                       
                     </div>
                 </div>
                 </div>

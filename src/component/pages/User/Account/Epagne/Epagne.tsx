@@ -2,10 +2,32 @@ import React from "react";
 import { Link, Switch, Route } from "react-router-dom";
 import './Epagne.css';
 
+import {useSelector} from 'react-redux'
+import ApiContext from '../../../../../context/ApiContext'
 
 const Epagne: React.FC = () => {
 
 
+    React.useEffect(() => {
+        getUserEpargne();
+    },[])
+
+    const [data, setData] = React.useState({userEpagne:0 , message: ''});
+
+    const auth = useSelector((state:any) => state.auth)
+
+    const Api: any = React.useContext(ApiContext);
+    
+    const getUserEpargne = async () => {
+        
+        var response = await Api.getData("getUserEpargne?id_user="+auth.user.id);
+        if (response.status == 200) {
+            setData(response.data);
+            
+        }
+    }
+
+    
 
     return (
         <div>
@@ -14,13 +36,13 @@ const Epagne: React.FC = () => {
             <div className="row">
                 <div className="col-md-4">
                     <div className="media text-muted pt-3">
-                        <span className="numberCircle"><span>543 FCFA</span></span>
+                        <span className="numberCircle"><span>{data.userEpagne} FCFA</span></span>
                     </div>
                 </div>
                 <div className="col-md-8">
-                    <h5 className="card-title">title</h5>
-                    <h6 className="card-subtitle mb-2 text-muted">sous titre</h6>
-                    <p className="card-text">text</p>
+                    <h5 className="card-title">Message</h5>
+                    <h6 className="card-subtitle mb-2 text-muted"></h6>
+                    <p className="card-text">{data.message}</p>
                 </div>
             </div> 
         </div>
@@ -32,4 +54,4 @@ const Epagne: React.FC = () => {
 
 /********** */
 
-export default Epagne;
+export default Epagne; 

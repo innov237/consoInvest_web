@@ -3,7 +3,6 @@ const initialList=[]
 const comandReducer=(state=initialList, action)=>{
     switch (action.type) {
         case 'ADD_COMAND_ITEM' :
-            console.log("le cas add")
             let exist={id:null, find: false}
             let newState=state
             newState.map((data, i)=>{
