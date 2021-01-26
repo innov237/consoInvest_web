@@ -12,25 +12,22 @@ const Detail: React.FC = () => {
 
     const history = useHistory();
     const [productData, setProduct] = useState<any>([]);
+    const [slider, setSlider] = useState<any>([]);
     const [isload, setLoader] = useState(false);
     const [quantity, setQuantity]=useState(1)
     const Api = new ApiService();
     let dispatch=useDispatch()
     const comand=useSelector((state: any)=>state.comand)
     useEffect(() => {
-        console.log(" le composant  ",history.location.state);
         setProduct(history.location.state);
         setLoader(true);
     }, [])
     const toArray = (data: any) => {
-        // var array = JSON.parse(data);
-        // console.log(array)
-        // return array;
-        console.log(JSON.parse(data)[0])
         return JSON.parse(data)
     }
+
     const changeQuantity=(num: number)=>{
-        setQuantity(quantity+num)
+        setQuantity((quantity+num)? quantity+num : 1)
     }
     const comandItem=()=>{
         const action={
@@ -41,8 +38,9 @@ const Detail: React.FC = () => {
             }
         }
         dispatch(action)
-        console.log("item commande")
     }
+
+    
     return (
         <div>
             <div className="container">
@@ -50,11 +48,17 @@ const Detail: React.FC = () => {
                     <div className="col-md-6 left__menu">
                         <div id="carouselExampleInterval" className="carousel slide" data-ride="carousel">
                             <div className="carousel-inner">
-                                {/* {toArray(productData["images"]).map((result: any) => (
-                                    <div className="carousel-item active" data-interval="1000">
-                                        <img src={Api.imageUrl + result} className="d-block w-100" />
-                                    </div>
-                                ))} */}
+                                { 
+                                    (productData.images) ?
+                                    (
+                                        toArray(productData.images).map((result: any) => (
+                                            <div className="carousel-item active" data-interval="1000">
+                                                <img src={Api.imageUrl + result} className="d-block w-100" />
+                                            </div>
+                                            )
+                                        )
+                                    ) : <div></div>
+                                }
                                 {/* {toArray(productData['images'])} */}
                             </div>
                             <a className="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">

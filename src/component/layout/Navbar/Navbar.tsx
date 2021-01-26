@@ -3,11 +3,51 @@ import { Link, useHistory } from "react-router-dom";
 import "./Navbar.css";
 import Search from './Search'
 
+import { useSelector, useDispatch} from 'react-redux'
+import { AnyAction } from "redux";
+
+
+import ApiService from "../../../services/ApiService"; 
+
+
+
+import {LOGIN_ACTION,SHOP_ACTION} from '../../../store/authReducers'
 
 const Navbar: React.FC = (props) => {
-    //console.log("les props",props)
+   
     const history=useHistory()
+
+    const Api = new ApiService();
+
+    const cmds = useSelector((state:any) => state.comand)
+    const dispatch = useDispatch()
+
+    const reducer = (acc:any, val:any) => acc + val.quantity;
+
+    const panier:any = cmds.reduce(reducer,0)
+
+    const getShop = async (id:any) => {
+        var response = await Api.getData("getUserShop?id_user="+id);
+        if (response.data.length)
+            dispatch(SHOP_ACTION(response.data[0]))
+        
+    }
     
+    const initialize = () => {
+        const auth = localStorage.getItem("authUserData");
+        if (auth){
+            dispatch(LOGIN_ACTION(JSON.parse(auth)))
+            getShop(JSON.parse(auth).id)
+        }
+        
+    }
+
+
+    React.useEffect(() => {
+        initialize()
+    },[])
+
+
     return (
         <div>
             <nav className="navbar shadow-sm navbar-expand-lg">
@@ -27,7 +67,7 @@ const Navbar: React.FC = (props) => {
                                     <Link to="/panier">
                                     <div className="baket__item">
                                         <img className="shoping__basket" src="../../../../images/shopping-cart.png" alt="" />
-                                        <span>50</span>
+                                        <span>{panier}</span>
                                         <p>Panier</p>
                                     </div>
                                     </Link>

@@ -5,11 +5,12 @@ import { profile } from "console";
 import { Link, Switch, Route } from "react-router-dom";
 import './Boutique.css';
 
-import ApiContext from '../../../../../context/ApiContext'
+
 import ProductCard from "../../../../layout/Table_commande_user/Table_commande";
 import { link } from "fs";
 
-
+import {useSelector} from 'react-redux'
+import ApiContext from '../../../../../context/ApiContext'
 
 const Boutique: React.FC = () => {
 
@@ -25,10 +26,14 @@ const Boutique: React.FC = () => {
     const [solde, setSolde] = useState(0);
     const [categorie, setCase] = useState(0);
 
+    const [files, setFile] = useState('');
+
     useEffect(() => {
        getCategorie();
-       getUserCommands();    
+
     }, []);
+
+    const auth = useSelector((state:any) => state.auth)
 
     const getUserProduct = async () => {
         setData([])
@@ -42,17 +47,21 @@ const Boutique: React.FC = () => {
         }
     }
 
+    const onFileChange = (e:any) => {
+        setFile( e.target.files)
+    }
+
     const getUserCommands = async (etat:any = 1) => {
         setData([])
-        const credentials = { 'id_user':1, 'lastInsertId':10, etat}
+        console.log('test', etat);
+    
         
-        
-        var response = await Api.postData("getCommandeBoutique", credentials);
+        var response = await Api.getData(`getCommandeBoutique?id_boutique=${auth.shop.id}&lastInsertId=10&etat=${etat}`);
         if (response.status == 200) {
-            setData(response.data);
-            
-        }
-    }
+            setData(response.data);  
+        } 
+        
+    }      
 
     const saveProduct = async () => {
         setData([])
@@ -65,8 +74,16 @@ const Boutique: React.FC = () => {
             'prixNormal':solde,
             'etiquette':status,
             'link': link,
-            'images':['img1','img2'],
         }
+
+        /*if (files.length){
+            var formData = new FormData();
+            for (const key of Object.keys(files)) {
+                formData.append('imgCollection', files[key])
+            }
+            credentials[]
+        }*/
+        
         
         console.log(credentials)
         var response = await Api.postData("enregistrerPublication-", credentials);
@@ -105,6 +122,8 @@ const Boutique: React.FC = () => {
         }
     }
 
+    
+
     return (
         <div>
             <h5 className="titre">Ma boutique</h5>
@@ -121,19 +140,51 @@ const Boutique: React.FC = () => {
                     <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <nav>
                         <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a className="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Tout</a>
-                            <a className="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">En attente</a>
-                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">En cour</a>
-                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact1" role="tab" aria-controls="nav-contact" aria-selected="false">En route</a>
-                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact" aria-selected="false">Livré</a>
+                            <a className="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" onClick={() => getUserCommands(1)}>Tout</a>
+                            <a className="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" onClick={() => getUserCommands(2)}>En attente</a>
+                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getUserCommands(3)}>En cour</a>
+                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact1" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getUserCommands(4)}>En route</a>
+                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getUserCommands(5)}>Livré</a>
                         </div>
                         </nav>
                         <div className="tab-content" id="nav-tabContent">
-                            <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><ProductCard /></div>
-                            <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><ProductCard /></div>
-                            <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"><ProductCard /></div>
-                            <div className="tab-pane fade" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact-tab"><ProductCard /></div>
-                            <div className="tab-pane fade" id="nav-contact2" role="tabpanel" aria-labelledby="nav-contact-tab"><ProductCard /></div>
+                            <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                {
+                                    (data.length) ?
+                                       (<ProductCard  item={data} type={'admin'} update={() => getUserCommands(1)}/>)
+                                    : <></>
+                                }
+                                
+                                
+                            </div>
+                            <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                {
+                                    (data.length) ?
+                                       (<ProductCard  item={data} type={'admin'} update={() =>getUserCommands(2)} />)
+                                    : <></>
+                                }
+                            </div>
+                            <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                {
+                                    (data.length) ?
+                                       (<ProductCard  item={data} type={'admin'}  update={() =>getUserCommands(3)} />)
+                                    : <></>
+                                }
+                            </div>
+                            <div className="tab-pane fade" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                 {
+                                    (data.length) ?
+                                       (<ProductCard  item={data} type={'admin'} update={() => getUserCommands(4)} />)
+                                    : <></>
+                                }
+                            </div>
+                            <div className="tab-pane fade" id="nav-contact2" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                {
+                                    (data.length) ?
+                                       (<ProductCard  item={data} type={'admin'} update={() =>getUserCommands(5)} />)
+                                    : <></>
+                                }
+                            </div>
                         </div>
                     </div>
                     <div className="tab-pane fade" id="nav-produit" role="tabpanel" aria-labelledby="nav-produit-tab">
@@ -171,8 +222,11 @@ const Boutique: React.FC = () => {
                         <div className="form-group">
                             <input type="number" className="form-control text w-100" placeholder="Prix" onChange={(e:any) => setSolde(e.target.value)}/>
                         </div>
+                        <div className="form-group">
+                            <input type="file" name="imgCollection" onChange={onFileChange} multiple />
+                        </div>
 
-                        <button type="submit" className="btn btn-primary w-100">Enregister</button>
+                        <button type="submit" className="btn btn-primary w-100" onClick={saveProduct}>Enregister</button>
                     </div>
 
                     <div className="tab-pane fade" id="nav-list-produit" role="tabpanel" aria-labelledby="nav-produit-tab">

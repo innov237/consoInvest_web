@@ -10,8 +10,29 @@ const Panier: React.FC = ({history}: any) => {
     const [state, setState]=useState(false)
     const [check, setCheck]=useState(false)
     const comand=useSelector((state: any)=>state.comand)
+    const auth=useSelector((state: any)=>state.auth.user)
     const dispatch = useDispatch()
     const Api=useContext(ApiContext)
+
+
+  
+    const getBoutique: any = () => {
+
+        const bt = Array.from(new Set(comand.map((i:any)=> i.item.id_boutique)))
+
+         const all:any = bt.map((i:any) => {
+             return {
+                produits: [],
+                id_boutique: i,
+                id_user: auth.id,
+                montant_cmd: 0
+            }
+         })
+
+        return all
+
+    }
+
     const nbrArt=()=>{
         let nbre=0
         comand.map((data: any)=>nbre=nbre+data.quantity)
@@ -31,11 +52,9 @@ const Panier: React.FC = ({history}: any) => {
             value: id
         }
         dispatch(action)
-        console.log("supprime")
         setState(!state)
     }
     const delAll=()=>{
-        console.log("vous avez clique")
         idDel.map((id: any)=>{
             const action={
                 type: 'REMOVE_COMAND_ITEM',
@@ -49,35 +68,49 @@ const Panier: React.FC = ({history}: any) => {
     }
     const handleCheck=(e: any, id: any)=>{
         e.target.checked ? addDel(id) : removeDel(id) 
-        console.log("handle ",idDel)
+        
     }
     const checkAll=(e: any)=>{
         setCheck(e.target.checked)
         if(e.target.checked) comand.map(({item}: any)=>idDel.push(item.id))
         else idDel=[]
-        console.log("checkAll : ",idDel)
+    }
+    const updateQte = (e:any, id:any) =>{
+        console.log(e,id)
+
+        let findComd = comand.find((cmd:any) => cmd.item.id==id)
+        
+        total()
     }
     const sendComand=()=>{
-        let prod=comand.map(({item, quantity}: any)=>{
+        const current = getBoutique()
+        console.log(current)
+
+        const save = comand.map(({item, quantity}: any)=>{
             let com={
-                id: item.id,
+                id: 'item.id_publication',
                 panierId: '0',
                 titre: item.titre,
+                prix: item.prix,
                 quantite: quantity,
                 descripton: item.description,
-                image: item.images
+                image: item.images,
+                id_boutique: item.id_boutique
             }
 
-            return com
+            let find:any = current.find((e:any) => item.id_boutique == e.id_boutique)
+            console.log(item.prix*quantity)
+            console.log(find.montant_cmd)
+            
+           
+            if (find)
+                return Object.assign(current, find, {produits: find.produits.push(com), montant_cmd: item.prix*quantity})
+            
         })
-        let panier={
-            produits: prod,
-            id_boutique: '0',
-            id_user: '0',
-            montant_cmd: total()
-        }
-        console.log(panier)
-        Api.postData('enregistrerCommande', panier).then(response=>console.log(response))
+        
+        
+        console.log(current[0])
+        //Api.postData('enregistrerCommande', panier).then(response=>console.log(response))
     }
 
     const listItem=comand.length ? (
@@ -88,7 +121,7 @@ const Panier: React.FC = ({history}: any) => {
             
             <td>{item.nom}</td>
             <td>{item.description}</td>
-            <td><input type="text" value={quantity}/></td>
+            <td><input type="number"  value={quantity}  onChange={(e) => updateQte(e.target.value,item.id)}/></td>
             <td>{item.prix}FCFA</td>
             <td className="trash" onClick={()=>delItem(item.id)}><i className="fas fa-trash-alt"></i></td>
         </tr>)

@@ -7,7 +7,7 @@ import ApiService from "../../../../services/ApiService";
 
 import {useDispatch} from 'react-redux'
 
-import { LOGIN_ACTION} from '../../../../store/authReducers'
+import { LOGIN_ACTION,SHOP_ACTION} from '../../../../store/authReducers'
 
 const Login: React.FC = () => {
 
@@ -18,6 +18,15 @@ const Login: React.FC = () => {
 
     const { register, handleSubmit, watch, errors } = useForm();
     const [error, setError] = React.useState('')
+
+    const getShop = async (id:any) => {
+        var response = await Api.getData("getUserShop?id_user="+id);
+        if (response.data.length)
+            dispatch(SHOP_ACTION(response.data[0]))
+            
+        history.push("/account");
+        
+    }
     const onSubmit = async (data: any) => {
         setError('')
         var response = await Api.postData("login", data);
@@ -27,7 +36,8 @@ const Login: React.FC = () => {
             
             dispatch(LOGIN_ACTION(response.data['data'].id))
             localStorage.setItem("authUserData", JSON.stringify(response.data['data']));
-            history.push("/account");
+            getShop(response.data['data'].id)
+            //
         } else {
             setError(response.data['message'])
             console.log(response.data['message']);
