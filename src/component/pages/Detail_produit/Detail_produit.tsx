@@ -6,11 +6,14 @@ import ApiService from "../../../services/ApiService";
 import './Detail_produit.css';
 import { act } from "react-dom/test-utils";
 
+import queryString from 'query-string';
+
 
 
 const Detail: React.FC = () => {
 
     const history = useHistory();
+    const item = useSelector((state:any) => state.search.item)
     const [productData, setProduct] = useState<any>([]);
     const [slider, setSlider] = useState<any>([]);
     const [isload, setLoader] = useState(false);
@@ -18,14 +21,34 @@ const Detail: React.FC = () => {
     const Api = new ApiService();
     let dispatch=useDispatch()
     const comand=useSelector((state: any)=>state.comand)
-    useEffect(() => {
-        setProduct(history.location.state);
-        setLoader(true);
-    }, [])
+
+
+ 
     const toArray = (data: any) => {
         return JSON.parse(data)
     }
 
+
+    const process= async (parsed:any)=>{
+       
+
+        if (parsed.slug){
+            var response = await Api.getData(`getPublicationBySlug?key=${parsed.slug}&?lastInsertId=10`);
+            if (response.status == 200){
+
+                if ( response.data.length){
+                    setProduct(response.data[0])
+                }else{
+                    alert(`No data found for ${parsed.params}`);
+                    history.push('/home');
+                };
+            }
+
+        };
+        
+    }
+
+  
     const changeQuantity=(num: number)=>{
         setQuantity((quantity+num)? quantity+num : 1)
     }
@@ -40,6 +63,15 @@ const Detail: React.FC = () => {
         dispatch(action)
     }
 
+
+    useEffect(() => {
+        if(item)
+            setProduct(item)
+        else
+            process(queryString.parse(history.location.search))
+
+        setLoader(true);
+    }, [])
     
     return (
         <div>

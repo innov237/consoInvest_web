@@ -44,7 +44,7 @@ const Navbar: React.FC = (props) => {
 
 
     React.useEffect(() => {
-        initialize()
+        //initialize()
     },[])
 
 

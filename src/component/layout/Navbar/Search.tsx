@@ -17,18 +17,12 @@ const Search: React.FC=(props)=>{
     
     const dispatch = useDispatch();
     const search= async ()=>{
-        
-        var response = await Api.getData(`rechercherPublication?key=${key}&lastInsertId=5`);
-        if (response.status == 200){
-
-            if ( response.data.length){
-                if (history.location.pathname == '/home' || history.location.pathname == '/')
-                    dispatch(ADD_KEY({key, data:response.data}))
-                else
-                    history.push('home', {data: response.data})
-            }else
-                alert(`No data found for ${key}`);
-        }
+         
+        history.push({
+            pathname: '/search',
+            search: '?params='+key
+        })
+           
     }
     
     const choice=(item: any)=>{

@@ -44,7 +44,7 @@ const Table_commande = (props:any) => {
                         (props.item) ?
                         props.item.map((e:any) => {
                             let produit = JSON.parse(e.produits)
-                            console.log(e.etat == 1)
+                            
                             return(
                                 <tr>
                                     <th><img className="rounded-circle p-3" width="30%" src={Api.imageUrl+JSON.parse(produit[0].image)[0]} data-holder-rendered="true"/></th>

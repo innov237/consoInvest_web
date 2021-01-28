@@ -25,11 +25,13 @@ const Boutique: React.FC = () => {
     const [price, setPrice] = useState(0);
     const [solde, setSolde] = useState(0);
     const [categorie, setCase] = useState(0);
+    const [message, setMessage] = useState('');
 
     const [files, setFile] = useState('');
 
     useEffect(() => {
        getCategorie();
+       getUserCommands();
 
     }, []);
 
@@ -53,12 +55,14 @@ const Boutique: React.FC = () => {
 
     const getUserCommands = async (etat:any = 1) => {
         setData([])
-        console.log('test', etat);
+        setMessage('')
     
         
         var response = await Api.getData(`getCommandeBoutique?id_boutique=${auth.shop.id}&lastInsertId=10&etat=${etat}`);
         if (response.status == 200) {
-            setData(response.data);  
+            setData(response.data); 
+            if (!response.data.length)
+            setMessage('No element found')
         } 
         
     }      
@@ -66,7 +70,7 @@ const Boutique: React.FC = () => {
     const saveProduct = async () => {
         setData([])
         const credentials = {
-            'id_user': 1,
+            'id_user': auth.user.id,
             'id_categorie':categorie,
             'titre':name,
             'description':description,
@@ -152,7 +156,7 @@ const Boutique: React.FC = () => {
                                 {
                                     (data.length) ?
                                        (<ProductCard  item={data} type={'admin'} update={() => getUserCommands(1)}/>)
-                                    : <></>
+                                    : <>{message}</>
                                 }
                                 
                                 
@@ -161,28 +165,28 @@ const Boutique: React.FC = () => {
                                 {
                                     (data.length) ?
                                        (<ProductCard  item={data} type={'admin'} update={() =>getUserCommands(2)} />)
-                                    : <></>
+                                    : <>{message}</>
                                 }
                             </div>
                             <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                 {
                                     (data.length) ?
                                        (<ProductCard  item={data} type={'admin'}  update={() =>getUserCommands(3)} />)
-                                    : <></>
+                                    : <>{message}</>
                                 }
                             </div>
                             <div className="tab-pane fade" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact-tab">
                                  {
                                     (data.length) ?
                                        (<ProductCard  item={data} type={'admin'} update={() => getUserCommands(4)} />)
-                                    : <></>
+                                    : <>{message}</>
                                 }
                             </div>
                             <div className="tab-pane fade" id="nav-contact2" role="tabpanel" aria-labelledby="nav-contact-tab">
                                 {
                                     (data.length) ?
                                        (<ProductCard  item={data} type={'admin'} update={() =>getUserCommands(5)} />)
-                                    : <></>
+                                    : <>{message}</>
                                 }
                             </div>
                         </div>

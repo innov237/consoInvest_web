@@ -12,6 +12,13 @@ const Commande: React.FC = () => {
     
     const Api: any = React.useContext(ApiContext);
     const [data, setData] = React.useState([]);
+    const [message, setMessage] = React.useState('');
+
+
+
+    React.useEffect(() => {
+        getCommands();
+    },[])
 
     const auth = useSelector((state:any) => state.auth)
 
@@ -21,6 +28,8 @@ const Commande: React.FC = () => {
         var response = await Api.getData(`getCommandeUtilisateur?id_boutique=${auth.shop.id}&lastInsertId=10&etat=${etat}`);
         if (response.status == 200) {
             setData(response.data);
+            if (!response.data.length)
+            setMessage('No element found')
             
         }
     }
@@ -44,27 +53,27 @@ const Commande: React.FC = () => {
                     <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> {
                                     (data.length) ?
                                        (<ProductCard  item={data}/>)
-                                    : <></>
+                                    : <>{message}</>
                                 }</div>
                     <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"> {
                                     (data.length) ?
                                        (<ProductCard  item={data}/>)
-                                    : <></>
+                                    : <>{message}</>
                                 }</div>
                     <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"> {
                                     (data.length) ?
                                        (<ProductCard  item={data}/>)
-                                    : <></>
+                                    : <>{message}</>
                                 }</div>
                     <div className="tab-pane fade" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact-tab"> {
                                     (data.length) ?
                                        (<ProductCard  item={data}/>)
-                                    : <></>
+                                    : <>{message}</>
                                 }</div>
                     <div className="tab-pane fade" id="nav-contact2" role="tabpanel" aria-labelledby="nav-contact-tab"> {
                                     (data.length) ?
                                        (<ProductCard  item={data}/>)
-                                    : <></>
+                                    : <>{message}</>
                                 }</div>
                 </div>
 

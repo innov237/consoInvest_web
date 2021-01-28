@@ -36,6 +36,7 @@ const Login: React.FC = () => {
             
             dispatch(LOGIN_ACTION(response.data['data'].id))
             localStorage.setItem("authUserData", JSON.stringify(response.data['data']));
+            localStorage.setItem("oba", JSON.stringify(response.data['data'].id));
             getShop(response.data['data'].id)
             //
         } else {
