@@ -27,7 +27,7 @@ const Boutique: React.FC = () => {
     const [categorie, setCase] = useState(0);
     const [message, setMessage] = useState('');
 
-    const [files, setFile] = useState('');
+    const [files, setFile] = useState([]);
 
     useEffect(() => {
        getCategorie();
@@ -69,6 +69,19 @@ const Boutique: React.FC = () => {
 
     const saveProduct = async () => {
         setData([])
+
+        let formData = new FormData();
+
+        
+
+        const images = Array.from(files).map((e,i) => {
+            console.log(e,i)
+            return formData.append(`images[${i}]`, e)
+        })
+   
+
+        console.log(formData)
+
         const credentials = {
             'id_user': auth.user.id,
             'id_categorie':categorie,
@@ -78,6 +91,7 @@ const Boutique: React.FC = () => {
             'prixNormal':solde,
             'etiquette':status,
             'link': link,
+            images
         }
 
         /*if (files.length){
@@ -88,6 +102,7 @@ const Boutique: React.FC = () => {
             credentials[]
         }*/
         
+        console.log(files)
         
         console.log(credentials)
         var response = await Api.postData("enregistrerPublication-", credentials);

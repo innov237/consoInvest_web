@@ -20,8 +20,9 @@ const Detail: React.FC = () => {
     const [quantity, setQuantity]=useState(1)
     const Api = new ApiService();
     let dispatch=useDispatch()
-    const comand=useSelector((state: any)=>state.comand)
-
+    
+    const comand=useSelector((state: any)=> state.comand)
+    const auth = useSelector((state:any) => state.auth)
 
  
     const toArray = (data: any) => {
@@ -48,6 +49,27 @@ const Detail: React.FC = () => {
         
     }
 
+
+    const command = async () => {
+
+        const credentials = {
+            'id_user':auth.user.id,
+            'id_boutique':productData.id_boutique,
+            'produits': [productData],
+            'montant_cmd': quantity * productData.prix
+        }
+
+        console.log(credentials)
+
+        const response = await Api.postData('enregistrerCommande', credentials)
+        
+        if (response.status == 200) {
+            alert('Opération effectuée avec success')
+            history.push('/home')
+            
+        }
+    }
+
   
     const changeQuantity=(num: number)=>{
         setQuantity((quantity+num)? quantity+num : 1)
@@ -56,7 +78,7 @@ const Detail: React.FC = () => {
         const action={
             type: 'ADD_COMAND_ITEM',
             value: {
-                item: history.location.state,
+                item: productData,
                 quantity: quantity
             }
         }
@@ -124,7 +146,7 @@ const Detail: React.FC = () => {
                                 <br />
                                 <div className="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
                                     <div className="btn-group mr-2" role="group" aria-label="First group">
-                                        <button type="button" className="btn btn-secondary">Acheter</button>
+                                        <button type="button" className="btn btn-secondary" onClick={() => command()} style={{'display' : (auth.user.id) ? 'block': 'none'}}>Acheter</button>
                                     </div>
                                     <div className="input-group">
                                         <button type="button" className="btn btn-secondary" onClick={comandItem}><i className="fas fa-cart-plus"></i> Ajouter au panier</button>

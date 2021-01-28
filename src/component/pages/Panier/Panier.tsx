@@ -99,10 +99,7 @@ const Panier: React.FC = ({history}: any) => {
             }
 
             let find:any = current.find((e:any) => item.id_boutique == e.id_boutique)
-            console.log(item.prix*quantity)
-            console.log(find.montant_cmd)
             
-           
             if (find)
                 return Object.assign(current, find, {produits: find.produits.push(com), montant_cmd: item.prix*quantity})
             
