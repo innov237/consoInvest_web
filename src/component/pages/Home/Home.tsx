@@ -78,7 +78,7 @@ const Home: React.FC = (props) => {
         if (url) {
             var response = await Api.postData("getPublicationByCategorie",{idCategorie:url, lastInsertId:10});
                 if (response.status == 200) 
-                    dispatch(ADD_KEY({key:null, data:response.data}))
+                    setProduct(response.data)
         }else{
             var response = await Api.getData("getAllPublication?lastInsertId=" + 100);
                 if (response.status == 200) 
