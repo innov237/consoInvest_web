@@ -5,6 +5,7 @@ import { profile } from "console";
 import { Link, Switch, Route } from "react-router-dom";
 import './Boutique.css';
 
+import { useForm } from "react-hook-form";
 
 import ProductCard from "../../../../layout/Table_commande_user/Table_commande";
 import { link } from "fs";
@@ -28,6 +29,8 @@ const Boutique: React.FC = () => {
     const [message, setMessage] = useState('');
 
     const [files, setFile] = useState([]);
+
+    const { register, handleSubmit, watch, errors } = useForm();
 
     useEffect(() => {
        getCategorie();
@@ -67,21 +70,15 @@ const Boutique: React.FC = () => {
         
     }      
 
-    const saveProduct = async () => {
+    const saveProduct = async (data:any) => {
         setData([])
-
-        let formData = new FormData();
 
         
 
-        const images = Array.from(files).map((e,i) => {
-            console.log(e,i)
-            return formData.append(`images[${i}]`, e)
+        const images = Array.from(files).map((e:any,i) => {
+            return e.name
         })
    
-
-        console.log(formData)
-
         const credentials = {
             'id_user': auth.user.id,
             'id_categorie':categorie,
@@ -93,21 +90,14 @@ const Boutique: React.FC = () => {
             'link': link,
             images
         }
-
-        /*if (files.length){
-            var formData = new FormData();
-            for (const key of Object.keys(files)) {
-                formData.append('imgCollection', files[key])
-            }
-            credentials[]
-        }*/
         
-        console.log(files)
-        
-        console.log(credentials)
-        var response = await Api.postData("enregistrerPublication-", credentials);
+        var response = await Api.postData("enregistrerPublication", credentials);
         if (response.status == 200) {
-            setData(response.data);
+            
+            Array.from(files).map((e:any,i) => {
+                Api.uploadFile(e);
+            })
+            alert('Opération éffectuée')
             
         }
     }
@@ -140,6 +130,9 @@ const Boutique: React.FC = () => {
             
         }
     }
+
+
+    const disabledSubmit =  () => (!categorie || !status || !files) ? true : false
 
     
 
@@ -207,17 +200,18 @@ const Boutique: React.FC = () => {
                         </div>
                     </div>
                     <div className="tab-pane fade" id="nav-produit" role="tabpanel" aria-labelledby="nav-produit-tab">
-                        
-                        <div className="form-group pt-3">
+
+                        <form className="form p-5" onSubmit={handleSubmit(saveProduct)}>
+                            <div className="form-group pt-3">
                             <input type="url" className="form-control text w-100" onChange={(e) => setLink(e.target.value)} placeholder="http://" />
                         </div>
                         <div className="form-group">
-                            <input type="text" className="form-control text w-100" placeholder="Nom" onChange={(e) => setName(e.target.value)}/>
+                            <input type="text" className="form-control text w-100" placeholder="Nom" onChange={(e) => setName(e.target.value)} required/>
                         </div>
 
                         <div className="form-group">
                             <select className="form-control w-100" onChange={(e:any) => setCase(e.target.value)}>
-                                <option selected disabled>Catégories</option>
+                                <option selected disabled value="">Catégories</option>
                                 {
                                     categorieData.map((item, index) => (<option value={item['id']} key={index}>{item['libelle_categorie']}</option>))
                                 }
@@ -225,7 +219,7 @@ const Boutique: React.FC = () => {
                         </div>
                         <div className="form-group">
                             <select className="form-control w-100" onChange={(e) => setStatus(e.target.value)}>
-                                <option selected disabled>Etiquette</option>
+                                <option selected disabled value="">Etiquette</option>
                                 <option value="promo">Prome</option>
                                 <option value="solde">Solde</option>
                                 <option value="arrivage">Arrivage</option>
@@ -233,19 +227,21 @@ const Boutique: React.FC = () => {
                         </div>
 
                         <div className="form-group">
-                            <textarea className="form-control text w-100" placeholder="Description de l'article" onChange={(e:any) => setDescription(e.target.value)}></textarea>
+                            <textarea className="form-control text w-100" placeholder="Description de l'article" onChange={(e:any) => setDescription(e.target.value)} required></textarea>
                         </div>
                         <div className="form-group">
-                            <input type="number" className="form-control text w-100" placeholder="Prix normal" onChange={(e:any) => setPrice(e.target.value)}/>
+                            <input type="number" className="form-control text w-100" placeholder="Prix normal" onChange={(e:any) => setPrice(e.target.value)} required/>
                         </div>
                         <div className="form-group">
-                            <input type="number" className="form-control text w-100" placeholder="Prix" onChange={(e:any) => setSolde(e.target.value)}/>
+                            <input type="number" className="form-control text w-100" placeholder="Prix" onChange={(e:any) => setSolde(e.target.value)} required/>
                         </div>
                         <div className="form-group">
                             <input type="file" name="imgCollection" onChange={onFileChange} multiple />
                         </div>
 
-                        <button type="submit" className="btn btn-primary w-100" onClick={saveProduct}>Enregister</button>
+                        <button type="submit" className="btn btn-primary w-100" disabled={disabledSubmit()}>Enregister</button>
+                        </form>
+                      
                     </div>
 
                     <div className="tab-pane fade" id="nav-list-produit" role="tabpanel" aria-labelledby="nav-produit-tab">

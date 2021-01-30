@@ -4,6 +4,9 @@ import ApiContext from '../../../context/ApiContext'
 
 import {useDispatch} from 'react-redux';
 
+
+import queryString from 'query-string';
+
 import {
     ADD_KEY
 } from '../../../store/searchReducers'
@@ -16,12 +19,37 @@ const Search: React.FC=(props)=>{
     const [key, setKey]=useState('')
     
     const dispatch = useDispatch();
+
+    const process= async (parsed:any)=>{
+       
+
+        if (parsed){
+            var response = await Api.getData(`rechercherPublication?key=${parsed}&lastInsertId=5`);
+            if (response.status == 200){
+
+                if ( response.data.length){
+                    dispatch(ADD_KEY({data:response.data, key:parsed}))
+                }else{
+                    alert(`No data found for ${parsed}`);
+                    history.push('/home');
+                };
+            }
+
+        }else
+          history.push('/home');
+        
+    }
+
     const search= async ()=>{
-         
-        history.push({
-            pathname: '/search',
-            search: '?params='+key
-        })
+        
+        if(history.location.pathname === '/search'){
+            process(key)
+        
+        }else
+            history.push({
+                pathname: '/search',
+                search: '?params='+key
+            })
            
     }
     

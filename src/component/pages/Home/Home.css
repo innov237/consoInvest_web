@@ -34,6 +34,14 @@
     object-fit: cover;
 }
 
+
+
+.slider__img_shop {
+    height: 100px;
+    width: 100px;
+    margin-top: 0px;
+    object-fit: cover;
+}
 .slider-content {
     padding: 5px;
 }

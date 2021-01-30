@@ -20,6 +20,7 @@ const Navbar: React.FC = (props) => {
     const Api = new ApiService();
 
     const cmds = useSelector((state:any) => state.comand)
+    const auth = useSelector((state:any)=> state.auth)
     const dispatch = useDispatch()
 
     const reducer = (acc:any, val:any) => acc + val.quantity;
@@ -72,11 +73,14 @@ const Navbar: React.FC = (props) => {
                                     </div>
                                     </Link>
                                 </div>
-                                <Link to="/account">
-                                <div className="col-6"> <img className="shoping__basket" src="../../../../images/user.png" alt="" />
-                                    <p>Compte</p>
+                                
+                                <div className="col-6" style={{ 'display' : (auth.user) ? 'block' : 'none'}}>
+                                    <Link to="/account">
+                                         <img className="shoping__basket" src="../../../../images/user.png" alt="" />
+                                        <p>Compte</p>
+                                    </Link>
                                 </div>
-                                </Link>
+                                
                             </div>
                         </div>
                     </div>

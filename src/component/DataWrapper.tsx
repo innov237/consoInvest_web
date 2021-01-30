@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import { useSelector, useDispatch } from 'react-redux'
 
-import { INIT_ACTION, SHOP_ACTION, LOGIN_ACTION} from '../store/authReducers'
+import { INIT_ACTION, SHOP_ACTION, LOGIN_ACTION, PROCESS_ACTION} from '../store/authReducers'
 
 
 import ApiService from "../services/ApiService";
@@ -27,6 +27,8 @@ const DataWrapper = (Component:any, authorize:boolean = false) => {
             
     }
 
+    const onProcess = () => dispatch(PROCESS_ACTION())
+
     const init = () => {
 
     	if (!auth.init){
@@ -45,9 +47,11 @@ const DataWrapper = (Component:any, authorize:boolean = false) => {
 		
 	const wrapper = () => {
 
-		console.log(auth)
+		if(!auth.process){
+			onProcess()
+			init()
+		}
 		
-		init()
 		
 
 		return ( <>

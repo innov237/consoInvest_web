@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import TextInput from "../../../layout/FormInput/TextInput";
 import './Register.css';
 import { useForm } from "react-hook-form";
@@ -10,6 +10,7 @@ const Register: React.FC = () => {
     const { register, handleSubmit, watch, errors } = useForm();
     const [enableCodeInvitationInput, setCodeInputStatus] = useState(false);
     const Api = new ApiService();
+    const history = useHistory()
 
 
     const handleconnuMode = (e: any) => {
@@ -22,14 +23,15 @@ const Register: React.FC = () => {
     }
 
     const onSubmit = async (data: any) => {
-        console.log(data);
+        
 
         var response = await Api.postData("inscription", data);
         if (response.data['success']) {
-            console.log("inscription ok");
-            alert("inscription ok");
+            alert(response.data['message']);
+            history.push('/login')
+            
         } else {
-            console.log(response.data['message']);
+            alert(response.data['message']);
         }
     };
 

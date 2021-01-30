@@ -1,6 +1,6 @@
 const initialeState={
 	key: "",
-	results: [],
+	results: null,
     item: null
 }
 

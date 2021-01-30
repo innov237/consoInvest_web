@@ -12,6 +12,13 @@ export default class ApiService {
         return await axios.post(this.baseUrl + route, data);
     }
 
+    uploadFile = async (data: any) => {
+        let formData = new FormData()
+        formData.append('file', data)
+
+        return await axios.post(this.baseUrl + 'upload', formData);
+    }
+   
     getData = async (route: string) => {
         return await axios.get(this.baseUrl + route);
     }
