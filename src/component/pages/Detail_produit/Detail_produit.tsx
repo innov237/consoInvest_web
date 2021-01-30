@@ -69,7 +69,7 @@ const Detail: React.FC = () => {
             
         }
     }
-
+   
   
     const changeQuantity=(num: number)=>{
         setQuantity((quantity+num)? quantity+num : 1)

@@ -1,8 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { connect, useSelector, useDispatch } from 'react-redux'
 
+import { useHistory } from 'react-router-dom'
+
 import './Panier.css';
-import ApiContext from '../../../context/ApiContext'
+import ApiService from '../../../services/ApiService'
 
 var idDel: any=[]
 
@@ -12,7 +14,9 @@ const Panier: React.FC = ({history}: any) => {
     const comand=useSelector((state: any)=>state.comand)
     const auth=useSelector((state: any)=>state.auth.user)
     const dispatch = useDispatch()
-    const Api=useContext(ApiContext)
+    const Api=new ApiService();
+
+    const nav = useHistory()
 
 
   
@@ -84,11 +88,13 @@ const Panier: React.FC = ({history}: any) => {
     }
     const sendComand=()=>{
         const current = getBoutique()
-        console.log(current)
+
+        
 
         const save = comand.map(({item, quantity}: any)=>{
+            let find = undefined
             let com={
-                id: 'item.id_publication',
+                id: item.id_publication,
                 panierId: '0',
                 titre: item.titre,
                 prix: item.prix,
@@ -98,19 +104,30 @@ const Panier: React.FC = ({history}: any) => {
                 id_boutique: item.id_boutique
             }
 
-            let find:any = current.find((e:any) => item.id_boutique == e.id_boutique)
+            for (var i = 0; i < current.length; i++) {
+              if (item.id_boutique == current[i].id_boutique) {
+                find = i ;
+                break;
+              }
+            }
+
             
-            if (find)
-                return Object.assign(current, find, {produits: find.produits.push(com), montant_cmd: item.prix*quantity})
-            
+            if (find != undefined){
+                current[find].produits = [...current[find].produits, com]
+                current[find].montant_cmd = current[find].montant_cmd + item.prix*quantity
+               
+            }
         })
         
         
-        //console.log(current[0])
-        //Api.postData('enregistrerCommande', panier).then(response=>console.log(response))
-    }
+        current.map((e:any) => Api.postData('enregistrerCommande', e)) 
 
-    const toggle = () => (comand.length && auth.user.id) ? false: true;
+        alert('Commande effectuée')
+        dispatch({ type: 'RESET'})
+       }
+
+    
+    const toggle = () => (comand.length && auth.user && auth.user.id) ? true: false;
 
     const listItem=comand.length ? (
         comand.map(({item, quantity}: any)=>
@@ -151,8 +168,8 @@ const Panier: React.FC = ({history}: any) => {
                         </div>
                         <hr/>
                         <div className="row">
-                            <div className="col-md-4 mb-3"><button type="button" className="btn btn-warning" onClick={()=>history.push('/')}><i className="fas fa-cart-plus"></i> Continuer les achats</button></div>
-                            <div className="col-md-4 mb-3"><button type="button" className="btn btn-secondary" onClick={()=>setState(!state)}><i className="fas fa-sync-alt"></i> Actualiser le panier</button></div>
+                            <div className="col-md-4 mb-3"><button type="button" className="btn btn-warning" onClick={()=> nav.push('/home')}><i className="fas fa-cart-plus"></i> Continuer les achats</button></div>
+                            <div className="col-md-4 mb-3"><button type="button" className="btn btn-secondary" onClick={()=> setState(!state)}><i className="fas fa-sync-alt"></i> Actualiser le panier</button></div>
                             <div className="col-md-4 mb-3"> <button type="button" className="btn btn-secondary" onClick={delAll}><i className="fas fa-trash"></i> Tout Supprimer</button></div>
                         </div>
                     </div>

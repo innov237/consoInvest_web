@@ -12,12 +12,18 @@ const comandReducer=(state=initialList, action)=>{
                 newState[exist.id].quantity+=action.value.quantity
                 return newState
             }
-            return [...newState, action.value]
+            return [...newState, action.value];
+
         case 'REMOVE_COMAND_ITEM' :
             newState=state.filter(data=>data.item.id!==action.value)
             return newState
+        
         case 'REMOVE-COMAND-MULTIPLE' :
             return newState
+
+        case 'RESET' :
+            return []
+        
         default :
             return state
     }

@@ -19,13 +19,15 @@ const Navbar: React.FC = (props) => {
 
     const Api = new ApiService();
 
-    const cmds = useSelector((state:any) => state.comand)
+    const cmds = useSelector((state:any) => state.comand) 
     const auth = useSelector((state:any)=> state.auth)
     const dispatch = useDispatch()
 
     const reducer = (acc:any, val:any) => acc + val.quantity;
 
     const panier:any = cmds.reduce(reducer,0)
+
+    console.log(cmds)
 
     const getShop = async (id:any) => {
         var response = await Api.getData("getUserShop?id_user="+id);
