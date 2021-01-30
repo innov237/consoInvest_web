@@ -23,9 +23,8 @@ const Navbar: React.FC = (props) => {
     const auth = useSelector((state:any)=> state.auth)
     const dispatch = useDispatch()
 
-    const reducer = (acc:any, val:any) => acc + val.quantity;
 
-    const panier:any = cmds.reduce(reducer,0)
+    const panier:any = cmds.items
 
     console.log(cmds)
 

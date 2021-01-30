@@ -22,7 +22,7 @@ const Panier: React.FC = ({history}: any) => {
   
     const getBoutique: any = () => {
 
-        const bt = Array.from(new Set(comand.map((i:any)=> i.item.id_boutique)))
+        const bt = Array.from(new Set(comand.cmds.map((i:any)=> i.item.id_boutique)))
 
          const all:any = bt.map((i:any) => {
              return {
@@ -39,14 +39,15 @@ const Panier: React.FC = ({history}: any) => {
 
     const nbrArt=()=>{
         let nbre=0
-        comand.map((data: any)=>nbre=nbre+data.quantity)
+        comand.cmds.map((data: any)=>nbre=nbre+data.quantity)
         return nbre
     }
     const total=()=>{
         let total=0
-        comand.map(({item, quantity}: any)=>total=total+item.prix*quantity)
+        comand.cmds.map(({item, quantity}: any)=>total=total+item.prix*quantity)
         return total
     }
+
     const taxe=0
     const addDel=(id: number)=>idDel.push(id)
     const removeDel=(id: any)=>idDel=idDel.filter((data: any)=>data!==id)
@@ -79,19 +80,30 @@ const Panier: React.FC = ({history}: any) => {
         if(e.target.checked) comand.map(({item}: any)=>idDel.push(item.id))
         else idDel=[]
     }
-    const updateQte = (e:any, id:any) =>{
-        console.log(e,id)
+    const updateQte = (e:any, item:any) =>{
+        console.log(e, item)
 
-        let findComd = comand.find((cmd:any) => cmd.item.id==id)
-        
-        total()
+        let qte = e
+
+        if (!e)
+            qte = 1
+
+
+        dispatch({
+            type: 'UPDATE_QTE',
+            payload:{
+                qte,
+                item,
+            }
+        })
+
     }
     const sendComand=()=>{
         const current = getBoutique()
 
         
 
-        const save = comand.map(({item, quantity}: any)=>{
+        const save = comand.cmds.map(({item, quantity}: any)=>{
             let find = undefined
             let com={
                 id: item.id_publication,
@@ -129,15 +141,15 @@ const Panier: React.FC = ({history}: any) => {
     
     const toggle = () => (comand.length && auth.user && auth.user.id) ? true: false;
 
-    const listItem=comand.length ? (
-        comand.map(({item, quantity}: any)=>
+    const listItem=comand.cmds.length ? (
+        comand.cmds.map(({item, quantity}: any,)=>
         <tr>
             <th scope="row"> { check ? <input type="checkbox" checked={check}/> : <input type="checkbox" onClick={e=>handleCheck(e, item.id)}/>} </th>
             <th><img className="rounded-circle p-3" width="60%" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" data-holder-rendered="true"/></th>
             
             <td>{item.nom}</td>
             <td>{item.description}</td>
-            <td><input type="number"  value={quantity}  onChange={(e) => updateQte(e.target.value,item.id)}/></td>
+            <td><input type="number"  value={quantity}  onChange={(e) => updateQte(e.target.value,item)}/></td>
             <td>{item.prix}FCFA</td>
             <td className="trash" onClick={()=>delItem(item.id)}><i className="fas fa-trash-alt"></i></td>
         </tr>)
@@ -169,7 +181,6 @@ const Panier: React.FC = ({history}: any) => {
                         <hr/>
                         <div className="row">
                             <div className="col-md-4 mb-3"><button type="button" className="btn btn-warning" onClick={()=> nav.push('/home')}><i className="fas fa-cart-plus"></i> Continuer les achats</button></div>
-                            <div className="col-md-4 mb-3"><button type="button" className="btn btn-secondary" onClick={()=> setState(!state)}><i className="fas fa-sync-alt"></i> Actualiser le panier</button></div>
                             <div className="col-md-4 mb-3"> <button type="button" className="btn btn-secondary" onClick={delAll}><i className="fas fa-trash"></i> Tout Supprimer</button></div>
                         </div>
                     </div>
@@ -178,7 +189,7 @@ const Panier: React.FC = ({history}: any) => {
                         <ul className="list-group">
                             <li className="list-group-item d-flex justify-content-between align-items-center">
                                 Nombre D'articles
-                                <span className="badge badge-primary badge-pill"> {nbrArt()} </span>
+                                <span className="badge badge-primary badge-pill"> {comand.items} </span>
                             </li>
                             <li className="list-group-item d-flex justify-content-between align-items-center">
                                 Montant total
