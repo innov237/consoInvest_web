@@ -19,6 +19,8 @@ const Boutique: React.FC = () => {
     const [categorieData, setCategorie] = useState([]);
     const [data, setData] = useState([]);
 
+    const [produits, setProduits] = useState([]);
+
     const [link, setLink] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -27,6 +29,8 @@ const Boutique: React.FC = () => {
     const [solde, setSolde] = useState(0);
     const [categorie, setCase] = useState(0);
     const [message, setMessage] = useState('');
+
+    const productClick = React.createRef<any>();
 
     const [files, setFile] = useState([]);
 
@@ -41,13 +45,15 @@ const Boutique: React.FC = () => {
     const auth = useSelector((state:any) => state.auth)
 
     const getUserProduct = async () => {
-        setData([])
+        setProduits([])
+        
         const credentials = { 'id_user':1, 'lastInsertId':10}
         
         
         var response = await Api.postData("getUserPost", credentials);
         if (response.status == 200) {
-            setData(response.data);
+            console.log(response.data)
+            setProduits(response.data);
             
         }
     }
@@ -73,7 +79,7 @@ const Boutique: React.FC = () => {
     const saveProduct = async (data:any) => {
         setData([])
 
-        
+       
 
         const images = Array.from(files).map((e:any,i) => {
             return e.name
@@ -90,6 +96,15 @@ const Boutique: React.FC = () => {
             'link': link,
             images
         }
+
+        setCase(0)
+        setName('')
+        setDescription('')
+        setPrice(0)
+        setSolde(0)
+        setStatus('')
+        setFile([])
+        setLink('')
         
         var response = await Api.postData("enregistrerPublication", credentials);
         if (response.status == 200) {
@@ -97,7 +112,8 @@ const Boutique: React.FC = () => {
             Array.from(files).map((e:any,i) => {
                 Api.uploadFile(e);
             })
-            alert('Opération éffectuée')
+            productClick.current.click();
+            alert('Opération éffectuée. Vous pouvez voir l\'enregistrement dans la liste des produits.')
             
         }
     }
@@ -145,7 +161,7 @@ const Boutique: React.FC = () => {
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
                     <a className="nav-link active cursor-pointe" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" onClick={() => getUserCommands()}>Commandes</a>
                     <a className="nav-link cursor-pointe" id="nav-produit-tab" data-toggle="tab" href="#nav-produit" role="tab" aria-controls="nav-produit" aria-selected="false">Vendre un produit</a>
-                    <a className="nav-link cursor-pointe" id="nav-produit-tab" data-toggle="tab" href="#nav-list-produit" role="tab" aria-controls="nav-list-produit" aria-selected="false" onClick={() => getUserProduct()}>Liste des produits</a>
+                    <a ref={productClick} className="nav-link cursor-pointe" id="nav-produit-tab" data-toggle="tab" href="#nav-list-produit" role="tab" aria-controls="nav-list-produit" aria-selected="false" onClick={() => getUserProduct()}>Liste des produits</a>
                 </div>
                 </nav>
                 <div className="tab-content" id="nav-tabContent">
@@ -258,7 +274,7 @@ const Boutique: React.FC = () => {
                         </thead>
                         <tbody>
                             {
-                                data.map((item, index) => (
+                                produits.map((item, index) => (
                                     <tr key={index}>
                                     <th scope="row">{item['id_pub']}</th>
                                     <td>{item['titre']}</td>

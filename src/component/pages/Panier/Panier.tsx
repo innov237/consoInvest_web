@@ -106,9 +106,11 @@ const Panier: React.FC = ({history}: any) => {
         })
         
         
-        console.log(current[0])
+        //console.log(current[0])
         //Api.postData('enregistrerCommande', panier).then(response=>console.log(response))
     }
+
+    const toggle = () => (comand.length && auth.user.id) ? false: true;
 
     const listItem=comand.length ? (
         comand.map(({item, quantity}: any)=>
@@ -173,7 +175,7 @@ const Panier: React.FC = ({history}: any) => {
                                 Total de la commande
                                 <span className="badge badge-primary badge-pill"> {total()-taxe} Fcfa </span>
                             </li>
-                            <button className="btn btn-secondary colorbtncommander" onClick={sendComand}><b>COMMANDER</b></button>
+                            <button className="btn btn-secondary colorbtncommander" onClick={sendComand} disabled={toggle()}><b>COMMANDER</b></button>
                         </ul>
                     </div>
                 </div>

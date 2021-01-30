@@ -44,18 +44,10 @@ const Home: React.FC = (props) => {
         });
      }
     useEffect(() => {
-        const state:any = history.location.state
         
-        if (state && state.hasOwnProperty('data')){
-            setProduct(state.data)
-            delete state.data;
-            history.replace({ ...history.location, state });
-        }else{
-            getCategorie();
-            getAllproduct();
-        }
-
-        getAllBoutique();
+        getCategorie();
+        getAllproduct();
+        
         
     }, []);
 
@@ -90,7 +82,7 @@ const Home: React.FC = (props) => {
         }else{
             var response = await Api.getData("getAllPublication?lastInsertId=" + 100);
                 if (response.status == 200) 
-                    dispatch(ADD_KEY({key:null, data:response.data}))
+                    setProduct(response.data)
         }
         
  
@@ -211,7 +203,7 @@ const Home: React.FC = (props) => {
             </div>
             {/* troisieme ligne */}
             <div className="row product__list__row">
-                {search.results.map((product: any, index:any) => (
+                {productData.map((product: any, index:any) => (
                     <div key={index} className="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-sl-3" onClick={() => openDetail(product)}>
                         <ProductCard key={index} image={Api.baseUrl + "storage/" + toArray(product['images'])[0]} title={product['titre']} price={product['prix']} descrption={product['description']} oldprice={50} />
                     </div>
