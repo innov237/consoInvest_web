@@ -26,7 +26,7 @@ const Navbar: React.FC = (props) => {
 
     const panier:any = cmds.items
 
-    console.log(cmds)
+    
 
     const getShop = async (id:any) => {
         var response = await Api.getData("getUserShop?id_user="+id);
