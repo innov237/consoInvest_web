@@ -3,3 +3,10 @@
     font-size: 25px;
     font-weight: bolder;
 }
+
+.slider__img_detail {
+    height: 436px;
+    width: 100%;
+    margin-top: 0px;
+    object-fit: cover;
+}
