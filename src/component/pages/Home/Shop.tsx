@@ -117,7 +117,7 @@ const Shop: React.FC = (props) => {
                    
                 
                 <div className="col-md-10">
-                	<div className="row mt-2 pl-1">
+                	<div className="row mt-2 pl-3">
 		                <div className="card container-fluid">
 		                    <div className="row">
 		                        <div className="col-md-4"> <img src="./images/timer.png" alt="" /> Livraison rapide</div>
@@ -126,7 +126,7 @@ const Shop: React.FC = (props) => {
 		                    </div>
 		                </div>
 		            </div>
-		            <div className="row product__list__row pl-1">
+		            <div className="row product__list__row ml-1">
 		                {productData.map((product: any, index:any) => (
 		                    <div key={index} className="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-sl-3" onClick={() => openDetail(product)}>
 		                        <ProductCard key={index} image={Api.baseUrl + "storage/" + toArray(product['images'])[0]} title={product['titre']} price={product['prix']} descrption={product['description']} oldprice={50} />

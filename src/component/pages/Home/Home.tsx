@@ -47,6 +47,7 @@ const Home: React.FC = (props) => {
         
         getCategorie();
         getAllproduct();
+        getAllBoutique();
         
         
     }, []);

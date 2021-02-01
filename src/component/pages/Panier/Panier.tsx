@@ -20,7 +20,7 @@ const Panier: React.FC = ({history}: any) => {
 
 
     console.log(comand)
-    
+
     const getBoutique: any = () => {
 
         const bt = Array.from(new Set(comand.cmds.map((i:any)=> i.item.id_boutique)))
@@ -132,7 +132,7 @@ const Panier: React.FC = ({history}: any) => {
         alert('Commande effectuée')
         dispatch({ type: 'RESET'})
        }
-
+    
     
     const toggle = () => (comand.cmds.length && auth && auth.id) ? false: true;
 
@@ -140,7 +140,7 @@ const Panier: React.FC = ({history}: any) => {
         comand.cmds.map(({item, quantity}: any,)=>
         <tr>
             <th scope="row"> { check ? <input type="checkbox" checked={check}/> : <input type="checkbox" onClick={e=>handleCheck(e, item.id)}/>} </th>
-            <th><img className="rounded-circle p-3" width="60%" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" data-holder-rendered="true"/></th>
+            <th><img className="" width="60%" src={Api.imageUrl+JSON.parse(item.images)[0]} data-holder-rendered="true"/></th>
             
             <td>{item.nom}</td>
             <td>{item.description}</td>

@@ -9,7 +9,7 @@
 
 .Rechercherbtn {
     border-radius: 0px 100px 100px 0px;
-    height: 50px;
+    height: 51px;
     width: max-content;
     background-color: #003c78;
     color: #fff;
@@ -50,7 +50,6 @@ p:hover{
 .search-bar
 {
     position: relative;
-    border: 1px solid #000;
 }
 .search-item-container
 {
