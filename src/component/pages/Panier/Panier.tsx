@@ -19,7 +19,8 @@ const Panier: React.FC = ({history}: any) => {
     const nav = useHistory()
 
 
-  
+    console.log(comand)
+    
     const getBoutique: any = () => {
 
         const bt = Array.from(new Set(comand.cmds.map((i:any)=> i.item.id_boutique)))
@@ -64,12 +65,11 @@ const Panier: React.FC = ({history}: any) => {
             const action={
                 type: 'REMOVE_COMAND_ITEM',
                 value: id 
-            }
+            } 
             dispatch(action)
         })
         idDel=[]
         setCheck(false)
-        console.log(comand)
     }
     const handleCheck=(e: any, id: any)=>{
         e.target.checked ? addDel(id) : removeDel(id) 
@@ -77,18 +77,13 @@ const Panier: React.FC = ({history}: any) => {
     }
     const checkAll=(e: any)=>{
         setCheck(e.target.checked)
-        if(e.target.checked) comand.map(({item}: any)=>idDel.push(item.id))
+        if(e.target.checked) comand.cmds.map(({item}: any)=>idDel.push(item.id))
         else idDel=[]
     }
     const updateQte = (e:any, item:any) =>{
-        console.log(e, item)
-
         let qte = e
 
-        if (!e)
-            qte = 1
-
-
+        if (!e) qte = 1
         dispatch({
             type: 'UPDATE_QTE',
             payload:{
@@ -139,7 +134,7 @@ const Panier: React.FC = ({history}: any) => {
        }
 
     
-    const toggle = () => (comand.length && auth.user && auth.user.id) ? true: false;
+    const toggle = () => (comand.cmds.length && auth && auth.id) ? false: true;
 
     const listItem=comand.cmds.length ? (
         comand.cmds.map(({item, quantity}: any,)=>

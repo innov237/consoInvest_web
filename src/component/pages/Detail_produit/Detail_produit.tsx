@@ -24,6 +24,7 @@ const Detail: React.FC = () => {
     const comand=useSelector((state: any)=> state.comand)
     const auth = useSelector((state:any) => state.auth)
 
+    console.log(comand)
  
     const toArray = (data: any) => {
         return JSON.parse(data)
