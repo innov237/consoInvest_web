@@ -1,9 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./UserSideBar.css";
 
+import {
+    useDispatch
+} from 'react-redux';
+
+import {
+    LOGOUT_ACTION
+} from '../../../store/authReducers'
 
 const Sidebar: React.FC = () => {
+
+    const history = useHistory()
+
+    const dispatch = useDispatch();
+
+    const logOut = () => {
+
+
+        dispatch(LOGOUT_ACTION())
+        history.push('/home')
+    }
     return (
         <div>
             <div className="menu__title menu">Informations</div>
@@ -57,7 +75,7 @@ const Sidebar: React.FC = () => {
                     </li>
                 </Link>
                 <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="#" onClick={logOut}>
                     <span data-feather="layers"></span>
                     <i className="fas fa-sign-out-alt"></i> Se deconnecter
                 </a>
