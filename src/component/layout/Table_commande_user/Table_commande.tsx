@@ -73,7 +73,7 @@ const Table_commande = (props:any) => {
                             props.item.map((e:any) => {
                                 let cmds = JSON.parse(e.produits)
                                 return cmds.map((produit:any) => {
-                                    console.log(produit.image)
+                                    
                                     return (<tr>
                                                 <th>
                                                     {
