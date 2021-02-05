@@ -133,8 +133,9 @@ const Panier: React.FC = ({history}: any) => {
         dispatch({ type: 'RESET'})
        }
     
+
     
-    const toggle = () => (comand.cmds.length && auth && auth.id) ? false: true;
+        const toggle = () => (comand.cmds.length && auth && auth.id) ? false: true;
 
     const listItem=comand.cmds.length ? (
         comand.cmds.map(({item, quantity}: any,)=>

@@ -159,7 +159,7 @@ const Boutique: React.FC = () => {
 
              <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a className="nav-link active cursor-pointe" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" onClick={() => getUserCommands()}>Commandes</a>
+                    <a className="nav-link active cursor-pointe" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" onClick={() => getUserCommands(0)}>Commandes</a>
                     <a className="nav-link cursor-pointe" id="nav-produit-tab" data-toggle="tab" href="#nav-produit" role="tab" aria-controls="nav-produit" aria-selected="false">Vendre un produit</a>
                     <a ref={productClick} className="nav-link cursor-pointe" id="nav-produit-tab" data-toggle="tab" href="#nav-list-produit" role="tab" aria-controls="nav-list-produit" aria-selected="false" onClick={() => getUserProduct()}>Liste des produits</a>
                 </div>
@@ -168,18 +168,18 @@ const Boutique: React.FC = () => {
                     <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <nav>
                         <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a className="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" onClick={() => getUserCommands(1)}>Tout</a>
-                            <a className="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" onClick={() => getUserCommands(2)}>En attente</a>
-                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getUserCommands(3)}>En cour</a>
-                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact1" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getUserCommands(4)}>En route</a>
-                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getUserCommands(5)}>Livré</a>
+                            <a className="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" onClick={() => getUserCommands(0)}>Tout</a>
+                            <a className="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" onClick={() => getUserCommands(1)}>En attente</a>
+                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getUserCommands(2)}>En cour</a>
+                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact1" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getUserCommands(3)}>En route</a>
+                            <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getUserCommands(4)}>Livré</a>
                         </div>
                         </nav>
                         <div className="tab-content" id="nav-tabContent">
                             <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                 {
                                     (data.length) ?
-                                       (<ProductCard  item={data} type={'admin'} update={() => getUserCommands(1)}/>)
+                                       (<ProductCard  item={data} type={'admin'} update={() => getUserCommands(0)}/>)
                                     : <>{message}</>
                                 }
                                 
@@ -188,28 +188,28 @@ const Boutique: React.FC = () => {
                             <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 {
                                     (data.length) ?
-                                       (<ProductCard  item={data} type={'admin'} update={() =>getUserCommands(2)} />)
+                                       (<ProductCard  item={data} type={'admin'} update={() =>getUserCommands(1)} />)
                                     : <>{message}</>
                                 }
                             </div>
                             <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                 {
                                     (data.length) ?
-                                       (<ProductCard  item={data} type={'admin'}  update={() =>getUserCommands(3)} />)
+                                       (<ProductCard  item={data} type={'admin'}  update={() =>getUserCommands(2)} />)
                                     : <>{message}</>
                                 }
                             </div>
                             <div className="tab-pane fade" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact-tab">
                                  {
                                     (data.length) ?
-                                       (<ProductCard  item={data} type={'admin'} update={() => getUserCommands(4)} />)
+                                       (<ProductCard  item={data} type={'admin'} update={() => getUserCommands(3)} />)
                                     : <>{message}</>
                                 }
                             </div>
                             <div className="tab-pane fade" id="nav-contact2" role="tabpanel" aria-labelledby="nav-contact-tab">
                                 {
                                     (data.length) ?
-                                       (<ProductCard  item={data} type={'admin'} update={() =>getUserCommands(5)} />)
+                                       (<ProductCard  item={data} type={'admin'} update={() =>getUserCommands(4)} />)
                                     : <>{message}</>
                                 }
                             </div>
