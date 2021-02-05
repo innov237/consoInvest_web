@@ -67,7 +67,7 @@ const Boutique: React.FC = () => {
         setMessage('')
     
         
-        var response = await Api.getData(`getCommandeBoutique?id_boutique=${auth.shop.id}&lastInsertId=10&etat=${etat}`);
+        var response = await Api.getData(`getCommandeBoutique?id_boutique=${auth.shop.id}&lastInsertId=100&etat=${etat}`);
         if (response.status == 200) {
             setData(response.data); 
             if (!response.data.length)
