@@ -59,7 +59,6 @@ const Home: React.FC = (props) => {
         const parsed = queryString.parse(history.location.search);
         
         getCategorie();
-        console.log(search.results)
         if (!search.results)
         process(parsed)
         
