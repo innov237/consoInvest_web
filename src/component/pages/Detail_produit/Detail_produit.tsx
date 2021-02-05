@@ -17,7 +17,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.min.css';
 const Detail: React.FC = () => {
 
     const history = useHistory();
-    const item = useSelector((state:any) => state.search.item)
+    const currentProduct = useSelector((state:any) => state.search.productData)
     const [productData, setProduct] = useState<any>();
     const [slider, setSlider] = useState<any>([]);
     const [isload, setLoader] = useState(false);
@@ -50,21 +50,31 @@ const Detail: React.FC = () => {
 
         };
         
-    }
+    } 
 
-
+ 
     const command = async () => {
-
-        const credentials = {
-            'id_user':auth.user.id,
-            'id_boutique':productData.id_boutique,
-            'produits': [productData],
-            'montant_cmd': quantity * productData.prix
+        const data = {
+            id: productData.id_publication,
+            panierId: '0',
+            titre: productData.titre,
+            prix: productData.prix,
+            quantite: quantity,
+            descripton: productData.description,
+            image: productData.images,
+            id_boutique: productData.id_boutique
         }
+        const postData = {
+            produits: [data],
+            id_boutique: productData.id_boutique,
+            id_user: auth.user.id,
+            montant_cmd: quantity * productData.prix
+        }
+        
 
         //console.log(credentials)
 
-        const response = await Api.postData('enregistrerCommande', credentials)
+        const response = await Api.postData('enregistrerCommande', postData)
         
         if (response.status == 200) {
             alert('Opération effectuée avec success')
@@ -81,8 +91,10 @@ const Detail: React.FC = () => {
         setQuantity((quantity+num)? quantity+num : 1)
     }
     const comandItem=()=>{
+
+        console.log(productData)
         const action={
-            type: 'ADD_COMAND_ITEM',
+            type: 'ADD_COMAND_ITEM', 
             value: {
                 item: productData,
                 quantity: quantity
@@ -93,104 +105,105 @@ const Detail: React.FC = () => {
 
 
     useEffect(() => {
-        if(item)
-            setProduct(item)
+        if(currentProduct)
+            setProduct(currentProduct)
         else
             process(queryString.parse(history.location.search))
 
         setLoader(true);
     }, [])
 
-    
-    return ( 
-        <div>
-            <div className="container" style={{'display' : (productData && productData.images) ? 'block': 'none'}}>
-                <div className="row">
-                    <div className="col-md-6 left__menu">
-                        <div id="carouselExampleInterval" className="carousel slide" data-ride="carousel">
-                            
-                            <OwlCarousel
-                                            className="owl-theme"
-                                            items={1}
-                                            dots={true}
-                                            dotClass="dot-div"
-                                            dotsSpeed={true}
-                                            autoplay={true}
-                                            autoplaySpeed={500}
-                                            loop={true}
-                                        >
+    if (productData)
+        return ( 
+            <div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-6 left__menu">
+                            <div id="carouselExampleInterval" className="carousel slide" data-ride="carousel">
+                                
+                                <OwlCarousel
+                                                className="owl-theme"
+                                                items={1}
+                                                dots={true}
+                                                dotClass="dot-div"
+                                                dotsSpeed={true}
+                                                autoplay={true}
+                                                autoplaySpeed={500}
+                                                loop={true}
+                                            >
 
-                                        {
-                                            (productData ) ?
-                                                JSON.parse(productData.images).map(e => 
-                                                    <div className="item">
-                                                        <div className="slider-content">
-                                                            <img src={Api.imageUrl+e} className="slider__img_detail" alt="" />
+                                            {
+                                                (productData.images) ?
+                                                    JSON.parse(productData.images).map(e => 
+                                                        <div className="productData">
+                                                            <div className="slider-content">
+                                                                <img src={Api.imageUrl+e} className="slider__img_detail img-fluid" alt="" />
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                ): <></>
-                                        }
-                                            
-                                           
-                                        </OwlCarousel>
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="card mb-3">
-                            <div className="card-body">
-                                <h5 className="card-title">{(productData) ? productData.titre : ''}</h5>
-                                <p className="card-text">
-                                    {(productData)? productData.description : ''}
-                                </p>
-                                <div className="alert alert-primary alert-link" role="alert">
-                                    {(productData) ? productData.prix : ''} CFA
+                                                    ): <></>
+                                            }
+                                                
+                                               
+                                            </OwlCarousel>
                             </div>
-                                <ul className="list-group list-group-flush">
-                                    Quantité:
-                                    <div className="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" className="btn btn-secondary" onClick={()=>changeQuantity(-1)}><b>-</b></button>
-                                        <input type="text" name="" id="" value={quantity} onChange={()=>{}}/>
-                                        <button type="button" className="btn btn-secondary" onClick={()=>changeQuantity(1)}><b>+</b></button>
-                                    </div>
-                                </ul>
-                                <br />
-                                <div className="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-                                    <div className="btn-group mr-2" role="group" aria-label="First group">
-                                        <button type="button" className="btn btn-secondary" onClick={() => command()} style={{'display' : (auth.user.id) ? 'block': 'none'}}>Acheter</button>
-                                    </div>
-                                    <div className="input-group">
-                                        <button type="button" className="btn btn-secondary" onClick={comandItem}><i className="fas fa-cart-plus"></i> Ajouter au panier</button>
-                                    </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="card mb-3">
+                                <div className="card-body">
+                                    <h5 className="card-title">{(productData) ? productData.titre : ''}</h5>
+                                    <p className="card-text">
+                                        {(productData)? productData.description : ''}
+                                    </p>
+                                    <div className="alert alert-primary alert-link" role="alert">
+                                        {(productData) ? productData.prix : ''} CFA
                                 </div>
-                                <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                                    <ul className="list-group list-group-flush">
+                                        Quantité:
+                                        <div className="btn-group" role="group" aria-label="Basic example">
+                                            <button type="button" className="btn btn-secondary" onClick={()=>changeQuantity(-1)}><b>-</b></button>
+                                            <input type="text" name="" id="" value={quantity} onChange={()=>{}}/>
+                                            <button type="button" className="btn btn-secondary" onClick={()=>changeQuantity(1)}><b>+</b></button>
+                                        </div>
+                                    </ul>
+                                    <br />
+                                    <div className="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                                        <div className="btn-group mr-2" role="group" aria-label="First group">
+                                            <button type="button" className="btn btn-secondary" onClick={() => command()} style={{'display' : (auth.user.id) ? 'block': 'none'}}>Acheter</button>
+                                        </div>
+                                        <div className="input-group">
+                                            <button type="button" className="btn btn-secondary" onClick={comandItem}><i className="fas fa-cart-plus"></i> Ajouter au panier</button>
+                                        </div>
+                                    </div>
+                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="card border-primary mb-3 w-100">
+                        <div className="card-header"></div>
+                        <div className="card-body text-secondary">
+                            <u><p className="card-title description">Description du produit</p></u>
+                            <div className="card-text">
+                                <ul className="row">
+                                    <li className="col-md-6 no-padding">Categorie : {(productData)?productData.libelle_categorie: ''} </li>
+                                    <li className="col-md-6 no-padding">Ville : {(productData) ? productData.ville : ''} </li>
+                                    <li className="col-md-6 no-padding">Sexe : {(productData) ? productData.sexe : ''} </li>
+                                    <li className="col-md-6 no-padding">Telephone : {(productData) ? productData.telephone : ''} </li>
+                                    <li className="col-md-6 no-padding">Age : {(productData)? productData.age: ''} </li>
+                                    <li className="col-md-6 no-padding">Lieu Boutique : {(productData) ? productData.lieu_boutique : ''} </li>
+                                </ul>
+                                <div className="row justify-content-center">
+                                    <button className="col-3 btn btn-success">Livraison</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div className="card border-primary mb-3 w-100">
-                    <div className="card-header"></div>
-                    <div className="card-body text-secondary">
-                        <u><p className="card-title description">Description du produit</p></u>
-                        <div className="card-text">
-                            <ul className="row">
-                                <li className="col-md-6 no-padding">Categorie : {(productData)?productData.libelle_categorie: ''} </li>
-                                <li className="col-md-6 no-padding">Ville : {(productData) ? productData.ville : ''} </li>
-                                <li className="col-md-6 no-padding">Sexe : {(productData) ? productData.sexe : ''} </li>
-                                <li className="col-md-6 no-padding">Telephone : {(productData) ? productData.telephone : ''} </li>
-                                <li className="col-md-6 no-padding">Age : {(productData)? productData.age: ''} </li>
-                                <li className="col-md-6 no-padding">Lieu Boutique : {(productData) ? productData.lieu_boutique : ''} </li>
-                            </ul>
-                            <div className="row justify-content-center">
-                                <button className="col-3 btn btn-success">Livraison</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div >
-    );
-
+            </div >
+        );
+    else
+        return <></>
 }
 
 const mapStateToProps=(state: any)=>({
