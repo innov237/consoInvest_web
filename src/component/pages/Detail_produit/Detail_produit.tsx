@@ -62,7 +62,7 @@ const Detail: React.FC = () => {
             'montant_cmd': quantity * productData.prix
         }
 
-        console.log(credentials)
+        //console.log(credentials)
 
         const response = await Api.postData('enregistrerCommande', credentials)
         
@@ -72,6 +72,9 @@ const Detail: React.FC = () => {
             
         }
     }
+
+
+    //console.log(productData)
    
   
     const changeQuantity=(num: number)=>{
@@ -98,8 +101,6 @@ const Detail: React.FC = () => {
         setLoader(true);
     }, [])
 
-    if (productData) 
-        JSON.parse(productData.images).map(e => {console.log(Api.imageUrl+e)})
     
     return ( 
         <div>
@@ -191,6 +192,7 @@ const Detail: React.FC = () => {
     );
 
 }
+
 const mapStateToProps=(state: any)=>({
     comand: state.comand,
 });

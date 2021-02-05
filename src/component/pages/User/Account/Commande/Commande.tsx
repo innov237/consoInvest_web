@@ -16,6 +16,7 @@ const Commande: React.FC = () => {
 
 
 
+
     React.useEffect(() => {
         getCommands();
     },[])
@@ -25,7 +26,7 @@ const Commande: React.FC = () => {
     const getCommands = async (etat:any = 1) => {
         setData([])
         
-        var response = await Api.getData(`getCommandeUtilisateur?id_boutique=${auth.shop.id}&lastInsertId=10&etat=${etat}`);
+        var response = await Api.getData(`getCommandeUtilisateur?id_user=${auth.user.id}&id_boutique=${auth.shop.id}&lastInsertId=10&etat=${etat}`);
         if (response.status == 200) {
             setData(response.data);
             if (!response.data.length)
@@ -42,7 +43,7 @@ const Commande: React.FC = () => {
 
                 <nav>
                     <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a className="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" onClick={() => getCommands(1)}>Tout</a>
+                        <a className="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" onClick={() => getCommands(0)}>Tout</a>
                         <a className="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" onClick={() => getCommands(1)}>En attente</a>
                         <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getCommands(2)}>En cour</a>
                         <a className="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact1" role="tab" aria-controls="nav-contact" aria-selected="false" onClick={() => getCommands(3)}>En route</a>
