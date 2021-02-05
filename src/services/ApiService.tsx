@@ -3,10 +3,10 @@ import axios from 'axios';
 export default class ApiService {
 
 	test = "https://innov237.com/consoGroup/public/"
-    //test = null
+	//test = null
     
-    baseUrl =  (1==2) ? this.test :`${process.env.REACT_APP_API_URL}`
-    imageUrl = (1==2) ? `${this.test}storage/` :`${process.env.REACT_APP_API_URL}storage/`
+    baseUrl =  `${process.env.REACT_APP_API_URL}`
+    imageUrl = `${process.env.REACT_APP_API_URL}storage/`
 
     postData = async (route: string, data: any) => {
         return await axios.post(this.baseUrl + route, data);
