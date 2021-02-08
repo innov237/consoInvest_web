@@ -13,6 +13,8 @@ const comandReducer=(state=initialeState, action)=>{
 
         case 'ADD_COMAND_ITEM' :
 
+            console.log(action)
+
             let newState = state.cmds
  
             let findArticle = state.cmds.findIndex(e => e.item.id_pub == action.value.item.id_pub)

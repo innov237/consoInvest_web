@@ -18,6 +18,34 @@ const Table_commande = (props:any) => {
             props.update()
         }
     }
+
+    const format = (e:any) => {
+        let status: any = ""
+        switch (parseInt(e)) {
+            case 0:
+                status = 'Pas encore'
+                break;
+            case 1:
+                status = 'En attente'
+                break;
+            case 2:
+                status = 'En cours'
+                break;
+
+            case 3:
+                status = 'En route'
+                break;
+
+            case 4:
+                status = 'Livre'
+                break;
+            default:
+                // code...
+                break;
+        }
+
+        return status;
+    }
     const deleteCmd = async (id:any) => {
        
         const credentials = { 'id_commande':id}
@@ -42,38 +70,43 @@ const Table_commande = (props:any) => {
                 <tbody>
                     {
                         (props.item) ?
-                        props.item.map((e:any) => {
-                            let produit = JSON.parse(e.produits)
-                            
-                            return(
-                                <tr>
-                                    <th><img className="rounded-circle p-3" width="30%" src={Api.imageUrl+JSON.parse(produit[0].image)[0]} data-holder-rendered="true"/></th>
-                                    <th scope="row">{produit[0].titre}</th>
-                                    <td>{produit[0].prix}</td>
-                                    <td>{produit[0].quantite}</td>
-                                    <td>
-                                    <div className="btn-group dropleft"> 
-                                    <i className="fas fa-bars" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                                    {
-                                        (props.type && props.type == "admin") ?
-                                         (
-                                                                          
-                                            <div className="dropdown-menu">
-                                                <button className="dropdown-item" type="button" style={{display: (e.etat == 1 )? 'none': 'block'}} onClick={() => update({etat:1, id_commande:e.id})}>En Attente</button>
-                                                <button className="dropdown-item" type="button" style={{display: (e.etat == 2 )? 'none': 'block'}} onClick={() => update({etat:2, id_commande:e.id})}>En cour</button>
-                                                <button className="dropdown-item" type="button" style={{display: (e.etat == 3 ) ? 'none': 'block'}} onClick={() => update({etat:3, id_commande:e.id})}>En route</button>
-                                                <button className="dropdown-item" type="button" style={{display: (e.etat == 4) ? 'none': 'block'}} onClick={() => update({etat:4, id_commande:e.id})}>Livré</button>
-                                                <button className="dropdown-item" type="button" onClick={() => deleteCmd(e.id)}>Supprimé</button>
-                                            </div>
-                                         ) : <></>
-                                    }
-                                     
-                                    </div>
+                            props.item.map((e:any) => {
+                                let cmds = JSON.parse(e.produits)
+                                return cmds.map((produit:any) => {
                                     
-                                    </td> 
-                                </tr>
-                            )
-                        }) : <></>
+                                    return (<tr>
+                                                <th>
+                                                    {
+                                                        (produit.image) ?
+                                                            <img src={Api.imageUrl+JSON.parse(produit.image)[0]} style={{ width:'100px', height:'100px'}} className="rounded-circle p-3"  data-holder-rendered="true"/>
+                                                         : ''
+                                                    }
+                                                </th>
+                                                <th scope="row">{produit.titre}</th>
+                                                <td>{produit.prix}</td>
+                                                <td>{produit.quantite}</td>
+                                                <td>
+                                                    {
+                                                        (props.type && props.type == "admin") ?
+                                                            <div className="btn-group dropleft"> 
+                                                                <i className="fas fa-bars" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                                                    <div className="dropdown-menu">
+                                                                        <button className="dropdown-item" type="button" style={{display: (e.etat == 1 )? 'none': 'block'}} onClick={() => update({etat:1, id_commande:e.id})}>En Attente</button>
+                                                                        <button className="dropdown-item" type="button" style={{display: (e.etat == 2 )? 'none': 'block'}} onClick={() => update({etat:2, id_commande:e.id})}>En cour</button>
+                                                                        <button className="dropdown-item" type="button" style={{display: (e.etat == 3 ) ? 'none': 'block'}} onClick={() => update({etat:3, id_commande:e.id})}>En route</button>
+                                                                        <button className="dropdown-item" type="button" style={{display: (e.etat == 4) ? 'none': 'block'}} onClick={() => update({etat:4, id_commande:e.id})}>Livré</button>
+                                                                        <button className="dropdown-item" type="button" onClick={() => deleteCmd(e.id)}>Supprimé</button>
+                                                                    </div>
+                                                            </div>
+                                                        : format(e.etat) 
+                                                    }
+                                                    
+                                                </td> 
+                                            </tr>)
+                                }
+                                )
+                            }) 
+                        :<></>
                     }
                     
                 </tbody> 

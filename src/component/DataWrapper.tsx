@@ -32,7 +32,7 @@ const DataWrapper = (Component:any, authorize:boolean = false) => {
     const init = () => {
 
     	if (!auth.init){
-				const uuid = localStorage.getItem("authUserData")
+				const uuid = localStorage.getItem("authConsoInvest")
 
 			if (uuid){
 
@@ -61,8 +61,7 @@ const DataWrapper = (Component:any, authorize:boolean = false) => {
 						(!auth.shop) ? 
 							history.push('/home') 
 							: <Component />  
-
-					: <Component />
+					:   <Component />
 				: <></>
 			}
 			

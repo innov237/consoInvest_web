@@ -16,9 +16,9 @@ import {useDispatch} from 'react-redux';
 
 import queryString from 'query-string';
 
-
 import {
-    ADD_KEY
+    ADD_KEY,
+    ITEM_ACTION
 } from '../../../store/searchReducers'
 
 const Home: React.FC = (props) => {
@@ -59,7 +59,6 @@ const Home: React.FC = (props) => {
         const parsed = queryString.parse(history.location.search);
         
         getCategorie();
-        console.log(search.results)
         if (!search.results)
         process(parsed)
         
@@ -87,8 +86,12 @@ const Home: React.FC = (props) => {
     }
 
     const openDetail = (product: any) => {
-        //console.log(product);
-        history.push("produit", product);
+         
+        dispatch(ITEM_ACTION(product))
+        history.push({
+            pathname: '/produit',
+            search: '?slug='+product.slug
+        });
 
     }
 

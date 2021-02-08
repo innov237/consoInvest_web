@@ -58,6 +58,7 @@ const Home: React.FC = (props) => {
         
         var response = await Api.getData("getAllBoutique?lastInsertId=20&etat=1");
         if (response.status == 200) {
+            
             setBoutique(response.data);
             //history.push("/login", response.data); pour redirection les pages.
         }
@@ -72,6 +73,24 @@ const Home: React.FC = (props) => {
             setCategorie(response.data);
             //history.push("/login", response.data); pour redirection les pages.
         }
+    }
+
+
+    const getAllproductCategorie = async (url:any = null) => {
+        //setProduct([])
+        if (url) {
+            var response = await Api.postData("getPublicationByCategorie",{idCategorie:url, lastInsertId:10});
+                if (response.status == 200) 
+                    dispatch(ADD_KEY({data:response.data, key:""}))
+                    
+        }else{
+            var response = await Api.getData("getAllPublication?lastInsertId=" + 100);
+                if (response.status == 200)
+                    dispatch(ADD_KEY({data:response.data, key:""})) 
+                    
+        } 
+
+        history.push({ pathname: '/search' })
     }
     
     const getAllproduct = async (url:any = null) => {
@@ -116,7 +135,7 @@ const Home: React.FC = (props) => {
                 <div className="col-md-2 no-padding left__menu bd-red">
                     <div className="menu__title">Catégorie</div>
                     <div className="">
-                        {categorieData.map((categorie, index) => (<div className="categirie__item" key={index} onClick={() => getAllproduct(categorie['id'])}>
+                        {categorieData.map((categorie, index) => (<div className="categirie__item" key={index} onClick={() => getAllproductCategorie(categorie['id'])}>
                             <img src={"./images/" + categorie['icon_categorie']} className="categorie__image" />  {categorie['libelle_categorie']}
                         </div>))}
                     </div>
