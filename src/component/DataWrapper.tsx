@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -12,6 +12,7 @@ import ApiService from "../services/ApiService";
 const DataWrapper = (Component:any, authorize:boolean = false) => {
 
 	const history = useHistory()
+	const location = useLocation()
 	const dispatch = useDispatch()
 	const Api = new ApiService();
 
@@ -33,14 +34,11 @@ const DataWrapper = (Component:any, authorize:boolean = false) => {
 
     	if (!auth.init){
 				const uuid = localStorage.getItem("authConsoInvest")
-
 			if (uuid){
-
 				getShop(uuid)
 			}else{
 				dispatch(INIT_ACTION())
 			}
-	            
 		}
     }
 
@@ -51,16 +49,14 @@ const DataWrapper = (Component:any, authorize:boolean = false) => {
 			onProcess()
 			init()
 		}
-		
-		
 
 		return ( <>
 			{ 	
 				(auth.init) ? 
 					(authorize) ? 
-						(!auth.shop) ? 
-							history.push('/home') 
-							: <Component />  
+						(auth.isAuth) ? 
+							(location.pathname == '/new/shop' && auth.shop) ? history.push('/home') : <Component /> 
+							: history.push('/home')  
 					:   <Component />
 				: <></>
 			}

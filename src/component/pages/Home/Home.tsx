@@ -173,7 +173,7 @@ const Home: React.FC = (props) => {
                         <button className="btn btn-secondary w-100 mb-3" style={{ 'display': (!auth.user) ? 'block' : 'none' }}><Link to="/login">Me Connecter</Link></button>
                         <button className="btn btn-primary w-100" style={{ 'display': (!auth.user) ? 'block' : 'none' }}><Link to="/register">M'inscrire</Link></button>
                         {/*<button className="btn btn-secondary w-100 mt-3" data-toggle="modal" data-target="#exampleModal" style={{ 'display' : (auth.user) ? 'block' : 'none'}}>Créer ma boutique</button>*/}
-                        <button className="btn btn-secondary w-100 mt-3" onClick={() => history.push('/shop/create')} style={{ 'display': (auth.user) ? 'block' : 'none' }}>Créer ma boutique</button>
+                        <button className="btn btn-secondary w-100 mt-3" onClick={() => history.push('/new/shop')} style={{ 'display': (auth.isAuth) ? (auth.shop && auth.shop.id) ? 'none': 'block' : 'none' }}>Créer ma boutique</button>
 
                     </div>
                 </div>

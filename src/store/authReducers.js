@@ -1,5 +1,6 @@
 const initialeState = {
     user: null,
+    isAuth: false,
     shop: null,
     init: false,
     process: false,
@@ -16,7 +17,7 @@ export const TOGGLE_ACTION = (data) => ({ type: 'TOGGLE_ACTION' })
 const SearchReducer = (state = initialeState, action) => {
     switch (action.type) {
         case 'LOGIN_ACTION':
-            return { ...state, user: action.payload }
+            return { ...state, user: action.payload, isAuth: true }
         case 'SHOP_ACTION':
             return { ...state, shop: action.payload, init: true }
 
@@ -27,7 +28,9 @@ const SearchReducer = (state = initialeState, action) => {
             return { ...state, process: true }
 
         case 'LOGOUT_ACTION':
-            return { ...state, user: false, shop: null }
+            localStorage.removeItem("authConsoInvest");
+            localStorage.removeItem("oba");
+            return { ...state, user: null, shop: null , isAuth: false }
 
         case 'TOGGLE_ACTION':
            if(window.innerWidth >= 640){

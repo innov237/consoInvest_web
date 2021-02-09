@@ -17,14 +17,23 @@ import ProductDetail from '../pages/Product/ProductDetail/ProductDetail';
 
 import DataWrapper from '../DataWrapper'
 
+import {
+  useSelector
+} from 'react-redux'
+
 function Navigation() {
+
+    const auth = useSelector((state:any) => state.auth)
+
+
+
     return (
-        <Switch>
+        <Switch> 
           <Route path="/produit" component={DataWrapper(Detail)} />
           <Route path="/shop" component={DataWrapper(Shop)} />
           <Route path="/panier" component={DataWrapper(Panier)} />
           <Route path="/account" component={DataWrapper(Account, true)} />
-          <Route path="/create" component={DataWrapper(Boutique, true)} />
+          <Route path="/new/shop" component={DataWrapper(Boutique, true)} />
           <Route path="/login" component={DataWrapper(Login)} />
           <Route path="/register" exact component={DataWrapper(Register)} />
           <Route path="/home" exact component={DataWrapper(Home)} />
