@@ -19,7 +19,7 @@ const Search: React.FC=(props)=>{
     const [key, setKey]=useState('')
     
     const dispatch = useDispatch();
-
+    
     const process= async (parsed:any)=>{
        
 
@@ -58,7 +58,7 @@ const Search: React.FC=(props)=>{
         history.push('home', {data:item})
     }
     return (
-            <div className="row">
+            <div className="row container-fluid">
                 <div className="col-10 no__padding  search-bar">
                     <input type="text" className='form-control search__input' typeof="search"  onChange={e=> setKey(e.target.value)} />
                     <div className="search-item-container">

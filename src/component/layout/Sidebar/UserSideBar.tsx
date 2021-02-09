@@ -7,7 +7,7 @@ import {
 } from 'react-redux';
 
 import {
-    LOGOUT_ACTION
+    LOGOUT_ACTION, TOGGLE_ACTION
 } from '../../../store/authReducers'
 
 const Sidebar: React.FC = () => {
@@ -26,7 +26,7 @@ const Sidebar: React.FC = () => {
         <div>
             <div className="menu__title menu">Informations</div>
             <ul className="nav flex-column">
-                <Link to="/account">
+                <Link to="/account" onClick={() =>dispatch(TOGGLE_ACTION())}>
                     <li className="nav-item">
                         <a className="nav-link">
                             <span data-feather="home"></span>
@@ -34,7 +34,7 @@ const Sidebar: React.FC = () => {
                         </a>
                     </li>
                 </Link>
-                <Link to="/account/commande">
+                <Link to="/account/commande" onClick={() =>dispatch(TOGGLE_ACTION())}>
                 <li className="nav-item">
                 <a className="nav-link" href="#">
                     <span data-feather="file"></span>
@@ -42,7 +42,7 @@ const Sidebar: React.FC = () => {
                 </a>
                 </li>
                 </Link>
-                <Link to="/account/affiliers">
+                <Link to="/account/affiliers" onClick={() =>dispatch(TOGGLE_ACTION())}>
                 <li className="nav-item">
                 <a className="nav-link" href="#">
                     <span data-feather="shopping-cart"></span>
@@ -50,7 +50,7 @@ const Sidebar: React.FC = () => {
                 </a>
                 </li>
                 </Link>
-                <Link to="/account/boutique">
+                <Link to="/account/boutique" onClick={() =>dispatch(TOGGLE_ACTION())}>
                     <li className="nav-item">
                     <a className="nav-link" href="#">
                         <span data-feather="users"></span>
@@ -58,7 +58,7 @@ const Sidebar: React.FC = () => {
                     </a>
                     </li>
                 </Link>
-                <Link to="/account/epagne">
+                <Link to="/account/epagne" onClick={() =>dispatch(TOGGLE_ACTION())}>
                     <li className="nav-item">
                         <a className="nav-link" href="#">
                             <span data-feather="bar-chart-2"></span>
@@ -66,7 +66,7 @@ const Sidebar: React.FC = () => {
                         </a>
                     </li>
                 </Link>
-                <Link to="/account/password">
+                <Link to="/account/password" onClick={() =>dispatch(TOGGLE_ACTION())}>
                     <li className="nav-item">
                     <a className="nav-link" href="#">
                         <span data-feather="bar-chart-2"></span>

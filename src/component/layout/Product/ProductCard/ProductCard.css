@@ -40,13 +40,22 @@
 .card__header span {
     position: absolute;
     left: 0px;
-    top: 3px;
-    background-color: #73BE43;
+    top: 0px;
+    background-color: red;
     padding: 0px 15px 0px 10px;
     color: white;
-    border-radius: 0px 20px 20px 0px;
+    border-radius: 0px;
 }
 
 .card__header img {
     position: relative;
 }
+
+
+@media screen and (min-width: 200px) and (max-width: 650px) {
+    .card__image {
+        min-height: 150px;
+        max-height: 150px;
+        object-fit: cover;
+    }
+  }

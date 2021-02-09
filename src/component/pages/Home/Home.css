@@ -34,14 +34,18 @@
     object-fit: cover;
 }
 
-
+.left__menu {
+    transition: all 0.8s ease;
+    background-color: red;
+}
 
 .slider__img_shop {
-    height: 100px;
-    width: 100px;
+    height: 200px;
+    width: 20px;
     margin-top: 0px;
     object-fit: cover;
 }
+
 .slider-content {
     padding: 5px;
 }
@@ -85,6 +89,16 @@
     background-color: white;
     height: 475px;
     margin-top: 8px;
+    animation: slideIn 0.5s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(500px) scale(0.1);
+    }
+    100% {
+        transform: translateX(0px) scale(1);
+    }
 }
 
 .rigth__menu {
@@ -127,8 +141,36 @@
     color: #003c78;
 }
 
-
-a:hover{
+a:hover {
     color: white;
     text-decoration: none;
+}
+
+.shop__info{
+    text-align: left;
+    padding: 10px;
+    background: rgb(9,109,121);
+    background: linear-gradient(90deg, rgba(9,109,121,0.7766456924566701) 35%, rgba(0,255,162,1) 100%);
+    color: #fff;
+    border-radius: 20px;
+    margin: 2px;
+}
+
+.shop__logo{
+    border: 5px solid rgb(9,109,121);
+    height:100px;
+    width:100px;
+}
+
+.boutique__card{
+    height: max-content;
+}
+
+.boutique__card p{
+    padding: 0px;
+    margin: 0px;
+}
+
+.boutique__card .shop__description{
+    font-size: 13px;
 }

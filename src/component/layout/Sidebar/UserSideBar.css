@@ -1,28 +1,29 @@
-ul{
+ul {
     text-align: left;
     /*text-align: justify;*/
 }
 
-li{
+li {
     margin-top: 10px;
 }
 
-li:hover{
-    background-color: blueviolet;
+li:hover {
+    color: black;
     font-size: 1em;
 }
 
-li:active{
-    background-color: blueviolet;
+li:active {
     font-size: 1em;
 }
 
-li:focus{
-    background-color: blueviolet;
+li:focus {
     font-size: 1em;
 }
 
-li:visited{
-    background-color: rgb(226, 43, 202);
+li:visited {
     font-size: 1em;
+}
+
+.nav-link:hover {
+    color: #003c78;
 }

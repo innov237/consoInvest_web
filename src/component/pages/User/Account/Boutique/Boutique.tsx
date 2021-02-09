@@ -255,7 +255,7 @@ const Boutique: React.FC = () => {
                             <input type="file" name="imgCollection" onChange={onFileChange} multiple />
                         </div>
 
-                        <button type="submit" className="btn btn-primary w-100" disabled={disabledSubmit()}>Enregister</button>
+                        <button type="submit" className="btn btn-primary w-100" disabled={disabledSubmit()}>Enregistrer</button>
                         </form>
                       
                     </div>

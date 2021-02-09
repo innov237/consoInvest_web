@@ -35,9 +35,7 @@ const Affiliers: React.FC = () => {
                                 <strong className="d-block text-gray-dark">Tel: {result['telephone']}</strong>
                                 <strong className="d-block text-gray-dark">Code: {result['code']}</strong>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             )) : !isLoad && userAffilierData.length == 0 ? <div className="d-flex">

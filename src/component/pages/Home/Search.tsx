@@ -12,7 +12,7 @@ import ProductCard from "../../layout/Product/ProductCard/ProductCard";
 import 'owl.carousel/dist/assets/owl.carousel.min.css';
 import 'owl.carousel/dist/assets/owl.theme.default.min.css';
 
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import queryString from 'query-string';
 
@@ -20,6 +20,10 @@ import {
     ADD_KEY,
     ITEM_ACTION
 } from '../../../store/searchReducers'
+
+import {
+    TOGGLE_ACTION
+} from '../../../store/authReducers'
 
 const Home: React.FC = (props) => {
 
@@ -32,44 +36,41 @@ const Home: React.FC = (props) => {
     const dispatch = useDispatch();
     const comand = useSelector((state: any) => state.comand)
     const search = useSelector((state: any) => state.search)
+    const show = useSelector((state:any) => state.auth.show)
 
-    
-    
-    const process= async (parsed:any)=>{
-       
+    const process = async (parsed: any) => {
 
-        if (parsed.params){
+
+        if (parsed.params) {
             var response = await Api.getData(`rechercherPublication?key=${parsed.params}&lastInsertId=5`);
-            if (response.status == 200){
+            if (response.status == 200) {
 
-                if ( response.data.length){
-                    dispatch(ADD_KEY({data:response.data, key:parsed.params}))
-                }else{
+                if (response.data.length) {
+                    dispatch(ADD_KEY({ data: response.data, key: parsed.params }))
+                } else {
                     alert(`No data found for ${parsed.params}`);
                     history.push('/home');
                 };
             }
 
-        }else
-          history.push('/home');
-        
+        } else
+            history.push('/home');
+
     }
     useEffect(() => {
-    
+
         const parsed = queryString.parse(history.location.search);
-        
+
         getCategorie();
         if (!search.results)
-        process(parsed)
-        
-       
-        
+            process(parsed)
+
     }, []);
 
 
-     
+
     const getCategorie = async () => {
-        
+
         //console.log("on va chercher sur le serveur")
         var response = await Api.getData("getcategorie");
         if (response.status == 200) {
@@ -77,8 +78,9 @@ const Home: React.FC = (props) => {
             //history.push("/login", response.data); pour redirection les pages.
         }
     }
-    
-   
+
+    console.log(show)
+
 
     const toArray = (data: any) => {
         var array = JSON.parse(data);
@@ -86,39 +88,39 @@ const Home: React.FC = (props) => {
     }
 
     const openDetail = (product: any) => {
-         
+
         dispatch(ITEM_ACTION(product))
         history.push({
             pathname: '/produit',
-            search: '?slug='+product.slug
+            search: '?slug=' + product.slug
         });
 
     }
 
-   
 
-     const getAllproduct = async (url:any = null) => {
-        
+
+    const getAllproduct = async (url: any = null) => {
+
         if (url) {
-            var response = await Api.postData("getPublicationByCategorie",{idCategorie:url, lastInsertId:10});
-                if (response.status == 200) 
-                    dispatch(ADD_KEY({key:null, data:response.data}))
-        }else{
+            var response = await Api.postData("getPublicationByCategorie", { idCategorie: url, lastInsertId: 10 });
+            if (response.status == 200)
+                dispatch(ADD_KEY({ key: null, data: response.data }))
+        } else {
             var response = await Api.getData("getAllPublication?lastInsertId=" + 100);
-                if (response.status == 200) 
-                    dispatch(ADD_KEY({key:null, data:response.data}))
+            if (response.status == 200)
+                dispatch(ADD_KEY({ key: null, data: response.data }))
         }
-        
- 
+
+
     }
 
     return (
         <div className="container">
-            <div className="row">
-                <div className="col-md-2 no-padding left__menu bd-red">
+            <div className="row" >
+                <div className="col-md-2 no-padding left__menu bd-red" style={{'display': (show) ? 'block': 'none'}}>
                     <div className="menu__title">Catégorie</div>
                     <div className="">
-                        {categorieData.map((categorie, index) => (<div className="categirie__item" key={index} onClick={() => getAllproduct(categorie['id'])}>
+                        {categorieData.map((categorie, index) => (<div className="categirie__item" key={index} onClick={() => {dispatch(TOGGLE_ACTION()) ;getAllproduct(categorie['id'])}}>
                             <img src={"./images/" + categorie['icon_categorie']} className="categorie__image" />  {categorie['libelle_categorie']}
                         </div>))}
                     </div>
@@ -126,35 +128,31 @@ const Home: React.FC = (props) => {
                 <div className="col-md-10">
                     <div className="row mt-2 pl-1">
                         <div className="card container-fluid">
-                            <div className="row">
-                                <div className="col-md-4"> <img src="./images/timer.png" alt="" /> Livraison rapide</div>
-                                <div className="col-md-4"><img src="./images/card.png" alt=""  /> Produit de qualité</div>
-                                <div className="col-md-4"><img src="./images/secure.png" alt="" /> Paiement sécurisé</div>
+                            <div className="row product__list__row pl-1">
+                                {
+                                    (search.results) ?
+                                        (
+
+                                            search.results.map((product: any, index: any) => (
+                                                <div key={index} className="col-6 col-md-3 col-sm-6 col-xl-3 col-lg-3 col-sl-3" onClick={() => openDetail(product)}>
+                                                    <ProductCard key={index} image={Api.baseUrl + "storage/" + toArray(product['images'])[0]} title={product['titre']} price={product['prix']} descrption={product['description']} oldprice={50} />
+                                                </div>
+                                            ))
+
+                                        ) : <></>
+
+                                }
                             </div>
                         </div>
                     </div>
-                    <div className="row product__list__row pl-1">
-                        {
-                            (search.results) ? 
-                                (
 
-                                    search.results.map((product: any, index:any) => (
-                                        <div key={index} className="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-sl-3" onClick={() => openDetail(product)}>
-                                            <ProductCard key={index} image={Api.baseUrl + "storage/" + toArray(product['images'])[0]} title={product['titre']} price={product['prix']} descrption={product['description']} oldprice={50} />
-                                        </div>
-                                        ))
-
-                                ): <></>
-
-                        }
-                    </div>
                 </div>
             </div>
             {/* deuxieme ligne */}
-            
+
             {/* troisieme ligne */}
-            
-            
+
+
             <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">

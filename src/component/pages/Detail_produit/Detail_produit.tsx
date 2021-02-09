@@ -134,7 +134,7 @@ const Detail: React.FC = () => {
 
                                             {
                                                 (productData.images) ?
-                                                    JSON.parse(productData.images).map(e => 
+                                                    JSON.parse(productData.images).map((e:any) => 
                                                         <div className="productData">
                                                             <div className="slider-content">
                                                                 <img src={Api.imageUrl+e} className="slider__img_detail img-fluid" alt="" />
@@ -168,7 +168,7 @@ const Detail: React.FC = () => {
                                     <br />
                                     <div className="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
                                         <div className="btn-group mr-2" role="group" aria-label="First group">
-                                            <button type="button" className="btn btn-secondary" onClick={() => command()} style={{'display' : (auth.user.id) ? 'block': 'none'}}>Acheter</button>
+                                            <button type="button" className="btn btn-secondary" onClick={() => command()} style={{'display' : (auth.user?.id) ? 'block': 'none'}}>Acheter</button>
                                         </div>
                                         <div className="input-group">
                                             <button type="button" className="btn btn-secondary" onClick={comandItem}><i className="fas fa-cart-plus"></i> Ajouter au panier</button>

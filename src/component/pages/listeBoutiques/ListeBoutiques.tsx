@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 
 import ApiContext from '../../../context/ApiContext'
+import './BoutiqueList.css'
 
 type boutique = {
     key: string,
@@ -37,8 +38,8 @@ export default ListBoutique
 const BoutiqueItem: React.FC<boutique>=({data, api}: any)=>{
     console.log(api.imageUrl+data["baniere_boutique"])
     return (
-        <div className="bd-red">
-            <div className="">
+        <div className="boutique__card">
+            <div className="boutique__card">
                 <img srcSet={api.imageUrl+data["baniere_boutique"]} alt=""/>
                 <h2>{data["nom_boutique"]}</h2>
             </div>
