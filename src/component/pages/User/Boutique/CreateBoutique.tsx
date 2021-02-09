@@ -29,6 +29,7 @@ const Register: React.FC = () => {
     const Api = new ApiService();
 
 
+
     const handleconnuMode = (e: any) => {
 
         if (e.target.value === 'proche') {
@@ -38,12 +39,14 @@ const Register: React.FC = () => {
         }
     }
 
+    
+
     const onSubmit = async (data: any) => {
         
         
 
         const credentials = {
-            'id_user':auth.user.id,
+            'id_user':auth.user,
             'nom_boutique':data.nom,
             'presentation_boutique':data.presentation,
             'ville_boutique':ville,
@@ -58,13 +61,14 @@ const Register: React.FC = () => {
         
 
        var response = await Api.postData(`creerBoutique`, credentials);
-        if (response.status == 200) {
+       
+        if (response.data.success) {
             alert('Operation efféctuée avec sucess')
             await Api.uploadFile(logo[0]);
             await Api.uploadFile(banniere[0]);
-            history.push('home')
+            history.push('/account')
         }else{
-            alert('Erreur survenue lors du traitement de la requête: Contactez l\'admin')
+            alert(response.data.message)
        
         } 
     };
@@ -106,7 +110,7 @@ const Register: React.FC = () => {
                             <select name="Livraison" className="form-control" onChange={(e) => setLiv(e.target.value) } required={true}  ref={register({ required: true })} >
                                 <option selected disabled>Livraison</option>
                                 <option value="oui">oui</option>
-                                <option value="non">nom</option>
+                                <option value="non">non</option>
                             </select>
                         </div>
 

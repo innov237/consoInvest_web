@@ -33,7 +33,7 @@ function Navigation() {
           <Route path="/shop" component={DataWrapper(Shop)} />
           <Route path="/panier" component={DataWrapper(Panier)} />
           <Route path="/account" component={DataWrapper(Account, true)} />
-          <Route path="/new/shop" component={DataWrapper(Boutique, true)} />
+          <Route path="/new-shop" component={DataWrapper(Boutique, true)} />
           <Route path="/login" component={DataWrapper(Login)} />
           <Route path="/register" exact component={DataWrapper(Register)} />
           <Route path="/home" exact component={DataWrapper(Home)} />

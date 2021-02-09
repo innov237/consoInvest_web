@@ -20,8 +20,10 @@ const DataWrapper = (Component:any, authorize:boolean = false) => {
 
 	const getShop = async (data:any) => {
 		const user = JSON.parse(data);
+		
         var response = await Api.getData("getUserShop?id_user="+user.id);
         if (response.data.length)
+
         	dispatch(LOGIN_ACTION(user))
             dispatch(SHOP_ACTION(response.data[0]))
         	//dispatch(INIT_ACTION())
