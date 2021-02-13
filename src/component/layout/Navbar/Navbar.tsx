@@ -70,7 +70,7 @@ const Navbar: React.FC = (props) => {
                     <div className="col-12 col-md-2 col-sm-12">
                         <div className="reponsive__container">
                             <div className="menu__icon" onClick={() => showSideMenu()}>
-                                <i className="fas fa-list" style={{ fontSize: "30px" }}></i>
+                                <i className="fa fa-list" style={{ fontSize: "30px" }}></i>
                             </div>
                             <div className="basket__responsive">
                                 <div className="basket">

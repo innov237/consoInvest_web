@@ -16,7 +16,7 @@ import {
 
 const Home: React.FC = () => {
 
-    const show = useSelector(state => state.auth.show);
+    const show = useSelector(state => state.auth?.show);
 
     return (
         <div>

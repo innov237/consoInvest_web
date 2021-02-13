@@ -1,8 +1,9 @@
 import React from 'react';
+import 'font-awesome/css/font-awesome.min.css';
 import './App.css';
 import Navbar from './component/layout/Navbar/Navbar';
-import { BrowserRouter as Router } from "react-router-dom";
-import { Provider } from 'react-redux'
+import { BrowserRouter as Router, HashRouter } from "react-router-dom";
+import { Provider } from 'react-redux';
 
 import ApiService from './services/ApiService'
 import StorageService from './services/StorageService'
@@ -13,7 +14,7 @@ import store from './store/configStore'
 import Navigation from './component/navigation/Navigation'
 
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 
 import { LOGIN_ACTION,SHOP_ACTION } from './store/authReducers'
 
@@ -25,14 +26,14 @@ const  App = () => {
   return (
     <ApiContext.Provider value={new ApiService()} >
       <StorageContext.Provider value={new StorageService()} >
-        <Router>
+        <HashRouter>
           <Provider store={store} >
             <div className="App">
               <Navbar />
                 <Navigation /> 
             </div>
           </Provider>
-        </Router>
+        </HashRouter>
     </StorageContext.Provider>
     </ApiContext.Provider>
   );

@@ -67,7 +67,7 @@ const Boutique: React.FC = () => {
         setMessage('')
     
         
-        var response = await Api.getData(`getCommandeBoutique?id_boutique=${auth.shop.id}&lastInsertId=100&etat=${etat}`);
+        var response = await Api.getData(`getCommandeBoutique?id_boutique=${auth.shop?.id}&lastInsertId=100&etat=${etat}`);
         if (response.status == 200) {
             setData(response.data); 
             if (!response.data.length)
@@ -236,7 +236,7 @@ const Boutique: React.FC = () => {
                         <div className="form-group">
                             <select className="form-control w-100" onChange={(e) => setStatus(e.target.value)}>
                                 <option selected disabled value="">Etiquette</option>
-                                <option value="promo">Prome</option>
+                                <option value="promo">Promo</option>
                                 <option value="solde">Solde</option>
                                 <option value="arrivage">Arrivage</option>
                             </select>

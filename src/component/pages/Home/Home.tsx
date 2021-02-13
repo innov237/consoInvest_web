@@ -165,7 +165,12 @@ const Home: React.FC = (props) => {
                                 <img src="https://img.alicdn.com/tfs/TB1x8x9eEY1gK0jSZFMXXaWcVXa-990-400.jpg" className="slider__img" alt="" />
                             </div>
                         </div>
-
+                        <div className="item">
+                            <div className="slider-content">
+                                <img src=" https://img.alicdn.com/tfs/TB1tXleRXY7gK0jSZKzXXaikpXa-990-400.png" className="slider__img" alt="" />
+                            </div>
+                        </div>
+                       
                     </OwlCarousel>
                 </div>
                 <div className="col-md-2 no-padding rigth__menu order-sm-first order-md-last">

@@ -30,7 +30,7 @@ const Sidebar: React.FC = () => {
                     <li className="nav-item">
                         <a className="nav-link">
                             <span data-feather="home"></span>
-                            <i className="fas fa-users"></i> Profil <span className="sr-only">(current)</span>
+                            <i className="fa fa-users"></i> Profil <span className="sr-only">(current)</span>
                         </a>
                     </li>
                 </Link>
@@ -38,7 +38,7 @@ const Sidebar: React.FC = () => {
                 <li className="nav-item">
                 <a className="nav-link" href="#">
                     <span data-feather="file"></span>
-                    <i className="fas fa-cart-arrow-down"></i> Mes commandes
+                    <i className="fa fa-cart-arrow-down"></i> Mes commandes
                 </a>
                 </li>
                 </Link>
@@ -46,7 +46,7 @@ const Sidebar: React.FC = () => {
                 <li className="nav-item">
                 <a className="nav-link" href="#">
                     <span data-feather="shopping-cart"></span>
-                    <i className="fas fa-street-view"></i> Mes affiliers
+                    <i className="fa fa-street-view"></i> Mes affiliers
                 </a>
                 </li>
                 </Link>
@@ -54,7 +54,7 @@ const Sidebar: React.FC = () => {
                     <li className="nav-item">
                     <a className="nav-link" href="#">
                         <span data-feather="users"></span>
-                        <i className="fas fa-shopping-basket"></i> Ma boutique
+                        <i className="fa fa-shopping-basket"></i> Ma boutique
                     </a>
                     </li>
                 </Link>
@@ -62,7 +62,7 @@ const Sidebar: React.FC = () => {
                     <li className="nav-item">
                         <a className="nav-link" href="#">
                             <span data-feather="bar-chart-2"></span>
-                            <i className="fas fa-user"></i> Epagnes
+                            <i className="fa fa-user"></i> Epagnes
                         </a>
                     </li>
                 </Link>
@@ -70,14 +70,14 @@ const Sidebar: React.FC = () => {
                     <li className="nav-item">
                     <a className="nav-link" href="#">
                         <span data-feather="bar-chart-2"></span>
-                        <i className="fas fa-key"></i> Modifier le mot de passe
+                        <i className="fa fa-key"></i> Modifier le mot de passe
                     </a>
                     </li>
                 </Link>
                 <li className="nav-item">
                 <a className="nav-link" href="#" onClick={logOut}>
                     <span data-feather="layers"></span>
-                    <i className="fas fa-sign-out-alt"></i> Se deconnecter
+                    <i className="fa fa-sign-out-alt"></i> Se deconnecter
                 </a>
                 </li>
             </ul> 

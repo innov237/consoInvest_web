@@ -146,31 +146,41 @@ a:hover {
     text-decoration: none;
 }
 
-.shop__info{
+.shop__info {
     text-align: left;
     padding: 10px;
-    background: rgb(9,109,121);
-    background: linear-gradient(90deg, rgba(9,109,121,0.7766456924566701) 35%, rgba(0,255,162,1) 100%);
+    background: rgb(9, 109, 121);
+    background: linear-gradient(90deg, rgba(9, 109, 121, 0.7766456924566701) 35%, rgba(0, 255, 162, 1) 100%);
     color: #fff;
     border-radius: 20px;
     margin: 2px;
 }
 
-.shop__logo{
-    border: 5px solid rgb(9,109,121);
-    height:100px;
-    width:100px;
+.shop__logo {
+    border: 5px solid rgb(9, 109, 121);
+    height: 100px;
+    width: 100px;
 }
 
-.boutique__card{
+.boutique__card {
     height: max-content;
 }
 
-.boutique__card p{
+.boutique__card p {
     padding: 0px;
     margin: 0px;
 }
 
-.boutique__card .shop__description{
+.boutique__card .shop__description {
     font-size: 13px;
+}
+
+@media screen and (max-width: 450px) {
+    .slider__img {
+        height: 200px;
+    }
+    .rigth__menu {
+        margin-top: 0px;
+        height: max-content;
+    }
 }

@@ -62,7 +62,8 @@ const Login: React.FC = () => {
                         <TextInput type="password" name="password" placeholder="Mot de passe" required={true} refs={register({ required: true })} />
 
                         <div className="form-group">
-                            <input type="submit" className="btn btn-primary w-100" value="Me connecter" />
+                           {!isLoad &&  <input type="submit" className="btn btn-primary w-100" value="Me connecter" /> }
+                           {isLoad &&  <input type="submit" className="btn btn-primary w-100" value="En cours..." /> }
                         </div>
                         <div className="form-group">
                             <p style={{ textAlign: 'center', color: 'red', fontWeight: 'bold' }}>{error}</p>

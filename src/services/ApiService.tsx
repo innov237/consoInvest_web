@@ -2,8 +2,8 @@ import axios from 'axios';
 
 export default class ApiService {
 
-	//test = "https://innov237.com/consoGroup/public/"
-	test = "http://localhost:8000/"
+	test = "https://innov237.com/consoGroup/public/"
+	// test = "http://localhost:8000/"
     
     baseUrl =  `${this.test}`
     imageUrl = `${this.test}storage/`
