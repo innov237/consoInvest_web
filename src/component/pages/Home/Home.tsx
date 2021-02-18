@@ -170,7 +170,7 @@ const Home: React.FC = (props) => {
                                 <img src=" https://img.alicdn.com/tfs/TB1tXleRXY7gK0jSZKzXXaikpXa-990-400.png" className="slider__img" alt="" />
                             </div>
                         </div>
-                       
+
                     </OwlCarousel>
                 </div>
                 <div className="col-md-2 no-padding rigth__menu order-sm-first order-md-last">
@@ -180,7 +180,7 @@ const Home: React.FC = (props) => {
                         <button className="btn btn-secondary w-100 mb-3" style={{ 'display': (!auth.user) ? 'block' : 'none' }}><Link to="/login">Me Connecter</Link></button>
                         <button className="btn btn-primary w-100" style={{ 'display': (!auth.user) ? 'block' : 'none' }}><Link to="/register">M'inscrire</Link></button>
                         {/*<button className="btn btn-secondary w-100 mt-3" data-toggle="modal" data-target="#exampleModal" style={{ 'display' : (auth.user) ? 'block' : 'none'}}>Créer ma boutique</button>*/}
-                        <button className="btn btn-secondary w-100 mt-3" onClick={() => history.push('/new-shop')} style={{ 'display': (auth.isAuth) ? (auth.shop && auth.shop.id) ? 'none': 'block' : 'none' }}>Créer ma boutique</button>
+                        <button className="btn btn-secondary w-100 mt-3" onClick={() => history.push('/new-shop')} style={{ 'display': (auth.isAuth) ? (auth.shop && auth.shop.id) ? 'none' : 'block' : 'none' }}>Créer ma boutique</button>
 
                     </div>
                 </div>
@@ -208,7 +208,7 @@ const Home: React.FC = (props) => {
                             dotClass="dot-div"
                             dotsSpeed={true}
                             autoplay={true}
-                            autoplaySpeed={500}
+                            autoplaySpeed={2000}
                             loop={true}
                         >
 
@@ -219,9 +219,19 @@ const Home: React.FC = (props) => {
                                     >
                                         <div className="slider-content">
                                             <div className="boutique__card">
-                                                <img src={Api.imageUrl + e.logo_boutique} className="slider__img_shop img-thumbnail" alt="" />
-                                                <p>{e.nom_boutique}</p>
-                                                <p className="shop__description">{e.presentation_boutique}</p>
+                                                <div className="boutique__banner">
+                                                    <img src={Api.imageUrl + e.baniere_boutique} className="slider__img_shop img-thumbnail" alt="" />
+                                                </div>
+
+                                                <div className="botique__content">
+                                                    <div className="boutique__logo">
+                                                        <img src={Api.imageUrl + e.logo_boutique} className="bt__logo" alt="" />
+                                                    </div>
+                                                    <div className="boutique__detail">
+                                                        <p style={{fontWeight:"bold"}}>{e.nom_boutique}</p>
+                                                        <p className="shop__description">{e.presentation_boutique}</p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

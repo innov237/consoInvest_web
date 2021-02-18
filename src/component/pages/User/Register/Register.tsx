@@ -28,7 +28,6 @@ const Register: React.FC = () => {
         var response = await Api.postData("inscription", data);
         if (response.data['success']) {
             history.push('/login')
-
         } else {
             setisLoad(false);
             alert(response.data['message']);

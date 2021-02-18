@@ -25,7 +25,7 @@ const Home: React.FC = () => {
                     <div className="col-md-2 no-padding left__menu" style={{ display: (show) ? 'block' : 'none' }}>
                         <Sidebar />
                     </div>
-                    <div className="col-md-8 p-3">
+                    <div className="col-md-10 p-3">
                         <Switch>
                             <Route path="/account" exact>
                                 <Profil />
@@ -62,12 +62,6 @@ const Home: React.FC = () => {
                             </Route>
                         </Switch>
 
-                    </div>
-
-                    <div className="col-md-2  p-3">
-                        <div className="my-3 p-3 bg-white rounded shadow-sm">
-                            <p>informations de l'utilisateurs</p>
-                        </div>
                     </div>
                 </div>
             </div>

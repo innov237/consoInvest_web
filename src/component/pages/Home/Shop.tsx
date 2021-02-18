@@ -36,7 +36,6 @@ const Shop: React.FC = (props) => {
 
 
         if (parsed.uuid) {
-
             var response = await Api.postData(`getUserPost?id_user=${parsed.uuid}`);
             if (response.status == 200) {
 
@@ -44,12 +43,10 @@ const Shop: React.FC = (props) => {
                     setShop(response.data[0])
                     getAll(parsed)
                 } else {
-                    alert(`No data found for ${parsed.params}`);
+                    alert(`aucune publication pour cette boutique`);
                     history.push('/home');
                 };
             }
-
-
 
         } else
             history.push('/home');
@@ -70,13 +67,8 @@ const Shop: React.FC = (props) => {
     }
 
     useEffect(() => {
-
-
-
         const parsed = queryString.parse(history.location.search);
-
         process(parsed)
-
     }, []);
 
 
@@ -108,7 +100,7 @@ const Shop: React.FC = (props) => {
                             <p className="mt-2 mb-5 welcome__text">Bienvenue sur <br /> {shop.nom}</p>
                             <div className="shop__info">
                                 <p>Nom: {shop.nom_boutique}</p>
-                                <p>Phone: {shop.telephone_boutique}</p>
+                                <p>Contact: {shop.telephone_boutique}</p>
                                 <p>Lieu: {shop.lieu_boutique}</p>
                                 <p>livraison: {shop.livraison}</p>
                             </div>
@@ -121,6 +113,10 @@ const Shop: React.FC = (props) => {
                 <div className="col-md-10">
                     <div className="row mt-2 pl-3">
                         <div className="card container-fluid">
+                            {(shop) ? (<div className="row">
+                                <img className="shop_banner__image" src={Api.imageUrl + shop.baniere_boutique} />
+                            </div>) : <></>
+                            }
                             <div className="row">
                                 <div className="col-md-4"> <img src="./images/timer.png" alt="" /> Livraison rapide</div>
                                 <div className="col-md-4"><img src="./images/card.png" alt="" /> Produit de qualité</div>

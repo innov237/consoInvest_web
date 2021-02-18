@@ -26,18 +26,17 @@ const Commande: React.FC = () => {
     const getCommands = async (etat:any = 1) => {
         setData([])
         
-        var response = await Api.getData(`getCommandeUtilisateur?id_user=${auth.user.id}&id_boutique=${auth.shop.id}&lastInsertId=100&etat=${etat}`);
+        var response = await Api.getData(`getCommandeUtilisateur?id_user=${auth.user?.id}&id_boutique=${auth.shop?.id}&lastInsertId=100&etat=${etat}`);
         if (response.status == 200) {
             setData(response.data);
             if (!response.data.length)
             setMessage('No element found')
-            
         }
     }
 
     return (
         <div>
-            <h5 className="titre">Commande(s) client</h5>
+            <h5 className="titre">Mes commandes</h5>
 
             <div className="my-3 p-3 bg-white rounded shadow-sm">
 

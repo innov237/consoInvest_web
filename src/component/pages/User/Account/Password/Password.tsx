@@ -12,13 +12,13 @@ const Password: React.FC = () => {
                         <input type="password" className="form-control" placeholder="Ancient mot de passe" />
                     </div>
                     <div className="form-group">
-                        <input type="password" className="form-control" placeholder="Nouveau mot de passe actuel" />
+                        <input type="password" className="form-control" placeholder="Nouveau mot de passe" />
 
                     </div>
                     <div className="form-group">
                         <input type="password" className="form-control" placeholder="Confirmez le nouveau mot de passe" />
                     </div>
-                    <button type="submit" className="btn btn-primary mb-2">Changer</button>
+                    <button type="submit" className="btn btn-primary mb-2 w-100">Modifier</button>
                 </div>
         </div>
 

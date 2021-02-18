@@ -32,15 +32,14 @@ const Epagne: React.FC = () => {
     return (
         <div>
             <h5 className="titre">Mon epagne</h5>
-        <div className="my-3 p-3 bg-white rounded shadow-sm">
-            <div className="row">
+        <div className="my-3 p-3 bg-white rounded shadow-sm d-flex justify-content-center">
+            <div className="row ">
                 <div className="col-md-4">
                     <div className="media text-muted pt-3">
                         <span className="numberCircle"><span>{data.userEpagne} FCFA</span></span>
                     </div>
                 </div>
                 <div className="col-md-8">
-                    <h5 className="card-title">Message</h5>
                     <h6 className="card-subtitle mb-2 text-muted"></h6>
                     <p className="card-text">{data.message}</p>
                 </div>
