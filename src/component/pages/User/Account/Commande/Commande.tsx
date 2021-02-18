@@ -30,7 +30,7 @@ const Commande: React.FC = () => {
         if (response.status == 200) {
             setData(response.data);
             if (!response.data.length)
-            setMessage('No element found')
+            setMessage('Aucune commande')
         }
     }
 

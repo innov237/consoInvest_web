@@ -23,7 +23,7 @@ const Table_commande = (props:any) => {
         let status: any = ""
         switch (parseInt(e)) {
             case 0:
-                status = 'Pas encore'
+                status = 'En attente'
                 break;
             case 1:
                 status = 'En attente'
@@ -78,7 +78,7 @@ const Table_commande = (props:any) => {
                                                 <th>
                                                     {
                                                         (produit.image) ?
-                                                            <img src={Api.imageUrl+JSON.parse(produit.image)[0]} style={{ width:'100px', height:'100px'}} className="rounded-circle p-3"  data-holder-rendered="true"/>
+                                                            <img src={Api.imageUrl+JSON.parse(produit.image)[0]} style={{ width:'100px', height:'100px'}} className="p-3"  data-holder-rendered="true"/>
                                                          : ''
                                                     }
                                                 </th>
@@ -89,7 +89,7 @@ const Table_commande = (props:any) => {
                                                     {
                                                         (props.type && props.type == "admin") ?
                                                             <div className="btn-group dropleft"> 
-                                                                <i className="fas fa-bars" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                                                <i className="fa fa-bars" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                                                     <div className="dropdown-menu">
                                                                         <button className="dropdown-item" type="button" style={{display: (e.etat == 1 )? 'none': 'block'}} onClick={() => update({etat:1, id_commande:e.id})}>En Attente</button>
                                                                         <button className="dropdown-item" type="button" style={{display: (e.etat == 2 )? 'none': 'block'}} onClick={() => update({etat:2, id_commande:e.id})}>En cour</button>

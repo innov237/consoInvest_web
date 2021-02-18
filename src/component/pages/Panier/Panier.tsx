@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { connect, useSelector, useDispatch } from 'react-redux'
 
 import { useHistory } from 'react-router-dom'
@@ -17,7 +17,6 @@ const Panier: React.FC = ({ history }: any) => {
     const Api = new ApiService();
 
     const nav = useHistory()
-
 
     console.log(comand)
 
@@ -133,8 +132,6 @@ const Panier: React.FC = ({ history }: any) => {
         dispatch({ type: 'RESET' })
     }
 
-
-
     const toggle = () => (comand.cmds.length && auth && auth?.id) ? false : true;
 
     const listItem = comand.cmds.length ? (
@@ -149,7 +146,7 @@ const Panier: React.FC = ({ history }: any) => {
                 <td>{item.prix}FCFA</td>
                 <td className="trash" onClick={() => delItem(item.id)}><i className="fas fa-trash-alt"></i></td>
             </tr>)
-    ) : (<tr><td colSpan={7}>vous n'avez encore rien commande</td></tr>)
+    ) : (<tr><td colSpan={7}>Aucun produit dans le panier</td></tr>)
     return (
         <div>
             <div className="container bg-white mt-2">
@@ -176,8 +173,8 @@ const Panier: React.FC = ({ history }: any) => {
                         </div>
                         <hr />
                         <div className="row">
-                            <div className="col-md-4 mb-3"><button type="button" className="btn btn-warning" onClick={() => nav.push('/home')}><i className="fas fa-cart-plus"></i> Continuer les achats</button></div>
-                            <div className="col-md-4 mb-3"> <button type="button" className="btn btn-secondary" onClick={delAll}><i className="fas fa-trash"></i> Tout Supprimer</button></div>
+                            <div className="col-md-4 mb-3"><button type="button" className="btn btn-warning" onClick={() => nav.push('/home')}><i className="fa fa-cart-plus"></i> Continuer les achats</button></div>
+                            <div className="col-md-4 mb-3"> <button type="button" className="btn btn-secondary" onClick={delAll}><i className="fa fa-trash"></i> Tout Supprimer</button></div>
                         </div>
                     </div>
                     <div className="col-md-3 resume">

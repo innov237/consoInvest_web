@@ -71,7 +71,7 @@ const Boutique: React.FC = () => {
         if (response.status == 200) {
             setData(response.data); 
             if (!response.data.length)
-            setMessage('No element found')
+            setMessage('Aucune commande')
         } 
         
     }      
@@ -281,7 +281,7 @@ const Boutique: React.FC = () => {
                                     <td>{item['description']}</td>
                                     <td>{item['etiquette']}</td>
                                     <td className="cursor-pointe">
-                                    <i className="fas fa-bars" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                    <i className="fa fa-bars" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                             
                                         <div className="dropdown-menu">
                                             <button className="dropdown-item cursor-pointe" type="button">Modifier</button>
