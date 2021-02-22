@@ -79,7 +79,7 @@ const Boutique: React.FC = () => {
 
     const saveProduct = async (data: any) => {
         setData([])
-
+        setsaveIsLoad(true);
 
 
         const images = Array.from(files).map((e: any, i) => {
@@ -98,24 +98,30 @@ const Boutique: React.FC = () => {
             images
         }
 
-        setCase(0)
-        setName('')
-        setDescription('')
-        setPrice(0)
-        setSolde(0)
-        setStatus('')
-        setFile([])
-        setLink('')
-        setsaveIsLoad(true);
+        
+        
 
         var response = await Api.postData("enregistrerPublication", credentials);
         if (response.status == 200) {
+            setsaveIsLoad(false);
+            setCase(0)
+            setName('')
+            setStatus('')
+            setDescription('')
+            setPrice(0)
+            setSolde(0)
+            
+            setFile([])
+            setLink('')
+
+            document.getElementById("uploadCaptureInputFile").value = "";
 
             Array.from(files).map((e: any, i) => {
                 Api.uploadFile(e);
             })
-            productClick.current?.click();
-            setsaveIsLoad(false);
+           
+            document.getElementById("nav-produit-tab-product").click();
+            
             alert('Opération éffectuée. Vous pouvez voir l\'enregistrement dans la liste des produits.')
 
         } else {
@@ -172,7 +178,7 @@ const Boutique: React.FC = () => {
                             <div className="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a className="nav-link active cursor-pointe" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" onClick={() => getUserCommands(0)}>Commandes</a>
                                 <a className="nav-link cursor-pointe" id="nav-produit-tab" data-toggle="tab" href="#nav-produit" role="tab" aria-controls="nav-produit" aria-selected="false">Vendre un produit</a>
-                                <a ref={productClick} className="nav-link cursor-pointe" id="nav-produit-tab" data-toggle="tab" href="#nav-list-produit" role="tab" aria-controls="nav-list-produit" aria-selected="false" onClick={() => getUserProduct()}>Liste des produits</a>
+                                <a ref={productClick} className="nav-link cursor-pointe" id="nav-produit-tab-product" data-toggle="tab" href="#nav-list-produit" role="tab" aria-controls="nav-list-produit" aria-selected="false" onClick={() => getUserProduct()}>Liste des produits</a>
                             </div>
                         </nav>
                         <div className="tab-content" id="nav-tabContent">
@@ -233,11 +239,11 @@ const Boutique: React.FC = () => {
                                         <input type="url" className="form-control text w-100" onChange={(e) => setLink(e.target.value)} placeholder="http://" />
                                     </div>
                                     <div className="form-group">
-                                        <input type="text" className="form-control text w-100" placeholder="Nom" onChange={(e) => setName(e.target.value)} required />
+                                        <input type="text" className="form-control text w-100" placeholder="Nom" onChange={(e) => setName(e.target.value)} required value={name} />
                                     </div>
 
                                     <div className="form-group">
-                                        <select className="form-control w-100" onChange={(e: any) => setCase(e.target.value)}>
+                                        <select className="form-control w-100" value={categorie} onChange={(e: any) => setCase(e.target.value)}>
                                             <option selected disabled value="">Catégories</option>
                                             {
                                                 categorieData.map((item, index) => (<option value={item['id']} key={index}>{item['libelle_categorie']}</option>))
@@ -245,7 +251,7 @@ const Boutique: React.FC = () => {
                                         </select>
                                     </div>
                                     <div className="form-group">
-                                        <select className="form-control w-100" onChange={(e) => setStatus(e.target.value)}>
+                                        <select className="form-control w-100" value={status} onChange={(e) => setStatus(e.target.value)}>
                                             <option selected disabled value="">Etiquette</option>
                                             <option value="promo">Promo</option>
                                             <option value="solde">Solde</option>
@@ -254,16 +260,16 @@ const Boutique: React.FC = () => {
                                     </div>
 
                                     <div className="form-group">
-                                        <textarea className="form-control text w-100" placeholder="Description de l'article" onChange={(e: any) => setDescription(e.target.value)} required></textarea>
+                                        <textarea className="form-control text w-100"  value={description} placeholder="Description de l'article" onChange={(e: any) => setDescription(e.target.value)} required></textarea>
                                     </div>
                                     <div className="form-group">
-                                        <input type="number" className="form-control text w-100" placeholder="Prix" onChange={(e: any) => setPrice(e.target.value)}/>
+                                        <input type="number" className="form-control text w-100" value={price} placeholder="Prix" onChange={(e: any) => setPrice(e.target.value)}/>
                                     </div>
                                     <div className="form-group">
-                                        <input type="number" className="form-control text w-100" placeholder="Prix barré" onChange={(e: any) => setSolde(e.target.value)} />
+                                        <input type="number" className="form-control text w-100" value={solde} placeholder="Prix barré" onChange={(e: any) => setSolde(e.target.value)} />
                                     </div>
                                     <div className="form-group">
-                                        <input type="file" name="imgCollection" onChange={onFileChange} multiple />
+                                        <input id="uploadCaptureInputFile" type="file" name="imgCollection" onChange={onFileChange} multiple />
                                     </div>
 
                                     {!saveIsLoad && <button type="submit" className="btn btn-primary w-100" disabled={disabledSubmit()}>Enregistrer</button>}
