@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import ApiService from "../../../../../services/ApiService";
 import './Affiliers.css';
 
@@ -9,15 +10,16 @@ const Affiliers: React.FC = () => {
     const [userAffilierData, setuserAffilierData] = useState<any>([]);
     const [isLoad, setLoader] = useState(false);
 
+    
+    const auth = useSelector((state:any) => state.auth)
+
     useEffect(() => {
         getUserAffilier();
     }, [])
 
     const getUserAffilier = async () => {
         setLoader(true);
-        const result = localStorage.getItem('authUserData');
-        const jsonData = result ? JSON.parse(result) : [];
-        var response = await Api.getData("getUserAffilier?userId=" + jsonData['id']);
+        var response = await Api.getData("getUserAffilier?userId=" + auth.user?.id);
         setuserAffilierData(response.data);
         setLoader(false);
     }

@@ -47,7 +47,7 @@ const Register: React.FC = () => {
 
 
         const credentials = {
-            'id_user': auth.user,
+            'id_user': auth.user?.id,
             'nom_boutique': data.nom,
             'presentation_boutique': data.presentation,
             'ville_boutique': ville,
