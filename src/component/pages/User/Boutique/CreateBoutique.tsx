@@ -71,7 +71,7 @@ const Register: React.FC = () => {
             'baniere_boutique': banniere[0].name
         }
 
-          setisLoad(true);
+        setisLoad(true);
 
         var response = await Api.postData(`creerBoutique`, credentials);
 
@@ -133,16 +133,17 @@ const Register: React.FC = () => {
                         </div>
 
                         <div className="form-group">
-                                        <select className="form-control w-100"  onChange={(e: any) => { let value = Array.from(e.target.selectedOptions).map(option => option.value); setCase(value) }} multiple>
-                                            
-                                            {
-                                                categorieData.map((item, index) => (<option value={item['libelle_categorie']} key={index}>{item['libelle_categorie']}</option>))
-                                            }
-                                        </select>
-                                    </div>
+                            <label>Sélectionnez vos catégories:  </label>
+                            <select className="form-control w-100" onChange={(e: any) => { let value = Array.from(e.target.selectedOptions).map(option => option.value); setCase(value) }} multiple>
 
-                       
-                        <TextInput type="text" name="lieu" placeholder="Lieu" required={true} refs={register({ required: true })} />
+                                {
+                                    categorieData.map((item, index) => (<option value={item['libelle_categorie']} key={index}>{item['libelle_categorie']}</option>))
+                                }
+                            </select>
+                        </div>
+
+
+                        <TextInput type="text" name="lieu" placeholder="Où est située votre boutique" required={true} refs={register({ required: true })} />
                         <TextInput type="text" name="phone" placeholder="Téléphone" required={true} refs={register({ required: true })} />
 
                         <div className="form-group">

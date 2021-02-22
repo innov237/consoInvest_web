@@ -26,8 +26,8 @@ const Boutique: React.FC = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState('');
-    const [price, setPrice] = useState(0);
-    const [solde, setSolde] = useState(0);
+    const [price, setPrice] = useState();
+    const [solde, setSolde] = useState();
     const [categorie, setCase] = useState(0);
     const [message, setMessage] = useState('');
 
@@ -48,7 +48,7 @@ const Boutique: React.FC = () => {
     const getUserProduct = async () => {
         setProduits([])
 
-        const credentials = { 'id_user': 1, 'lastInsertId': 10 }
+        const credentials = { 'id_user': auth.user?.id, 'lastInsertId': 20 }
 
 
         var response = await Api.postData("getUserPost", credentials);
@@ -105,8 +105,8 @@ const Boutique: React.FC = () => {
             setName('')
             setStatus('')
             setDescription('')
-            setPrice(0)
-            setSolde(0)
+            setPrice('')
+            setSolde('')
             
             setFile([])
             setLink('')
@@ -133,6 +133,7 @@ const Boutique: React.FC = () => {
 
     const _onDelete = (id: any) => {
         deleteProduit(id)
+        getUserProduct();
     }
 
 
