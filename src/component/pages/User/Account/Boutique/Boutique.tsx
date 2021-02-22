@@ -98,9 +98,6 @@ const Boutique: React.FC = () => {
             images
         }
 
-        
-        
-
         var response = await Api.postData("enregistrerPublication", credentials);
         if (response.status == 200) {
             setsaveIsLoad(false);
@@ -127,7 +124,7 @@ const Boutique: React.FC = () => {
         } else {
             setsaveIsLoad(false);
             alert("Erreur d'enregistrement");
-        }
+        } 
     }
 
 
@@ -243,8 +240,8 @@ const Boutique: React.FC = () => {
                                     </div>
 
                                     <div className="form-group">
-                                        <select className="form-control w-100" value={categorie} onChange={(e: any) => setCase(e.target.value)}>
-                                            <option selected disabled value="">Catégories</option>
+                                        <select className="form-control w-100"  onChange={(e: any) => { setCase(e.target.value) }}>
+                                            
                                             {
                                                 categorieData.map((item, index) => (<option value={item['id']} key={index}>{item['libelle_categorie']}</option>))
                                             }

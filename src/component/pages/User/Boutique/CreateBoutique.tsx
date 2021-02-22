@@ -23,12 +23,24 @@ const Register: React.FC = () => {
     const [ville, setVille] = useState<any>();
     const [livraison, setLiv] = useState<any>();
 
+    const [categorie, setCase] = useState(0);
+    const [categorieData, setCategorie] = useState([]);
+
     const auth = useSelector((state: any) => state.auth)
 
     const history = useHistory();
 
     const Api = new ApiService();
 
+
+    const getCategorie = async () => {
+
+        var response = await Api.getData("getcategorie");
+        if (response.status == 200) {
+            setCategorie(response.data);
+
+        }
+    }
 
 
     const handleconnuMode = (e: any) => {
@@ -54,7 +66,7 @@ const Register: React.FC = () => {
             'lieu_boutique': data.lieu,
             'telephone_boutique': data.phone,
             'livraison': livraison,
-            'categorie_boutique': data.categorie,
+            'categorie_boutique': `[${categorie}]`,
             'logo_boutique': logo[0].name,
             'baniere_boutique': banniere[0].name
         }
@@ -86,6 +98,10 @@ const Register: React.FC = () => {
 
     const disabled = () => (!logo || !banniere || !ville || !livraison) ? true : false
 
+    React.useEffect(() => {
+        getCategorie();
+
+    }, []);
 
     return (
         <div>
@@ -116,9 +132,16 @@ const Register: React.FC = () => {
                             </select>
                         </div>
 
-                        <TextInput type="text" name="categorie" placeholder="Catégorie" required={true} refs={register({ required: true })} />
+                        <div className="form-group">
+                                        <select className="form-control w-100"  onChange={(e: any) => { let value = Array.from(e.target.selectedOptions).map(option => option.value); setCase(value) }} multiple>
+                                            
+                                            {
+                                                categorieData.map((item, index) => (<option value={item['libelle_categorie']} key={index}>{item['libelle_categorie']}</option>))
+                                            }
+                                        </select>
+                                    </div>
 
-
+                       
                         <TextInput type="text" name="lieu" placeholder="Lieu" required={true} refs={register({ required: true })} />
                         <TextInput type="text" name="phone" placeholder="Téléphone" required={true} refs={register({ required: true })} />
 

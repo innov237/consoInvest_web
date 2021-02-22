@@ -125,8 +125,6 @@ const Home: React.FC = (props) => {
 
     }
 
-    console.log(auth)
-
     const display = () => {
 
         return (boutiques.length > 1) ? (boutiques.length == 2) ? 2 : 3 : 1
