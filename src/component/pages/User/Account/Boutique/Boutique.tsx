@@ -48,7 +48,7 @@ const Boutique: React.FC = () => {
     const getUserProduct = async () => {
         setProduits([])
 
-        const credentials = { 'id_user': 1, 'lastInsertId': 10 }
+        const credentials = { 'id_user': auth.user.id, 'lastInsertId': 10 }
 
 
         var response = await Api.postData("getUserPost", credentials);
