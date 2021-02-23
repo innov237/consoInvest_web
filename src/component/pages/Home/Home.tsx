@@ -46,12 +46,9 @@ const Home: React.FC = (props) => {
         });
     }
     useEffect(() => {
-
         getCategorie();
         getAllproduct();
         getAllBoutique();
-
-
     }, []);
 
     const getAllBoutique = async () => {

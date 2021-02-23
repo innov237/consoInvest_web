@@ -19,7 +19,7 @@ const SearchReducer = (state = initialeState, action) => {
         case 'LOGIN_ACTION':
             return { ...state, user: action.payload, isAuth: true }
         case 'SHOP_ACTION':
-            return { ...state, shop: action.payload, init: true }
+            return { ...state, shop: action.payload }
 
         case 'INIT_ACTION':
             return { ...state, init: true }

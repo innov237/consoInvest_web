@@ -14,27 +14,52 @@ import store from './store/configStore'
 import Navigation from './component/navigation/Navigation'
 
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 
-import { LOGIN_ACTION,SHOP_ACTION } from './store/authReducers'
+import { LOGIN_ACTION,SHOP_ACTION,INIT_ACTION } from './store/authReducers'
 
 /**j'utilise les function component au lieu des class component l'execution est plus rapide*/
 const  App = () => {
+  
+  const dispatch = useDispatch()
 
+  const Api = new ApiService();
+  
+  const auth = useSelector((state: any) => state.auth)
+
+  const getShop = async (data:any) => {
+		const user = JSON.parse(data);
+    
+    var response = await Api.getData("getUserShop?id_user="+user.id);
+		dispatch(LOGIN_ACTION(user))
+		if (response.data.length){
+      dispatch(SHOP_ACTION(response.data[0]))
+    }
+			
+  }
+  
+  const init = () => {
+
+			const uuid = localStorage.getItem("authConsoInvest")
+			
+			if (uuid){
+        getShop(uuid)
+      }
+			
+			dispatch(INIT_ACTION())
+  }
+    
+  React.useEffect(() => {
+    init()
+  }, [])
  
   return (
-    <ApiContext.Provider value={new ApiService()} >
-      <StorageContext.Provider value={new StorageService()} >
-        <HashRouter>
-          <Provider store={store} >
-            <div className="App">
-              <Navbar />
-                <Navigation /> 
-            </div>
-          </Provider>
-        </HashRouter>
-    </StorageContext.Provider>
-    </ApiContext.Provider>
+    <HashRouter>
+      <div className="App">
+        <Navbar />
+          { (auth.init) ? <Navigation /> : <></> }
+      </div>
+    </HashRouter>
   );
 }
 

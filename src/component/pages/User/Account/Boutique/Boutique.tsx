@@ -38,9 +38,10 @@ const Boutique: React.FC = () => {
     const { register, handleSubmit, watch, errors } = useForm();
 
     useEffect(() => {
-        getCategorie();
-        getUserCommands();
-
+        if (auth.shop && auth.shop.est_actif == '1'){
+            getCategorie();
+            getUserCommands();
+        }
     }, []);
 
     const auth = useSelector((state: any) => state.auth)
@@ -161,11 +162,11 @@ const Boutique: React.FC = () => {
 
     return (
         <div>
-            {!auth.shop?.id && <div className="my-3 p-3 bg-white rounded shadow-sm">
+            {!(auth.shop?.est_actif=='1') && <div className="my-3 p-3 bg-white rounded shadow-sm">
                 <p>Vous n'avez pas de boutique</p>
             </div>}
 
-            {auth.shop?.id &&
+            {auth.shop?.est_actif=='1' &&
                 <div>
                     <h5 className="titre">Ma boutique</h5>
                     <div className="my-3 p-3 bg-white rounded shadow-sm">

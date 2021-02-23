@@ -33,7 +33,7 @@ const Login: React.FC = () => {
         setisLoad(true);
         setError('')
         var response = await Api.postData("login", data);
-        console.log(response.data);
+        
 
         if (response.data['success']) {
             // dispatch(LOGIN_ACTION(response.data['data'].id))
@@ -45,7 +45,6 @@ const Login: React.FC = () => {
         } else {
             setisLoad(false);
             setError(response.data['message'])
-            console.log(response.data['message']);
         }
     };
 
