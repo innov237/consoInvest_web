@@ -134,7 +134,7 @@ const Register: React.FC = () => {
 
                         <div className="form-group">
                             <label>Sélectionnez vos catégories:  </label>
-                            <select className="form-control w-100" onChange={(e: any) => { let value = Array.from(e.target.selectedOptions).map(option => option.value); setCase(value) }} multiple>
+                            <select className="form-control w-100" onChange={(e: any) => { let value = Array.from(e.target.selectedOptions).map((option:any) => option.value); setCase(value) }} multiple>
 
                                 {
                                     categorieData.map((item, index) => (<option value={item['libelle_categorie']} key={index}>{item['libelle_categorie']}</option>))

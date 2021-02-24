@@ -53,7 +53,6 @@ const Boutique: React.FC = () => {
 
         var response = await Api.postData("getUserPost", credentials);
         if (response.status == 200) {
-            console.log(response.data)
             setProduits(response.data);
 
         }
@@ -282,6 +281,7 @@ const Boutique: React.FC = () => {
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
+                                            <th scope="col">Image</th>
                                             <th scope="col">Nom</th>
                                             <th scope="col">Descriptinon</th>
                                             <th scope="col">Etiquette</th>
@@ -290,9 +290,14 @@ const Boutique: React.FC = () => {
                                     </thead>
                                     <tbody>
                                         {
-                                            produits.map((item, index) => (
-                                                <tr key={index}>
+                                            produits.map((item, index) => {
+
+                                                
+                                                const image = `${Api.imageUrl}${JSON.parse(item['images'])[0]}`
+                                                
+                                                return <tr key={index}>
                                                     <th scope="row">{item['id_pub']}</th>
+                                                    <td><img src={image} className="img-thumbnail" style={{width: '100px',height: '100px'}}/></td>
                                                     <td>{item['titre']}</td>
                                                     <td>{item['description']}</td>
                                                     <td>{item['etiquette']}</td>
@@ -306,7 +311,7 @@ const Boutique: React.FC = () => {
 
                                                     </td>
                                                 </tr>
-                                            ))
+                                            })
 
                                         }
 
