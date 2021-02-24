@@ -109,7 +109,7 @@ const Register: React.FC = () => {
                 <div className="container">
                     <form className="form p-5" onSubmit={handleSubmit(onSubmit)}>
 
-                        <p className="form__subtitle">Créer votre boutique</p>
+                        <p className="form__subtitle">Créez votre boutique</p>
 
                         <TextInput type="text" name="nom" placeholder="Nom de la boutique" required={true} refs={register({ required: true })} />
                         {errors.nom && <span>Nom obligatoire</span>}

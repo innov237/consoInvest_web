@@ -11,7 +11,7 @@ import ApiService from "../../../services/ApiService";
 
 
 
-import { LOGIN_ACTION, SHOP_ACTION, TOGGLE_ACTION } from '../../../store/authReducers'
+import { LOGIN_ACTION, SHOP_ACTION, TOGGLE_ACTION,INIT_ACTION } from '../../../store/authReducers'
 
 const Navbar: React.FC = (props) => {
 
@@ -23,32 +23,7 @@ const Navbar: React.FC = (props) => {
     const auth = useSelector((state: any) => state.auth)
     const dispatch = useDispatch()
 
-
     const panier: any = cmds.items
-
-
-
-    const getShop = async (id: any) => {
-        var response = await Api.getData("getUserShop?id_user=" + id);
-        if (response.data.length)
-            dispatch(SHOP_ACTION(response.data[0]))
-
-    }
-
-    const initialize = () => {
-        const auth = localStorage.getItem("authUserData");
-        if (auth) {
-            dispatch(LOGIN_ACTION(JSON.parse(auth)))
-            getShop(JSON.parse(auth).id)
-        }
-
-    }
-
-
-    React.useEffect(() => {
-        //initialize()
-    }, [])
-
 
     const showSideMenu = () => {
         dispatch(TOGGLE_ACTION())

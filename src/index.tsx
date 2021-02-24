@@ -3,10 +3,25 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import store from './store/configStore'
+
+import ApiService from './services/ApiService'
+import StorageService from './services/StorageService'
+import ApiContext from './context/ApiContext'
+import StorageContext from './context/StorageContext'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApiContext.Provider value={new ApiService()} >
+      <StorageContext.Provider value={new StorageService()} >
+        <Provider store={store} >
+          <App />
+        </Provider>
+      </StorageContext.Provider>
+    </ApiContext.Provider>
+    
+    
   </React.StrictMode>,
   document.getElementById('root')
 );

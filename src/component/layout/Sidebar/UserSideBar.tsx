@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./UserSideBar.css";
 
 import {
-    useDispatch
+    useDispatch,
+    useSelector
 } from 'react-redux';
 
 import {
@@ -15,6 +16,7 @@ const Sidebar: React.FC = () => {
     const history = useHistory()
 
     const dispatch = useDispatch();
+    const auth = useSelector((state:any) => state.auth)
 
     const logOut = () => {
 
@@ -50,14 +52,19 @@ const Sidebar: React.FC = () => {
                 </a>
                 </li>
                 </Link>
-                <Link to="/account/boutique" onClick={() =>dispatch(TOGGLE_ACTION())}>
-                    <li className="nav-item">
-                    <a className="nav-link" href="#">
-                        <span data-feather="users"></span>
-                        <i className="fa fa-shopping-basket"></i> Ma boutique
-                    </a>
-                    </li>
-                </Link>
+                {
+                    (auth.shop?.est_actif== '1') ?
+                    <Link to="/account/boutique" onClick={() =>dispatch(TOGGLE_ACTION())}>
+                        <li className="nav-item">
+                        <a className="nav-link" href="#">
+                            <span data-feather="users"></span>
+                            <i className="fa fa-shopping-basket"></i> Ma boutique
+                        </a>
+                        </li>
+                    </Link>
+                    : ''
+                }
+               
                 <Link to="/account/epagne" onClick={() =>dispatch(TOGGLE_ACTION())}>
                     <li className="nav-item">
                         <a className="nav-link" href="#">
@@ -77,7 +84,7 @@ const Sidebar: React.FC = () => {
                 <li className="nav-item">
                 <a className="nav-link" href="#" onClick={logOut}>
                     <span data-feather="layers"></span>
-                    <i className="fa fa-sign-out-alt"></i> Se deconnecter
+                    <i className="fa fa-sign-out"></i> Se deconnecter
                 </a>
                 </li>
             </ul> 
